@@ -3,6 +3,7 @@
 #include "main.h"
 #include "stm32f0xx_hal.h"
 #include "stm32f0xx_hal_gpio.h"
+#include "iprintf.h"
 
 #include <string.h>
 
@@ -33,11 +34,10 @@ int main(void)
    char* hw = "Hello World!";
    HAL_UART_Transmit(&huart2, (uint8_t*)hw, strlen(hw), 10000);
 
-   char* ts = "print ";
    int i;
    while (1)
    {
-      HAL_UART_Transmit(&huart2, (uint8_t*)ts, strlen(ts), 10000);
+      iprintf("again ");
 
       //FIXME rm toggle LED
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
@@ -138,7 +138,6 @@ static void MX_USART2_UART_Init(void)
    {
       Error_Handler();
    }
-
 }
 
 /** Configure pins as 
