@@ -2,6 +2,9 @@
  */
 #include "main.h"
 #include "stm32f0xx_hal.h"
+#include "stm32f0xx_hal_gpio.h"
+
+#include <string.h>
 
 
 SPI_HandleTypeDef hspi1;
@@ -27,8 +30,20 @@ int main(void)
    MX_SPI1_Init();
    MX_USART2_UART_Init();
 
+   char* hw = "Hello World!";
+   HAL_UART_Transmit(&huart2, (uint8_t*)hw, strlen(hw), 10000);
+
+   char* ts = "print ";
+   int i;
    while (1)
    {
+      HAL_UART_Transmit(&huart2, (uint8_t*)ts, strlen(ts), 10000);
+
+      //FIXME rm toggle LED
+      HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
+      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+      // spend time
+      for (i = 0; i < 500000; i++);
    }
 
 }
