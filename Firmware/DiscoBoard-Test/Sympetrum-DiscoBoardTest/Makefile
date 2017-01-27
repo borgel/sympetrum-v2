@@ -24,8 +24,12 @@ BUILD_DIR = build
 ######################################
 # source
 ######################################
-C_SOURCES =  Src/main.c Src/stm32f0xx_hal_msp.c Src/stm32f0xx_it.c Src/system_stm32f0xx.c
-ASM_SOURCES =
+
+# may want to be more selective about this in the future
+C_SOURCES  = $(wildcard Src/*.c)
+C_SOURCES += $(wildcard Drivers/STM32F0xx_HAL_Driver/Src/*.c)
+
+ASM_SOURCES = SW4STM32/startup_stm32f051x8.s
 
 #######################################
 # binaries
@@ -48,7 +52,8 @@ C_DEFS = -D__weak="__attribute__((weak))" -D__packed="__attribute__((__packed__)
 AS_INCLUDES =
 C_INCLUDES =
 # compile gcc flags
-ASFLAGS = -mthumb -mcpu=cortex-m0 $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+# FIXME rm INC search paths?
+ASFLAGS = -mthumb -mcpu=cortex-m0 $(AS_DEFS) -IInc/ -IDrivers/STM32F0xx_HAL_Driver/Inc/ -IDrivers/CMSIS/Device/ST/STM32F0xx/Include/ -IDrivers/CMSIS/Include -IDrivers/STM32F0xx_HAL_Driver/Inc/Legacy $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 #FIXME find a better way of including all these header search paths
 CFLAGS = -mthumb -mcpu=cortex-m0 $(C_DEFS) -IInc/ -IDrivers/STM32F0xx_HAL_Driver/Inc/ -IDrivers/CMSIS/Device/ST/STM32F0xx/Include/ -IDrivers/CMSIS/Include -IDrivers/STM32F0xx_HAL_Driver/Inc/Legacy $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 ifeq ($(DEBUG), 1)
