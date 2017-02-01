@@ -17,6 +17,24 @@ static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
 
+static void sendLEDTest(void) {
+   //4 x u8 (00)
+   //32 bits of real data
+   //4 x ua (FF)
+
+   //HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout)
+
+   uint8_t start[4] = {0};
+   HAL_SPI_Transmit(&hspi1, start, sizeof(start), 1000);
+
+   //3 bits always, 5 bits global brightness, 8B, 8G, 8R
+   uint8_t data[4] = {0xE1, 10, 10, 10};
+   HAL_SPI_Transmit(&hspi1, data, sizeof(data), 1000);
+
+   uint8_t stop[4] = {0xFF, 0xFF, 0xFF, 0xFF};
+   HAL_SPI_Transmit(&hspi1, stop, sizeof(stop), 1000);
+}
+
 int main(void)
 {
 
@@ -31,8 +49,10 @@ int main(void)
    MX_SPI1_Init();
    MX_USART2_UART_Init();
 
-   char* hw = "Hello World!";
-   HAL_UART_Transmit(&huart2, (uint8_t*)hw, strlen(hw), 10000);
+   iprintf("\r\nHello World!\r\n");
+
+   sendLEDTest();
+   iprintf("Done sending LEDs\r\n");
 
    int i;
    while (1)
@@ -186,6 +206,9 @@ static void MX_GPIO_Init(void)
 void Error_Handler(void)
 {
    //TODO add error logging
+   iprintf("\r\n\r\n");
+   iprintf("ERROR!");
+   iprintf("\r\n\r\n");
    while(1) { }
    /* USER CODE END Error_Handler */ 
 }
