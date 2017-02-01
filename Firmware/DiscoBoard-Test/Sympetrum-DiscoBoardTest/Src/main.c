@@ -17,22 +17,23 @@ static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
 
-static void sendLEDTest(void) {
+static void sendLEDTest(uint8_t bright) {
    //4 x u8 (00)
    //32 bits of real data
    //4 x ua (FF)
 
    //HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 
-   uint8_t start[4] = {0};
-   HAL_SPI_Transmit(&hspi1, start, sizeof(start), 1000);
+   uint8_t start[4] = {0, 0, 0, 0};
+   HAL_SPI_Transmit(&hspi1, start, sizeof(start), 10000);
 
    //3 bits always, 5 bits global brightness, 8B, 8G, 8R
-   uint8_t data[4] = {0xE1, 10, 10, 10};
-   HAL_SPI_Transmit(&hspi1, data, sizeof(data), 1000);
+   //uint8_t data[4] = {0xE1, bright, bright, bright};
+   uint8_t data[4] = {0xE1, bright, bright, bright};
+   HAL_SPI_Transmit(&hspi1, data, sizeof(data), 10000);
 
    uint8_t stop[4] = {0xFF, 0xFF, 0xFF, 0xFF};
-   HAL_SPI_Transmit(&hspi1, stop, sizeof(stop), 1000);
+   HAL_SPI_Transmit(&hspi1, stop, sizeof(stop), 10000);
 }
 
 int main(void)
@@ -51,13 +52,18 @@ int main(void)
 
    iprintf("\r\nHello World!\r\n");
 
-   sendLEDTest();
+   sendLEDTest(0);
    iprintf("Done sending LEDs\r\n");
 
    int i;
+   uint8_t b = 0;
    while (1)
    {
       iprintf("again ");
+
+      iprintf("LEDs to %d\r\n", b);
+      sendLEDTest(b);
+      b += 10;
 
       //FIXME rm toggle LED
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
@@ -122,11 +128,12 @@ static void MX_SPI1_Init(void)
    hspi1.Instance = SPI1;
    hspi1.Init.Mode = SPI_MODE_MASTER;
    hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-   hspi1.Init.DataSize = SPI_DATASIZE_4BIT;
+   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
    hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
    hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
    hspi1.Init.NSS = SPI_NSS_SOFT;
    hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+   //hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16; //for crappy saelae
    hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
    hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
    hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
