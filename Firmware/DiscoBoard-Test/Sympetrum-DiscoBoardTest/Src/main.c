@@ -5,6 +5,9 @@
 #include "stm32f0xx_hal_gpio.h"
 #include "iprintf.h"
 
+#include "rc5_encode.h"
+#include "rc5_decode.h"
+
 #include <string.h>
 
 
@@ -28,8 +31,8 @@ static void sendLEDTest(uint8_t bright) {
    HAL_SPI_Transmit(&hspi1, start, sizeof(start), 10000);
 
    //3 bits always, 5 bits global brightness, 8B, 8G, 8R
-   //uint8_t data[4] = {0xE1, bright, bright, bright};
-   uint8_t data[4] = {0xE1, bright, bright, bright};
+   //Glob = 0xE1 = min bright
+   uint8_t data[4] = {0xFF, bright, bright, bright};
    HAL_SPI_Transmit(&hspi1, data, sizeof(data), 10000);
 
    uint8_t stop[4] = {0xFF, 0xFF, 0xFF, 0xFF};
