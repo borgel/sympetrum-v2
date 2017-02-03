@@ -116,8 +116,8 @@ typedef enum RC5_lastBitType tRC5_lastBitType;
   * @{
   */
 void Menu_RC5Decode_Func(void);
-void RC5_DeInit(void);
-void RC5_Init(void);
+void RC5_Decode_DeInit(void);
+void RC5_Decode_Init(void);
 void RC5_Decode(RC5_Frame_TypeDef *rc5_frame);
 void RC5_ResetPacket(void);
 void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge);

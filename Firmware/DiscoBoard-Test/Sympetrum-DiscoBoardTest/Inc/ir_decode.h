@@ -36,10 +36,8 @@
    
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx.h"
-#include "stm320518_eval_lcd.h"
 #include <stdio.h>
 #include "rc5_decode.h"
-#include "sirc_decode.h"
    
 /** @addtogroup STM320518_EVAL_Demo
   * @{
@@ -61,18 +59,19 @@ typedef enum { NO = 0, YES = !NO} StatusYesOrNo;
 /** @defgroup IR_DECODE_Exported_Constants
   * @{
   */
-   
-#define IR_TIM                 TIM2                     /*!< Timer used for IR decoding */
-#define TIM_PRESCALER          47                       /* !< TIM prescaler */
-#define IR_TIM_CLK             RCC_APB1Periph_TIM2      /*!< Clock of the used timer */
-#define IR_TIM_IRQn            TIM2_IRQn                /*!< IR TIM IRQ */
-#define IR_TIM_Channel         TIM_Channel_2            /*!< IR TIM Channel */
 
-#define IR_GPIO_PORT           GPIOB                    /*!< Port which IR output is connected */
-#define IR_GPIO_PORT_CLK       RCC_AHBPeriph_GPIOB      /*!< IR pin GPIO Clock Port */
-#define IR_GPIO_PIN            GPIO_Pin_3               /*!< Pin which IR is connected */
-#define IR_GPIO_SOURCE         GPIO_PinSource3
+//#define IR_TIM                 TIM2                     /*!< Timer used for IR decoding */
+//#define TIM_PRESCALER          47                       /* !< TIM prescaler */
+//#define IR_TIM_CLK             RCC_APB1Periph_TIM2      /*!< Clock of the used timer */
+//#define IR_TIM_IRQn            TIM2_IRQn                /*!< IR TIM IRQ */
+//#define IR_TIM_Channel         TIM_Channel_2            /*!< IR TIM Channel */
+
+//#define IR_GPIO_PORT           GPIOB                    /*!< Port which IR output is connected */
+//#define IR_GPIO_PORT_CLK       RCC_AHBPeriph_GPIOB      /*!< IR pin GPIO Clock Port */
+//#define IR_GPIO_PIN            GPIO_Pin_3               /*!< Pin which IR is connected */
+//#define IR_GPIO_SOURCE         GPIO_PinSource3
    
+//FIXME rm?
 #define RC5DEMO                0x01
 #define SIRCDEMO               0x02
 

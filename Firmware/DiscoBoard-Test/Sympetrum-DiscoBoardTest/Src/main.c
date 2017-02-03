@@ -3,6 +3,7 @@
 #include "main.h"
 #include "stm32f0xx_hal.h"
 #include "stm32f0xx_hal_gpio.h"
+#include "stm32f0xx_hal_tim.h"
 #include "iprintf.h"
 
 #include "rc5_encode.h"
@@ -13,6 +14,7 @@
 
 SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart2;
+TIM_HandleTypeDef htim2;
 
 void SystemClock_Config(void);
 void Error_Handler(void);
@@ -57,6 +59,11 @@ int main(void)
 
    sendLEDTest(0);
    iprintf("Done sending LEDs\r\n");
+
+   iprintf("Setting up RC5 encode/decode...");
+   RC5_Encode_Init();
+   RC5_Decode_Init();
+   iprintf("ok\r\n");
 
    int i;
    uint8_t b = 0;
@@ -202,6 +209,8 @@ static void MX_GPIO_Init(void)
    GPIO_InitStruct.Pull = GPIO_NOPULL;
    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+   //GPIO for IR done in HAL MSP
 
 }
 
