@@ -27,6 +27,14 @@
 
 /* Includes ------------------------------------------------------------------*/        
 #include "main.h"
+#include "rc5_encode.h"
+#include "ir_decode.h"
+#include "iprintf.h"
+
+#include "stm32f0xx_hal.h"
+#include "stm32f0xx_hal_tim.h"
+
+#include <stdint.h>
 
 /** @addtogroup STM320518_EVAL_Demo
   * @{
@@ -128,26 +136,6 @@ void RC5_Encode_Init(void)
 {
   TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
   TIM_OCInitTypeDef TIM_OCInitStructure;
-  GPIO_InitTypeDef GPIO_InitStructure;
-  NVIC_InitTypeDef NVIC_InitStructure;
-  
-  /* TIM16 clock enable */
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM16, ENABLE);
-  
-  /* TIM17 clock enable */
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM17, ENABLE);
-  
-  /* Pin configuration: input floating */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
-  GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-  GPIO_Init(GPIOB, &GPIO_InitStructure);
-  GPIO_PinAFConfig(GPIOB, GPIO_PinSource9, GPIO_AF_0);
-
-  /* DeInit TIM17 */
-  TIM_DeInit(TIM17);
 
   /* Elementary period 888us */
   /* Time base configuration for timer 2 */
@@ -200,12 +188,6 @@ void RC5_Encode_Init(void)
   TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
   TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
   TIM_OC1Init(TIM16, &TIM_OCInitStructure);
-   
-  /* Enable the TIM17 Interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = TIM16_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
 
   /* TIM16 Main Output Enable */
   TIM_CtrlPWMOutputs(TIM16, ENABLE);
@@ -248,6 +230,7 @@ void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl
   * @param  RC5_BinaryFrameFormat: the RC5 frame in binary format.
   * @retval Noe
   */
+//FIXME invoke from (TIM16 ISR)? see orig sample
 void RC5_Encode_SignalGenerate(uint32_t RC5_ManchestarFrameFormat)
 {
   uint8_t bit_msg = 0;

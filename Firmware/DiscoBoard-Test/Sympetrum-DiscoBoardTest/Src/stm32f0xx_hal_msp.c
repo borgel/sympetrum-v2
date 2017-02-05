@@ -57,9 +57,13 @@ void HAL_MspInit(void)
   /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 
-  //FIXME enable?
+  //TODO enable/implement
   //IR encode? decode?
   HAL_NVIC_SetPriority(TIM2_IRQHandler, 0, 0);
+
+  //TODO enable/implement
+  //TIM16 is envalope, TIM17 is carrier
+  HAL_NVIC_SetPriority(TIM16_IRQHandler, 0, 0);
 
 
   /* USER CODE BEGIN MspInit 1 */
@@ -185,13 +189,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 {
-
    GPIO_InitTypeDef GPIO_InitStruct;
+   //Bring up IR Decode peripherals
    if(htim_base->Instance==TIM2)
    {
-      /* USER CODE BEGIN TIM2_MspInit 0 */
-
-      /* USER CODE END TIM2_MspInit 0 */
       /* Peripheral clock enable */
       __HAL_RCC_TIM2_CLK_ENABLE();
 
@@ -208,9 +209,34 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
       /* Peripheral interrupt init */
       HAL_NVIC_SetPriority(TIM2_IRQn, 0, 0);
       HAL_NVIC_EnableIRQ(TIM2_IRQn);
-      /* USER CODE BEGIN TIM2_MspInit 1 */
+   }
 
-      /* USER CODE END TIM2_MspInit 1 */
+   //Bring up IR Encode Envelope peripherals
+   else if(htim_base->Instance==TIM16)
+   {
+      /* Peripheral clock enable */
+      __HAL_RCC_TIM16_CLK_ENABLE();
+
+      /* Peripheral interrupt init */
+      HAL_NVIC_SetPriority(TIM16_IRQn, 0, 0);
+      HAL_NVIC_EnableIRQ(TIM16_IRQn);
+   }
+   //Bring up IR Encode Carrier peripherals
+   else if(htim_base->Instance==TIM17)
+   {
+      /* Peripheral clock enable */
+      __HAL_RCC_TIM17_CLK_ENABLE();
+
+      GPIO_InitStruct.Pin = GPIO_PIN_9;
+      GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+      GPIO_InitStruct.Pull = GPIO_NOPULL;
+      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+      GPIO_InitStruct.Alternate = GPIO_AF2_TIM17;
+      HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+      /* Peripheral interrupt init */
+      HAL_NVIC_SetPriority(TIM17_IRQn, 0, 0);
+      HAL_NVIC_EnableIRQ(TIM17_IRQn);
    }
 
 }
@@ -220,9 +246,6 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 
    if(htim_base->Instance==TIM2)
    {
-      /* USER CODE BEGIN TIM2_MspDeInit 0 */
-
-      /* USER CODE END TIM2_MspDeInit 0 */
       /* Peripheral clock disable */
       __HAL_RCC_TIM2_CLK_DISABLE();
 
@@ -233,11 +256,7 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 
       /* Peripheral interrupt DeInit*/
       HAL_NVIC_DisableIRQ(TIM2_IRQn);
-
    }
-   /* USER CODE BEGIN TIM2_MspDeInit 1 */
-
-   /* USER CODE END TIM2_MspDeInit 1 */
 
 }
 
