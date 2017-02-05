@@ -48,9 +48,6 @@
 /** @defgroup RC5_ENCODE_Private_Defines
   * @{
   */
-#define MESSAGE1  "LEFT | RIGHT| DOWN  | SEL  "
-#define MESSAGE2  "PREV | NEXT |SWITCH | SEND "
-
 #define  RC5HIGHSTATE     ((uint8_t )0x02)   /* RC5 high level definition*/
 #define  RC5LOWSTATE      ((uint8_t )0x01)   /* RC5 low level definition*/
 /**
@@ -107,170 +104,19 @@ static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat);
   * @param  None
   * @retval None
   */
+//FIXME rm, this isn't really useful now
 void Menu_RC5_Encode_Func(void)
 {
-  uint8_t pressedkey = 0, index = 0;
-  
-  /* Disable the JoyStick interrupt */
-  Demo_IntExtOnOffCmd(DISABLE);
-  
-  while (Menu_ReadKey() != NOKEY)
-  {}
-  /* Clear the LCD */ 
-  LCD_Clear(LCD_COLOR_WHITE);   
-  
-  /* Display Image */
-  LCD_SetDisplayWindow(120, 192, 64, 64);
-  Storage_OpenReadFile(120, 192, "STFILES/Icon11.BMP");  
-  LCD_WindowModeDisable();
-  
-  LCD_SetFont(&Font12x12);
-  /* Set the LCD Back Color */
-  LCD_SetBackColor(LCD_COLOR_CYAN);
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_BLACK); 
-  LCD_DisplayStringLine(LINE(18), (uint8_t *)MESSAGE1);
-  /* Set the LCD Back Color */
-  LCD_SetBackColor(LCD_COLOR_BLUE);
-  LCD_SetTextColor(LCD_COLOR_WHITE);
-  LCD_DisplayStringLine(LINE(19), (uint8_t *)MESSAGE2);
-  LCD_SetFont(&Font16x24);
+  RC5_Encode_Init();
 
-  RC5_Encode_Init();     
   AddressIndex = 0;
-  RFDemoStatus = RC5DEMO;
   InstructionIndex = 0;
-  
-  pressedkey = Menu_ReadKey();
 
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_RED);
-  /* Display the device address message */
-  LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_WHITE);
-  /* Display the device address message */
-  LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-  
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_RED);
 
-  while(pressedkey != UP)
-  { 
-    pressedkey = Menu_ReadKey();
-    /* To switch between device address and command */
-    if (pressedkey == DOWN)
-    {
-      /* Set the LCD Text Color */
-      LCD_SetTextColor(LCD_COLOR_WHITE);
+  //LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
+  //LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
 
-      if (index == 0)
-      { 
-        index = 1;
-        /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-        /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-      }
-      else
-      {
-        index = 0;
-        /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-          /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
-      }
-    }
-    if (index == 0)
-    {
-      /* Commands index decrement */
-      if (pressedkey == LEFT)
-      {
-        if (InstructionIndex == 0)
-        { 
-          InstructionIndex = 127;
-        }
-        else
-        {
-          InstructionIndex--;
-        }
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-        /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
-      }
-      /* Commands index increment */
-      if (pressedkey == RIGHT)
-      {
-        if (InstructionIndex == 127)
-        { 
-          InstructionIndex = 0;
-        }
-        else
-        {
-          InstructionIndex++;
-        }
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-        LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
-      }
-    }
-    else
-    {
-      /* Decrement the address device index */
-      if (pressedkey == LEFT)
-      {
-        if (AddressIndex == 0)
-        { 
-          AddressIndex = 31;
-        }
-        else
-        {
-          AddressIndex--;
-        }
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-        /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-      }
-      /* Increment the address device index increment */
-      if (pressedkey == RIGHT)
-      {
-        if (AddressIndex == 31)
-        { 
-          AddressIndex = 0;
-        }
-        else
-        {
-          AddressIndex++;
-        }
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-        LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-      }
-    }
-    if (pressedkey == SEL)
-    {
-      /* Set the LCD Text Color */
-      LCD_SetTextColor(LCD_COLOR_WHITE);
-      
-      LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
-      LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-      /* Button is pressed */
-      RC5_Encode_SendFrame(AddressIndex, InstructionIndex, RC5_Ctrl1);
-    }
-  }
-  LCD_Clear(LCD_COLOR_WHITE);
-  
-  /* Enable the JoyStick interrupt */
-  Demo_IntExtOnOffCmd(ENABLE);
-  
-  /* Display menu */
-  Menu_DisplayMenu();
+  RC5_Encode_SendFrame(AddressIndex, InstructionIndex, RC5_Ctrl1);
 }
 
 /**
@@ -369,18 +215,6 @@ void RC5_Encode_Init(void)
   
   /* TIM Disable */
   TIM_Cmd(TIM16, DISABLE);
-  
-  /* Set the LCD Back Color */
-  LCD_SetBackColor(LCD_COLOR_RED);
-  
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_GREEN);    
-  LCD_DisplayStringLine(LCD_LINE_0, "   STM320518-EVAL   ");
-  LCD_DisplayStringLine(LCD_LINE_1, " RC5 InfraRed Demo  ");
-  LCD_SetBackColor(LCD_COLOR_BLUE);
-  
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_WHITE);  
 }
 
 /**
