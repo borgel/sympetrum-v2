@@ -35,11 +35,11 @@
 #include "stm32f0xx.h"
 #include "stm32f0xx_it.h"
 
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim16;
+extern TIM_HandleTypeDef htim17;
 
 /******************************************************************************/
 /*            Cortex-M0 Processor Interruption and Exception Handlers         */ 
@@ -67,7 +67,75 @@ void SysTick_Handler(void)
 /* please refer to the startup file (startup_stm32f0xx.s).                    */
 /******************************************************************************/
 
-/* USER CODE BEGIN 1 */
+/**
+ * @brief  This function handles TIM16 interrupt request.
+ * @param  None
+ * @retval None
+ */
+void TIM16_IRQHandler(void)
+{
+   if(RFDemoStatus == RC5DEMO)
+   {
+      RC5_Encode_SignalGenerate(RC5_FrameManchestarFormat);
+   }
 
-/* USER CODE END 1 */
+   /* Clear TIM16 update interrupt */
+   TIM_ClearITPendingBit(TIM16, TIM_IT_Update);
+}
+/**
+ * @brief  This function handles TIM14 overflow and update interrupt request.
+ * @param  None
+ * @retval None
+ */
+void TIM2_IRQHandler(void)
+{
+   /* Clear the TIM2 Update pending bit */
+   TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+
+   if(RFDemoStatus == RC5DEMO)
+   {
+      /* - Timer Falling Edge Event:
+       *     The Timer interrupt is used to measure the period between two 
+       *     successive falling edges (The whole pulse duration).
+       *
+       * - Timer Rising Edge Event:  
+       *     It is also used to measure the duration between falling and rising 
+       *     edges (The low pulse duration).
+       *     The two durations are useful to determine the bit value. Each bit is 
+       *     determined according to the last bit. 
+       *
+       *  Update event:InfraRed decoders time out event.
+       *  ---------------------------------------------
+       *     It resets the InfraRed decoders packet.
+       *     - The Timer Overflow is set to 3.6 ms .*/
+      /* IC1 Interrupt*/
+      if((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_CC2) != RESET))
+      {
+         TIM_ClearFlag(IR_TIM, TIM_FLAG_CC2);
+         /* Get the Input Capture value */
+         ICValue2 = TIM_GetCapture2(IR_TIM);
+         /* RC5 */
+         RC5_DataSampling( ICValue2 - ICValue1 , 0);
+
+      }  /* IC2 Interrupt */   
+      else  if((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_CC1) != RESET))
+      {
+         TIM_ClearFlag(IR_TIM, TIM_FLAG_CC1);
+         /* Get the Input Capture value */
+         ICValue1 = TIM_GetCapture1(IR_TIM);
+         RC5_DataSampling(ICValue1 , 1);
+      } 
+      /* Checks whether the IR_TIM flag is set or not.*/
+      else if ((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_Update) != RESET))
+      { 
+         /* Clears the IR_TIM's pending flags*/
+         TIM_ClearFlag(IR_TIM, TIM_FLAG_Update);
+
+         RC5_ResetPacket(); 
+      }
+   }
+   else
+   {}
+}
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
