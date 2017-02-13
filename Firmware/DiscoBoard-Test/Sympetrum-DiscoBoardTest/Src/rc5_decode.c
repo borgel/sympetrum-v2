@@ -57,6 +57,7 @@
 #include "stm32f0xx_hal_tim.h"
 
 #include <stdint.h>
+#include <stdbool.h>
 
 
 /** @addtogroup STM320518_EVAL_Demo
@@ -293,8 +294,6 @@ static uint32_t TIMCLKValueKHz = 0; /*!< Timer clock */
 uint16_t RC5TimeOut = 0;
 uint32_t RC5_Data = 0;
 RC5_Frame_TypeDef RC5_FRAME;
-extern __IO uint8_t RFDemoStatus;
-extern __IO uint8_t CECDemoStatus;
 
 //FIXME pass in?
 extern TIM_HandleTypeDef htim2;
@@ -386,7 +385,14 @@ void RC5_Decode_Init(void)
   TIM_IC_InitTypeDef sConfigIC;
   TIM_MasterConfigTypeDef sMasterConfig;
 
-  RC5TimeOut = TIMCLKValueKHz * RC5_TIME_OUT_US/1000;
+  /* Timer Clock */
+  TIMCLKValueKHz = TIM_GetCounterCLKValue()/1000; 
+
+  //FIXME rm
+  iprintf("Value KHz = %d\r\n", TIMCLKValueKHz);
+
+  RC5TimeOut = TIMCLKValueKHz * (RC5_TIME_OUT_US / 1000);
+  iprintf("RC5 timeout = %d\r\n", RC5TimeOut);
 
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = TIM_PRESCALER;
@@ -425,7 +431,7 @@ void RC5_Decode_Init(void)
      while(1) {}
   }
 
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_BOTHEDGE;
   sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
   sConfigIC.ICFilter = 0;
@@ -435,6 +441,9 @@ void RC5_Decode_Init(void)
      while(1) {}
   }
 
+
+  /*
+  //FIXME is this commented out? I can do polarity both above...
   sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_FALLING;
   sConfigIC.ICSelection = TIM_ICSELECTION_INDIRECTTI;
   if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_2) != HAL_OK)
@@ -442,6 +451,7 @@ void RC5_Decode_Init(void)
      iprintf("Error\r\n");
      while(1) {}
   }
+  */
 
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_ENABLE;
@@ -451,35 +461,32 @@ void RC5_Decode_Init(void)
      while(1) {}
   }
 
-  //DONE WITH CUBE
-
-  /* Timer Clock */
-  TIMCLKValueKHz = TIM_GetCounterCLKValue()/1000; 
-
   /* Configures the TIM Update Request Interrupt source: counter overflow */
   //FIXME ?
   //TIM_UpdateRequestConfig(IR_TIM,  TIM_UpdateSource_Regular);
 
-  //FIXME needed?
-  /* Clear update flag */
-  //TIM_ClearFlag(IR_TIM, TIM_FLAG_Update);
+  //FIXME want to enable this?
+  //__HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_UPDATE);
+  __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);
 
   //FIXME how do we do this?
   /* Enable TIM Update Event Interrupt Request */
   //TIM_ITConfig(IR_TIM, TIM_IT_Update, ENABLE);
 
-  //FIXME is this implicit now?
-  /* Enable the timer */
-  //TIM_Cmd(IR_TIM, ENABLE);  
-  
   /* Bit time range */
   RC5MinT = (RC5_T_US - RC5_T_TOLERANCE_US) * TIMCLKValueKHz / 1000;
   RC5MaxT = (RC5_T_US + RC5_T_TOLERANCE_US) * TIMCLKValueKHz / 1000;
   RC5Min2T = (2 * RC5_T_US - RC5_T_TOLERANCE_US) * TIMCLKValueKHz / 1000;
   RC5Max2T = (2 * RC5_T_US + RC5_T_TOLERANCE_US) * TIMCLKValueKHz / 1000;
-  
+
+  iprintf("MinT = %d, MaxT = %d\r\n", RC5MinT, RC5MaxT);
+  iprintf("Min2T = %d, Max2T = %d\r\n", RC5Min2T, RC5Max2T);
+
   /* Default state */
   RC5_ResetPacket();
+
+  //TODO start it?
+  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_1);
 }
 
 /**
@@ -496,43 +503,38 @@ void RC5_Decode_Init(void)
   *         the IR protocol fields (Address, Command,...).
   * @retval None
   */
-void RC5_Decode(RC5_Frame_TypeDef *rc5_frame)
+bool RC5_Decode(RC5_Frame_TypeDef *rc5_frame)
 { 
   /* If frame received */
-  if(RC5FrameReceived != NO)  
-  {       
+  if(RC5FrameReceived != NO)
+  {
 
     RC5_Data = RC5TmpPacket.data ;
-    
+
     /* RC5 frame field decoding */
     rc5_frame->Address = (RC5TmpPacket.data >> 6) & 0x1F;
     rc5_frame->Command = (RC5TmpPacket.data) & 0x3F; 
     rc5_frame->FieldBit = (RC5TmpPacket.data >> 12) & 0x1;
     rc5_frame->ToggleBit = (RC5TmpPacket.data >> 11) & 0x1;
-    
+
     /* Check if command ranges between 64 to 127:Upper Field */
     if (rc5_frame->FieldBit == 0x00)
     {
       rc5_frame->Command =  (1<<6)| rc5_frame->Command; 
     }
-    
-    if (CECDemoStatus == 0)
-    {
-     
-      /* Display RC5 message */
-       //FIXME rm
-      //LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[rc5_frame->Command]);
-      //LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[rc5_frame->Address]);
-      iprintf("Command:%s\r\n", rc5_Commands[rc5_frame->Command]);
-      iprintf("Device:%s\r\n", rc5_devices[rc5_frame->Address]);
 
-    }  
-      /* Default state */
+    /* Display RC5 message */
+    iprintf("Command:%s\r\n", rc5_Commands[rc5_frame->Command]);
+    iprintf("Device:%s\r\n", rc5_devices[rc5_frame->Address]);
+
+    /* Default state */
     RC5FrameReceived = NO;
-    
+
     RC5_ResetPacket();
-    
-  }  
+
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -555,12 +557,14 @@ void RC5_ResetPacket(void)
   * @retval None
   */
 void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
-{ 
+{
   uint8_t pulse;
   tRC5_lastBitType tmpLastBit;
-  
+
   /* Decode the pulse length in protocol units */
   pulse = RC5_GetPulseLength(rawPulseLength);
+
+  //iprintf("  p%d.%d  ", pulse, edge);
 
   /* On Rising Edge */
   if (edge == 1)
@@ -589,7 +593,7 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
       { 
         /* Bit determination by the falling edge */
         tmpLastBit = RC5_logicTableFallingEdge[RC5TmpPacket.lastBit][pulse];
-        RC5_modifyLastBit (tmpLastBit);
+        RC5_modifyLastBit(tmpLastBit);
       }
       else
       {
@@ -597,7 +601,7 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
       }
     }
   }
-}  
+}
 
 /**
   * @brief  Convert raw pulse length expressed in timer ticks to protocol bit times.
@@ -695,19 +699,19 @@ static uint32_t TIM_GetCounterCLKValue(void)
   //__IO RCC_ClocksTypeDef RCC_ClockFreq;   
   uint32_t pfLatency;
   RCC_ClkInitTypeDef  RCC_ClkInitStruct;
-  
+
   /* This function fills the RCC_ClockFreq structure with the current
   frequencies of different on chip clocks */
   //RCC_GetClocksFreq((RCC_ClocksTypeDef*)&RCC_ClockFreq);
   //HAL_RCC_GetClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t *pFLatency);
   HAL_RCC_GetClockConfig(&RCC_ClkInitStruct, &pfLatency);
 
-  
+
   /* Get the clock prescaler of APB1 */
   apbprescaler = ((RCC->CFGR >> 8) & 0x7);
   apbfrequency = HAL_RCC_GetPCLK1Freq();
   timprescaler = TIM_PRESCALER;
-  
+
   /* If APBx clock div >= 4 */
   if (apbprescaler >= 4)
   {

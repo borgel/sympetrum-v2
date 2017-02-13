@@ -96,9 +96,10 @@ void TIM16_IRQHandler(void)
  */
 void TIM2_IRQHandler(void)
 {
+   //iprintf(">");
    /* Clear the TIM2 Update pending bit */
    //TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
-   __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);
+   __HAL_TIM_CLEAR_IT(&htim2, TIM_FLAG_UPDATE);
 
    /* - Timer Falling Edge Event:
     *     The Timer interrupt is used to measure the period between two 
@@ -124,11 +125,15 @@ void TIM2_IRQHandler(void)
       /* Get the Input Capture value */
       //ICValue2 = TIM_GetCapture2(IR_TIM);
       //param is channel 1-4
-      ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, 2);
-      /* RC5 */
-      RC5_DataSampling( ICValue2 - ICValue1 , 0);
+      //ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, 2);
+      ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_1);
 
-   }  /* IC2 Interrupt */   
+      //FIXME rm
+      iprintf("<O2 %d] ", ICValue2);
+
+      /* RC5 */
+      RC5_DataSampling(ICValue2 - ICValue1 , 0);
+   }  /* IC2 Interrupt */
    //else if((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_CC1) != RESET))
    else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_CC1) != RESET)
    {
@@ -138,14 +143,21 @@ void TIM2_IRQHandler(void)
       /* Get the Input Capture value */
       //ICValue1 = TIM_GetCapture1(IR_TIM);
       //param is channel 1-4
-      ICValue1 = HAL_TIM_ReadCapturedValue(&htim2, 1);
+      //ICValue1 = HAL_TIM_ReadCapturedValue(&htim2, 1);
+      ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_1);
+
+      //FIXME rm
+      iprintf("O1 %d", ICValue1);
 
       RC5_DataSampling(ICValue1 , 1);
    } 
    /* Checks whether the IR_TIM flag is set or not.*/
    //else if ((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_Update) != RESET))
    else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_UPDATE) != RESET)
-   { 
+   {
+      //FIXME rm
+      iprintf("R\r\n\r\n]");
+
       /* Clears the IR_TIM's pending flags*/
       //TIM_ClearFlag(IR_TIM, TIM_FLAG_Update);
       __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);

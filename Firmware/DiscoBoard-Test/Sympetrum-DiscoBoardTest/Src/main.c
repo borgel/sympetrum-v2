@@ -65,11 +65,12 @@ int main(void)
 
    iprintf("Setting up RC5 encode/decode...");
    RC5_Encode_Init();
-   //RC5_Decode_Init();
+   RC5_Decode_Init();
    iprintf("ok\r\n");
 
    int i;
    uint8_t b = 0;
+   RC5_Frame_TypeDef rcf;
    while (1)
    {
       /*
@@ -80,14 +81,30 @@ int main(void)
 
       //iprintf("TIM16,TIM17 %d,%d\r\n",  __HAL_TIM_GetCounter(&htim16),  __HAL_TIM_GetCounter(&htim17));
 
-      //addr, instruc, ctrl
-      RC5_Encode_SendFrame(4, 20, RC5_Ctrl_Reset);
+      //iprintf("TIM2 %d\r\n",  __HAL_TIM_GetCounter(&htim2));
+      /*
+      if(RC5_Decode(&rcf)) {
+         //iprintf("Got full RC5 Packet!\r\n");
+         iprintf("Addr   %d\r\n", rcf.Address);
+         iprintf("Comd   %d\r\n", rcf.Command);
+         iprintf("Field  %d\r\n", rcf.FieldBit);
+         iprintf("Toggle %d\r\n", rcf.ToggleBit);
+         iprintf("\r\n");
+      }
+      */
 
       //FIXME rm toggle LED
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
       //HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
       // spend time
-      for (i = 0; i < 800000; i++);
+      for (i = 0; i < 1000000; i++);
+
+      if(b > 5) {
+         //addr, instruc, ctrl
+         RC5_Encode_SendFrame(4, 20, RC5_Ctrl_Reset);
+         b = 0;
+      }
+      b++;
    }
 
 }

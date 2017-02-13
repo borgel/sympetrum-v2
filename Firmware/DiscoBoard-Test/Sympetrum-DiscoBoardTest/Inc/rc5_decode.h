@@ -37,6 +37,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx.h"
 
+#include <stdbool.h>
 /** @addtogroup STM320518_EVAL_Demo
   * @{
   */
@@ -97,6 +98,7 @@ typedef enum RC5_lastBitType tRC5_lastBitType;
 #define RC5_T_US                             900     /*!< Half bit period */
 #define RC5_T_TOLERANCE_US                   270    /*!< Tolerance time */
 #define RC5_NUMBER_OF_VALID_PULSE_LENGTH     2
+//FIXME isn't this 14 bits?
 #define RC5_PACKET_BIT_COUNT                 13      /*!< Total bits */
 
 /* Packet struct for reception*/
@@ -118,7 +120,7 @@ typedef enum RC5_lastBitType tRC5_lastBitType;
 void Menu_RC5Decode_Func(void);
 void RC5_Decode_DeInit(void);
 void RC5_Decode_Init(void);
-void RC5_Decode(RC5_Frame_TypeDef *rc5_frame);
+bool RC5_Decode(RC5_Frame_TypeDef *rc5_frame);
 void RC5_ResetPacket(void);
 void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge);
 #ifdef __cplusplus
