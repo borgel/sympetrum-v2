@@ -177,34 +177,27 @@ void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl
 {
   HAL_StatusTypeDef res;
   uint16_t RC5_FrameBinaryFormat = 0;
-  
+
   /* Generate a binary format of the Frame */
   RC5_FrameBinaryFormat = RC5_BinFrameGeneration(RC5_Address, RC5_Instruction, RC5_Ctrl);
-  
+
   /* Generate a Manchester format of the Frame */
   RC5_FrameManchestarFormat = RC5_ManchesterConvert(RC5_FrameBinaryFormat);
-  
+
   /* Set the Send operation Ready flag to indicate that the frame is ready to be sent */
   Send_Operation_Ready = 1;
-  
+
   //FIXME rm
   /* TIM IT Enable */
   //TIM_ITConfig(TIM16, TIM_IT_Update, ENABLE);
   /* Enable all Interrupt */
   //TIM_Cmd(TIM16, ENABLE);
 
-  //FIXME anything else to enable? interrupts?
-  res = HAL_TIM_PWM_Start(&htim16, 1);
+  //start the bit clock. Each edge it will send data on its own
+  res = HAL_TIM_Base_Start_IT(&htim16);
   if(res != HAL_OK) {
      iprintf("Failed to start TIM16 CH1 to send\r\n");
   }
-
-  /*
-  res = HAL_TIM_PWM_Start(&htim17, 1);
-  if(res != HAL_OK) {
-     iprintf("Failed to start TIM17 CH1 to send\r\n");
-  }
-  */
 }
 
 /**
@@ -217,48 +210,43 @@ void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl
 void RC5_Encode_SignalGenerate(void)
 {
   uint8_t bit_msg = 0;
-  
+
   if((Send_Operation_Ready == 1) && (BitsSent_Counter <= (RC5_GlobalFrameLength * 2)))
   {
     Send_Operation_Completed = 0x00;
     bit_msg = (uint8_t)((RC5_FrameManchestarFormat >> BitsSent_Counter)& 1);
-    
+
     if (bit_msg== 1)
     {
-       //FIXME start FAST CLOCK OUT
-      //TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_Active);
-
-      //HAL_TIM_PWM_Start(&htim17, 1);
+       //enable the data out clock
+       HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
     }
     else
     {
-       //FIXME stop FAST CLOCK OUT
-       //maybe it stops after one bit period, so dont actually need to stop it?
-      //TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_InActive);
+       //disable the data out clock
+       HAL_TIM_PWM_Stop(&htim17, TIM_CHANNEL_1);
     }
     BitsSent_Counter++;
+
+    //restart timer to count to next bit edge
+    HAL_TIM_Base_Start_IT(&htim16);
   }
   else
   {
     Send_Operation_Completed = 0x01;
 
-    /* TIM IT Disable */
-    //TIM_ITConfig(TIM16, TIM_IT_Update, DISABLE);
-    //TIM_Cmd(TIM16, DISABLE);
-
    HAL_StatusTypeDef res;
 
-   //2nd param is u32 channel
-   res = HAL_TIM_PWM_Stop(&htim16, 1);
+   res = HAL_TIM_Base_Stop_IT(&htim16);
    if(res != HAL_OK) {
-      iprintf("Failed to stop TIM16 CH1 after init\r\n");
+      iprintf("Failed to stop TIM16 after sending message\r\n");
    }
+
+   //force TIM17's output low so it never accidentally idles high after sending
+   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
 
    Send_Operation_Ready = 0;
    BitsSent_Counter = 0;
-
-   //FIXME replace with anything?
-   //TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_InActive);
   }
 }
 /**
@@ -376,20 +364,13 @@ static void MX_TIM16_Init(void)
     Error_Handler();
   }
 
-  //FIXME do we do more than one of these _Start_'s?
-  //starts interrupt handler
+  /*
+  //for reference, this is how to start the timer with interrupts
   if(HAL_TIM_Base_Start_IT(&htim16) != HAL_OK)
   {
     Error_Handler();
   }
-
-  //FIXME? do later before/after sending?
-  //FIXME needed for this one? doesn't generate pwm
-  //if(HAL_TIM_PWM_Start(&htim16, TIM_CHANNEL_1) != HAL_OK)
-  //{
-  //  Error_Handler();
-  //}
-  iprintf("TIM16 started?\r\n");
+   */
 }
 
 /* TIM17 init function */
@@ -438,24 +419,13 @@ static void MX_TIM17_Init(void)
   {
     Error_Handler();
   }
-
-  //handled in our hal_msp in TIM base init
-  //HAL_TIM_MspPostInit(&htim17);
-
   /*
-  if(HAL_TIM_Base_Start(&htim17) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  */
-
-  //FIXME? do later before/after sending?
+  //for reference, this is how to start the PWM
   if(HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
   }
-  iprintf("TIM17 started?\r\n");
-
+   */
 }
 
 /**

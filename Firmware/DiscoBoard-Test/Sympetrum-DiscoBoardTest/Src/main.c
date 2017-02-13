@@ -78,13 +78,16 @@ int main(void)
       b += 10;
       */
 
-      iprintf("TIM16,TIM17 %d,%d\r\n",  __HAL_TIM_GetCounter(&htim16),  __HAL_TIM_GetCounter(&htim17));
+      //iprintf("TIM16,TIM17 %d,%d\r\n",  __HAL_TIM_GetCounter(&htim16),  __HAL_TIM_GetCounter(&htim17));
+
+      //addr, instruc, ctrl
+      RC5_Encode_SendFrame(4, 20, RC5_Ctrl_Reset);
 
       //FIXME rm toggle LED
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
       //HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
       // spend time
-      for (i = 0; i < 500000; i++);
+      for (i = 0; i < 800000; i++);
    }
 
 }

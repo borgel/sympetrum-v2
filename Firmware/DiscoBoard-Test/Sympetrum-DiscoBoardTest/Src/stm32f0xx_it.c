@@ -81,32 +81,16 @@ void SysTick_Handler(void)
  * @param  None
  * @retval None
  */
-//FIXME rm
-static int tog = 0;
 void TIM16_IRQHandler(void)
 {
+   //figure out the next stage of the outgoing signal
    RC5_Encode_SignalGenerate();
 
    //FIXME rm
    HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 
-   //figure out the next stage of the outgoing signal
-   //RC5_Encode_SignalGenerate()
-
-   //FIXME rm
-   if(tog) {
-      HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
-   }
-   else {
-      HAL_TIM_PWM_Stop(&htim17, TIM_CHANNEL_1);
-   }
-   tog = !tog;
-
    /* Clear TIM16 update interrupt */
-   //TIM_ClearITPendingBit(TIM16, TIM_IT_Update);
    __HAL_TIM_CLEAR_FLAG(&htim16, TIM_FLAG_UPDATE);
-
-   HAL_TIM_Base_Start_IT(&htim16);
 }
 /**
  * @brief  This function handles TIM14 overflow and update interrupt request.
