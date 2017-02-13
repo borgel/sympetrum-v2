@@ -177,15 +177,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 {
-   //FIXME rm
-   iprintf("Starting TIM base init...\r\n");
-
    GPIO_InitTypeDef GPIO_InitStruct;
    //Bring up IR Decode peripherals
    if(htim_base->Instance==TIM2)
    {
-      iprintf("TIM2\r\n");
-
       /* Peripheral clock enable */
       __HAL_RCC_TIM2_CLK_ENABLE();
 
@@ -207,8 +202,6 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
    //Bring up IR Encode Envelope peripherals
    else if(htim_base->Instance==TIM16)
    {
-      iprintf("TIM16\r\n");
-
       /* Peripheral clock enable */
       __HAL_RCC_TIM16_CLK_ENABLE();
 
@@ -219,8 +212,6 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
    //Bring up IR Encode Carrier peripherals
    else if(htim_base->Instance==TIM17)
    {
-      iprintf("TIM17\r\n");
-
       /* Peripheral clock enable */
       __HAL_RCC_TIM17_CLK_ENABLE();
 

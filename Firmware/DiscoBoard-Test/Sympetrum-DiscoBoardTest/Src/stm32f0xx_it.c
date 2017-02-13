@@ -86,9 +86,6 @@ void TIM16_IRQHandler(void)
    //figure out the next stage of the outgoing signal
    RC5_Encode_SignalGenerate();
 
-   //FIXME rm
-   HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-
    /* Clear TIM16 update interrupt */
    __HAL_TIM_CLEAR_FLAG(&htim16, TIM_FLAG_UPDATE);
 }

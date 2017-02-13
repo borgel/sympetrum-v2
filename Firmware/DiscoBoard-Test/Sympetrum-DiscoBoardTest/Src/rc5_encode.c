@@ -187,12 +187,6 @@ void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl
   /* Set the Send operation Ready flag to indicate that the frame is ready to be sent */
   Send_Operation_Ready = 1;
 
-  //FIXME rm
-  /* TIM IT Enable */
-  //TIM_ITConfig(TIM16, TIM_IT_Update, ENABLE);
-  /* Enable all Interrupt */
-  //TIM_Cmd(TIM16, ENABLE);
-
   //start the bit clock. Each edge it will send data on its own
   res = HAL_TIM_Base_Start_IT(&htim16);
   if(res != HAL_OK) {
@@ -220,11 +214,21 @@ void RC5_Encode_SignalGenerate(void)
     {
        //enable the data out clock
        HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
+
+       //FIXME rm, play out a GPIO for testing
+       if(GPIO_PIN_RESET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
+         HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
+       }
     }
     else
     {
-       //disable the data out clock
+       //FIXME rm, play out a GPIO for testing
        HAL_TIM_PWM_Stop(&htim17, TIM_CHANNEL_1);
+
+       //FIXME rm
+       if(GPIO_PIN_SET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
+          HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+       }
     }
     BitsSent_Counter++;
 
