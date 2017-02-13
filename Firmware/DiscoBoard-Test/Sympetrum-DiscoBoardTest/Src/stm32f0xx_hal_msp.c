@@ -33,6 +33,10 @@
   */
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
+#include "stm32f0xx_hal_tim.h"
+
+//FIXME rm
+#include "iprintf.h"
 
 extern void Error_Handler(void);
 /* USER CODE BEGIN 0 */
@@ -56,15 +60,6 @@ void HAL_MspInit(void)
   HAL_NVIC_SetPriority(PendSV_IRQn, 0, 0);
   /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
-
-  //TODO enable/implement
-  //IR encode? decode?
-  HAL_NVIC_SetPriority(TIM2_IRQHandler, 0, 0);
-
-  //TODO enable/implement
-  //TIM16 is envalope, TIM17 is carrier
-  HAL_NVIC_SetPriority(TIM16_IRQHandler, 0, 0);
-
 
   /* USER CODE BEGIN MspInit 1 */
 
@@ -182,10 +177,15 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 {
+   //FIXME rm
+   iprintf("Starting TIM base init...\r\n");
+
    GPIO_InitTypeDef GPIO_InitStruct;
    //Bring up IR Decode peripherals
    if(htim_base->Instance==TIM2)
    {
+      iprintf("TIM2\r\n");
+
       /* Peripheral clock enable */
       __HAL_RCC_TIM2_CLK_ENABLE();
 
@@ -207,6 +207,8 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
    //Bring up IR Encode Envelope peripherals
    else if(htim_base->Instance==TIM16)
    {
+      iprintf("TIM16\r\n");
+
       /* Peripheral clock enable */
       __HAL_RCC_TIM16_CLK_ENABLE();
 
@@ -217,20 +219,23 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
    //Bring up IR Encode Carrier peripherals
    else if(htim_base->Instance==TIM17)
    {
+      iprintf("TIM17\r\n");
+
       /* Peripheral clock enable */
       __HAL_RCC_TIM17_CLK_ENABLE();
-
-      //FIXME TODO validate at PA7 (speed? alt func?)
-      GPIO_InitStruct.Pin = GPIO_PIN_7;
-      GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-      GPIO_InitStruct.Pull = GPIO_NOPULL;
-      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-      GPIO_InitStruct.Alternate = GPIO_AF5_TIM17;
-      HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
       /* Peripheral interrupt init */
       HAL_NVIC_SetPriority(TIM17_IRQn, 0, 0);
       HAL_NVIC_EnableIRQ(TIM17_IRQn);
+
+      __HAL_RCC_GPIOA_CLK_ENABLE();
+      GPIO_InitStruct.Pin = GPIO_PIN_7;
+      GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+      GPIO_InitStruct.Pull = GPIO_NOPULL;
+      //FIXME frq high?
+      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+      GPIO_InitStruct.Alternate = GPIO_AF5_TIM17;
+      HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
    }
 
 }
@@ -255,6 +260,7 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
    {
       /* Peripheral clock enable */
       __HAL_RCC_TIM16_CLK_DISABLE();
+
       HAL_NVIC_DisableIRQ(TIM16_IRQn);
    }
    //Bring up IR Encode Carrier peripherals
@@ -262,6 +268,7 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
       __HAL_RCC_TIM17_CLK_DISABLE();
 
       HAL_GPIO_DeInit(GPIOA, GPIO_PIN_7);
+
       HAL_NVIC_DisableIRQ(TIM17_IRQn);
    }
 

@@ -14,7 +14,10 @@
 
 SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart2;
+
 TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim16;
+TIM_HandleTypeDef htim17;
 
 void SystemClock_Config(void);
 void Error_Handler(void);
@@ -62,22 +65,24 @@ int main(void)
 
    iprintf("Setting up RC5 encode/decode...");
    RC5_Encode_Init();
-   RC5_Decode_Init();
+   //RC5_Decode_Init();
    iprintf("ok\r\n");
 
    int i;
    uint8_t b = 0;
    while (1)
    {
-      iprintf("again ");
-
+      /*
       iprintf("LEDs to %d\r\n", b);
       sendLEDTest(b);
       b += 10;
+      */
+
+      iprintf("TIM16,TIM17 %d,%d\r\n",  __HAL_TIM_GetCounter(&htim16),  __HAL_TIM_GetCounter(&htim17));
 
       //FIXME rm toggle LED
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
-      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+      //HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
       // spend time
       for (i = 0; i < 500000; i++);
    }

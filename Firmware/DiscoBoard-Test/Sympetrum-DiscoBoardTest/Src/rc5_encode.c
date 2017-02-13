@@ -31,6 +31,8 @@
 #include "ir_decode.h"
 #include "iprintf.h"
 
+#include "stm32f0xx.h"
+#include "stm32f0xx_it.h"
 #include "stm32f0xx_hal.h"
 #include "stm32f0xx_hal_tim.h"
 
@@ -89,6 +91,10 @@ RC5_Ctrl_TypeDef RC5_Ctrl2 = RC5_Ctrl_Reset;
 extern uint8_t* rc5_Commands[];
 extern uint8_t* rc5_devices[];
 extern __IO uint8_t RFDemoStatus; 
+
+//FIXME pass in?
+extern TIM_HandleTypeDef htim16;
+extern TIM_HandleTypeDef htim17;
 /**
   * @}
   */
@@ -98,6 +104,11 @@ extern __IO uint8_t RFDemoStatus;
   */
 static uint16_t RC5_BinFrameGeneration(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl);
 static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat);
+static void MX_TIM17_Init(void);
+static void MX_TIM16_Init(void);
+
+//FIXME rm?
+static void Error_Handler(void) {}
 
 /**
   * @}
@@ -134,69 +145,25 @@ void Menu_RC5_Encode_Func(void)
   */
 void RC5_Encode_Init(void)
 {
-  TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
-  TIM_OCInitTypeDef TIM_OCInitStructure;
 
-  /* Elementary period 888us */
-  /* Time base configuration for timer 2 */
-  TIM_TimeBaseStructure.TIM_Period = 1333;
-  TIM_TimeBaseStructure.TIM_Prescaler = 0x00;
-  TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
-  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-  TIM_TimeBaseInit(TIM17, &TIM_TimeBaseStructure);
-  
-  /* Prescaler configuration */
-  TIM_PrescalerConfig(TIM17, 0, TIM_PSCReloadMode_Immediate);
-  
-  /* Output Compare Timing Mode configuration: Channel 1N */
-  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
-  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-  TIM_OCInitStructure.TIM_Pulse = 1333/4; /* Set duty cycle to 25% to be compatible with RC5 specification */
-  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-  TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
-  TIM_OC1Init(TIM17, &TIM_OCInitStructure);
-  
-  /* Timer17 preload enable */
-  TIM_OC1PreloadConfig(TIM17, TIM_OCPreload_Enable);
-  
-  /* Timer 17 Enable */
-  TIM_Cmd(TIM17, ENABLE);
-  
-  /* Enable the TIM16 channel1 output to be connected internly to the IRTIM */
-  TIM_CtrlPWMOutputs(TIM17, ENABLE);
-  
-  /* DeInit TIM16 */
-  TIM_DeInit(TIM16);
+   MX_TIM17_Init();
+   MX_TIM16_Init();
 
-  /* Time Base = 36Khz */
-  /* Time Base configuration for timer 16 */
-  TIM_TimeBaseStructure.TIM_Prescaler = 0;
-  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-  TIM_TimeBaseStructure.TIM_Period = 42627;//666;
-  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-  TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
-  TIM_TimeBaseInit(TIM16, &TIM_TimeBaseStructure);
-  
-  /* Duty Cycle = 25% */
-  /* Channel 1 Configuration in Timing mode */
-  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
-  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-  TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
-  TIM_OCInitStructure.TIM_Pulse = 42627;
-  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-  TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
-  TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
-  TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
-  TIM_OC1Init(TIM16, &TIM_OCInitStructure);
+   /*
+   //FIXME TODO disable each?
+   HAL_StatusTypeDef res;
 
-  /* TIM16 Main Output Enable */
-  TIM_CtrlPWMOutputs(TIM16, ENABLE);
-  
-  /* TIM IT Disable */
-  TIM_ITConfig(TIM16, TIM_IT_Update, DISABLE);
-  
-  /* TIM Disable */
-  TIM_Cmd(TIM16, DISABLE);
+   //res = HAL_TIM_PWM_Start(&htim17, 1);
+   //2nd param is u32 channel
+   //res = HAL_TIM_PWM_Stop(&htim17, 1);
+   if(res != HAL_OK) {
+      iprintf("Failed to stop TIM17 CH1 after init\r\n");
+   }
+   res = HAL_TIM_PWM_Stop(&htim16, 1);
+   if(res != HAL_OK) {
+      iprintf("Failed to stop TIM16 CH1 after init\r\n");
+   }
+   */
 }
 
 /**
@@ -208,6 +175,7 @@ void RC5_Encode_Init(void)
   */
 void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl)
 {
+  HAL_StatusTypeDef res;
   uint16_t RC5_FrameBinaryFormat = 0;
   
   /* Generate a binary format of the Frame */
@@ -219,10 +187,24 @@ void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl
   /* Set the Send operation Ready flag to indicate that the frame is ready to be sent */
   Send_Operation_Ready = 1;
   
+  //FIXME rm
   /* TIM IT Enable */
-  TIM_ITConfig(TIM16, TIM_IT_Update, ENABLE);
+  //TIM_ITConfig(TIM16, TIM_IT_Update, ENABLE);
   /* Enable all Interrupt */
-  TIM_Cmd(TIM16, ENABLE);
+  //TIM_Cmd(TIM16, ENABLE);
+
+  //FIXME anything else to enable? interrupts?
+  res = HAL_TIM_PWM_Start(&htim16, 1);
+  if(res != HAL_OK) {
+     iprintf("Failed to start TIM16 CH1 to send\r\n");
+  }
+
+  /*
+  res = HAL_TIM_PWM_Start(&htim17, 1);
+  if(res != HAL_OK) {
+     iprintf("Failed to start TIM17 CH1 to send\r\n");
+  }
+  */
 }
 
 /**
@@ -230,35 +212,53 @@ void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl
   * @param  RC5_BinaryFrameFormat: the RC5 frame in binary format.
   * @retval Noe
   */
-//FIXME invoke from (TIM16 ISR)? see orig sample
-void RC5_Encode_SignalGenerate(uint32_t RC5_ManchestarFrameFormat)
+//FIXME used to take in "RC5_ManchestarFrameFormat, not sure why. Replaced
+//with using RC5_FrameManchestarFormat directly.
+void RC5_Encode_SignalGenerate(void)
 {
   uint8_t bit_msg = 0;
   
   if((Send_Operation_Ready == 1) && (BitsSent_Counter <= (RC5_GlobalFrameLength * 2)))
   {
     Send_Operation_Completed = 0x00;
-    bit_msg = (uint8_t)((RC5_ManchestarFrameFormat >> BitsSent_Counter)& 1);
+    bit_msg = (uint8_t)((RC5_FrameManchestarFormat >> BitsSent_Counter)& 1);
     
     if (bit_msg== 1)
     {
-      TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_Active);
+       //FIXME start FAST CLOCK OUT
+      //TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_Active);
+
+      //HAL_TIM_PWM_Start(&htim17, 1);
     }
     else
     {
-      TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_InActive);
+       //FIXME stop FAST CLOCK OUT
+       //maybe it stops after one bit period, so dont actually need to stop it?
+      //TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_InActive);
     }
     BitsSent_Counter++;
   }
   else
   {
     Send_Operation_Completed = 0x01;
+
     /* TIM IT Disable */
-    TIM_ITConfig(TIM16, TIM_IT_Update, DISABLE);
-    TIM_Cmd(TIM16, DISABLE);
-    Send_Operation_Ready = 0;
-    BitsSent_Counter = 0;
-    TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_InActive);
+    //TIM_ITConfig(TIM16, TIM_IT_Update, DISABLE);
+    //TIM_Cmd(TIM16, DISABLE);
+
+   HAL_StatusTypeDef res;
+
+   //2nd param is u32 channel
+   res = HAL_TIM_PWM_Stop(&htim16, 1);
+   if(res != HAL_OK) {
+      iprintf("Failed to stop TIM16 CH1 after init\r\n");
+   }
+
+   Send_Operation_Ready = 0;
+   BitsSent_Counter = 0;
+
+   //FIXME replace with anything?
+   //TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_InActive);
   }
 }
 /**
@@ -327,6 +327,135 @@ static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat)
     }
   }
   return (ConvertedMsg);
+}
+
+/* TIM16 init function */
+static void MX_TIM16_Init(void)
+{
+  TIM_OC_InitTypeDef sConfigOC;
+  TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
+
+  htim16.Instance = TIM16;
+  htim16.Init.Prescaler = 0;
+  htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim16.Init.Period = 42627;
+  htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim16.Init.RepetitionCounter = 0;
+  htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim16) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  if (HAL_TIM_PWM_Init(&htim16) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 42627;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
+  sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+  if (HAL_TIM_PWM_ConfigChannel(&htim16, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
+  sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
+  sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
+  sBreakDeadTimeConfig.DeadTime = 0;
+  sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
+  sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
+  sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_ENABLE;
+  if (HAL_TIMEx_ConfigBreakDeadTime(&htim16, &sBreakDeadTimeConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  //FIXME do we do more than one of these _Start_'s?
+  //starts interrupt handler
+  if(HAL_TIM_Base_Start_IT(&htim16) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  //FIXME? do later before/after sending?
+  //FIXME needed for this one? doesn't generate pwm
+  //if(HAL_TIM_PWM_Start(&htim16, TIM_CHANNEL_1) != HAL_OK)
+  //{
+  //  Error_Handler();
+  //}
+  iprintf("TIM16 started?\r\n");
+}
+
+/* TIM17 init function */
+static void MX_TIM17_Init(void)
+{
+  TIM_OC_InitTypeDef sConfigOC;
+  TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
+
+  htim17.Instance = TIM17;
+  htim17.Init.Prescaler = 0;
+  htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim17.Init.Period = 1333;
+  htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim17.Init.RepetitionCounter = 0;
+  htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim17) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  if (HAL_TIM_PWM_Init(&htim17) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 333;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
+  sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+  if (HAL_TIM_PWM_ConfigChannel(&htim17, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
+  sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
+  sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
+  sBreakDeadTimeConfig.DeadTime = 0;
+  sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
+  sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
+  sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
+  if (HAL_TIMEx_ConfigBreakDeadTime(&htim17, &sBreakDeadTimeConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  //handled in our hal_msp in TIM base init
+  //HAL_TIM_MspPostInit(&htim17);
+
+  /*
+  if(HAL_TIM_Base_Start(&htim17) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  */
+
+  //FIXME? do later before/after sending?
+  if(HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  iprintf("TIM17 started?\r\n");
+
 }
 
 /**

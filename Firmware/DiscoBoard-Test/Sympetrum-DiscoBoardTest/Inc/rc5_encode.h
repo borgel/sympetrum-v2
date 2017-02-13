@@ -94,7 +94,7 @@ typedef enum
 void Menu_RC5_Encode_Func(void);
 void RC5_Encode_Init(void);
 void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl);
-void RC5_Encode_SignalGenerate(uint32_t RC5_ManchestarFrameFormat);
+void RC5_Encode_SignalGenerate(void);
 
 #ifdef __cplusplus
 }
