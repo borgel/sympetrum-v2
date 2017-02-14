@@ -157,7 +157,7 @@ void TIM2_IRQHandler(void)
    else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_UPDATE))
    {
       //FIXME rm
-      iprintf("R\r\n\r\n]");
+      iprintf("R\r\n\r\n");
 
       /* Clears the IR_TIM's pending flags*/
       //TIM_ClearFlag(IR_TIM, TIM_FLAG_Update);

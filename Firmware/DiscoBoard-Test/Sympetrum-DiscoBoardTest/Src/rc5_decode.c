@@ -426,6 +426,8 @@ void RC5_Decode_Init(void)
      iprintf("ERROR\r\n");
   }
 
+  //FIXME not sure if this should be configred or not?
+  //it isn't in sample, but w/o it we only get falling edges
   sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
   sConfigIC.ICSelection = TIM_ICSELECTION_INDIRECTTI;
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
@@ -437,6 +439,8 @@ void RC5_Decode_Init(void)
 
   sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_FALLING;
   sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
+  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
+  sConfigIC.ICFilter = 0;
   if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_2) != HAL_OK)
   {
      iprintf("ERROR\r\n");
@@ -471,8 +475,10 @@ void RC5_Decode_Init(void)
   RC5_ResetPacket();
 
   //HAL_TIM_Base_Start(&htim2);
-  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_2);
+  //HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_1);
+  //HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_2);
 }
 
 /**
@@ -554,7 +560,7 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
   //iprintf("%d.%d:", pulse, edge);
   //iprintf("%d:", pulse);
   //FIXME rm
-  iprintf("%d:", rawPulseLength);
+  iprintf("|%d:", rawPulseLength);
 
   /* On Rising Edge */
   if (edge == 1)
