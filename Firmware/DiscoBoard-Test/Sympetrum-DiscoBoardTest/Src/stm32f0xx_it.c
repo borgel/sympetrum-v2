@@ -125,11 +125,13 @@ void TIM2_IRQHandler(void)
       /* Get the Input Capture value */
       //ICValue2 = TIM_GetCapture2(IR_TIM);
       //param is channel 1-4
+      //FIXME not sure... what's on CH2?
       //ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, 2);
-      ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_1);
+      ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_2);
+      //ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_1);
 
       //FIXME rm
-      iprintf("<O2 %d] ", ICValue2);
+      //iprintf("<O2 %d]", ICValue2);
 
       /* RC5 */
       RC5_DataSampling(ICValue2 - ICValue1 , 0);
@@ -144,10 +146,10 @@ void TIM2_IRQHandler(void)
       //ICValue1 = TIM_GetCapture1(IR_TIM);
       //param is channel 1-4
       //ICValue1 = HAL_TIM_ReadCapturedValue(&htim2, 1);
-      ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_1);
+      ICValue1 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_1);
 
       //FIXME rm
-      iprintf("O1 %d", ICValue1);
+      //iprintf("<O1 %d]", ICValue1);
 
       RC5_DataSampling(ICValue1 , 1);
    } 

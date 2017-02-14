@@ -421,17 +421,21 @@ void RC5_Decode_Init(void)
   }
 
   sSlaveConfig.SlaveMode = TIM_SLAVEMODE_RESET;
-  sSlaveConfig.InputTrigger = TIM_TS_TI1FP1;
+  //sSlaveConfig.InputTrigger = TIM_TS_TI1FP1;
+  sSlaveConfig.InputTrigger = TIM_TS_TI2FP2;
   sSlaveConfig.TriggerPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
   sSlaveConfig.TriggerPrescaler = TIM_ICPSC_DIV1;
   sSlaveConfig.TriggerFilter = 0;
+  //if (HAL_TIM_SlaveConfigSynchronization_IT(&htim2, &sSlaveConfig) != HAL_OK)
   if (HAL_TIM_SlaveConfigSynchronization(&htim2, &sSlaveConfig) != HAL_OK)
   {
      iprintf("Error\r\n");
      while(1) {}
   }
 
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_BOTHEDGE;
+  //FIXME this causes it to trigger on both edges (as expected)
+  //sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_BOTHEDGE;
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
   sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
   sConfigIC.ICFilter = 0;
@@ -442,16 +446,15 @@ void RC5_Decode_Init(void)
   }
 
 
-  /*
   //FIXME is this commented out? I can do polarity both above...
   sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_FALLING;
+  //I think this links TIM input 1 to CH2?
   sConfigIC.ICSelection = TIM_ICSELECTION_INDIRECTTI;
   if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_2) != HAL_OK)
   {
      iprintf("Error\r\n");
      while(1) {}
   }
-  */
 
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_ENABLE;
@@ -465,13 +468,16 @@ void RC5_Decode_Init(void)
   //FIXME ?
   //TIM_UpdateRequestConfig(IR_TIM,  TIM_UpdateSource_Regular);
 
-  //FIXME want to enable this?
-  //__HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_UPDATE);
   __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);
+  __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC1);
+  __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC2);
 
-  //FIXME how do we do this?
+  //FIXME needed?
   /* Enable TIM Update Event Interrupt Request */
   //TIM_ITConfig(IR_TIM, TIM_IT_Update, ENABLE);
+  __HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_UPDATE);
+  __HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_CC1);
+  __HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_CC2);
 
   /* Bit time range */
   RC5MinT = (RC5_T_US - RC5_T_TOLERANCE_US) * TIMCLKValueKHz / 1000;
@@ -485,8 +491,10 @@ void RC5_Decode_Init(void)
   /* Default state */
   RC5_ResetPacket();
 
-  //TODO start it?
-  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+
+  //FIXME use this? how?
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 }
 
 /**
@@ -534,6 +542,7 @@ bool RC5_Decode(RC5_Frame_TypeDef *rc5_frame)
 
     return true;
   }
+  iprintf("\r\n# bits = %x bitCount = %d status (1 is empty) = %d", RC5TmpPacket.data, RC5TmpPacket.bitCount, RC5TmpPacket.status);
   return false;
 }
 
@@ -564,11 +573,17 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
   /* Decode the pulse length in protocol units */
   pulse = RC5_GetPulseLength(rawPulseLength);
 
-  //iprintf("  p%d.%d  ", pulse, edge);
+  //iprintf("%d.%d:", pulse, edge);
+  //iprintf("%d:", pulse);
+  //FIXME rm
+  iprintf("%d:", rawPulseLength);
 
   /* On Rising Edge */
   if (edge == 1)
-  { 
+  {
+     //FIXME rm
+    iprintf("r");
+
     if (pulse <= RC5_2T_TIME) 
     { 
       /* Bit determination by the rising edge */
@@ -577,15 +592,22 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
     }
     else
     {
+       //FIXME rm
+      iprintf("R");
       RC5_ResetPacket();
     }
   } 
   else     /* On Falling Edge */
   {
+    //FIXME rm
+    iprintf("f");
+
     /* If this is the first falling edge - don't compute anything */
     if (RC5TmpPacket.status & RC5_PACKET_STATUS_EMPTY)
-    { 
+    {
+      iprintf("F");
       RC5TmpPacket.status &= (uint8_t)~RC5_PACKET_STATUS_EMPTY;
+
     }
     else	
     {
@@ -597,6 +619,8 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
       }
       else
       {
+        //FIXME rm
+        iprintf("R");
         RC5_ResetPacket();
       }
     }
@@ -609,10 +633,10 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
   * @retval bit time value
   */
 static uint8_t RC5_GetPulseLength (uint16_t pulseLength)
-{ 
+{
   /* Valid bit time */
   if ((pulseLength > RC5MinT) && (pulseLength < RC5MaxT))
-  { 
+  {
     /* We've found the length */
     return (RC5_1T_TIME);	/* Return the correct value */
   }

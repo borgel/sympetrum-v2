@@ -82,7 +82,7 @@ int main(void)
       //iprintf("TIM16,TIM17 %d,%d\r\n",  __HAL_TIM_GetCounter(&htim16),  __HAL_TIM_GetCounter(&htim17));
 
       //iprintf("TIM2 %d\r\n",  __HAL_TIM_GetCounter(&htim2));
-      /*
+
       if(RC5_Decode(&rcf)) {
          //iprintf("Got full RC5 Packet!\r\n");
          iprintf("Addr   %d\r\n", rcf.Address);
@@ -91,7 +91,6 @@ int main(void)
          iprintf("Toggle %d\r\n", rcf.ToggleBit);
          iprintf("\r\n");
       }
-      */
 
       //FIXME rm toggle LED
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
