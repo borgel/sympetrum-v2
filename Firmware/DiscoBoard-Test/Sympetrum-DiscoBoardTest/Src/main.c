@@ -100,6 +100,7 @@ int main(void)
 
       if(b > 5) {
          //addr, instruc, ctrl
+         //encoded as 0x0A23
          RC5_Encode_SendFrame(4, 20, RC5_Ctrl_Reset);
          b = 0;
       }

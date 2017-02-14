@@ -183,15 +183,12 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
    {
       /* Peripheral clock enable */
       __HAL_RCC_TIM2_CLK_ENABLE();
+      __HAL_RCC_GPIOA_CLK_ENABLE();
 
-      /**TIM2 GPIO Configuration    
-       *     PA5     ------> TIM2_CH1
-       *         */
-      GPIO_InitStruct.Pin = GPIO_PIN_5;
+      GPIO_InitStruct.Pin = GPIO_PIN_1;
       GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
       GPIO_InitStruct.Pull = GPIO_NOPULL;
-      //FIXME frq high?
-      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
       GPIO_InitStruct.Alternate = GPIO_AF2_TIM2;
       HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
@@ -240,10 +237,7 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
       /* Peripheral clock disable */
       __HAL_RCC_TIM2_CLK_DISABLE();
 
-      /**TIM2 GPIO Configuration    
-       *     PA5     ------> TIM2_CH1 
-       *         */
-      HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5);
+      HAL_GPIO_DeInit(GPIOA, GPIO_PIN_1);
 
       /* Peripheral interrupt DeInit*/
       HAL_NVIC_DisableIRQ(TIM2_IRQn);

@@ -103,7 +103,8 @@ void TIM2_IRQHandler(void)
 
    /* - Timer Falling Edge Event:
     *     The Timer interrupt is used to measure the period between two 
-    *     successive falling edges (The whole pulse duration).
+    *     successive falling edges (The whole pulse duration). Starts
+    *     counting at one falling edge, then triggers on the next?
     *
     * - Timer Rising Edge Event:  
     *     It is also used to measure the duration between falling and rising 
@@ -117,15 +118,13 @@ void TIM2_IRQHandler(void)
     *     - The Timer Overflow is set to 3.6 ms .*/
    /* IC1 Interrupt*/
    //if((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_CC2) != RESET))
-   if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_CC2) != RESET)
+   if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_CC2))
    {
       //TIM_ClearFlag(IR_TIM, TIM_FLAG_CC2);
       __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC2);
 
       /* Get the Input Capture value */
       //ICValue2 = TIM_GetCapture2(IR_TIM);
-      //param is channel 1-4
-      //FIXME not sure... what's on CH2?
       //ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, 2);
       ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_2);
       //ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_1);
@@ -133,11 +132,11 @@ void TIM2_IRQHandler(void)
       //FIXME rm
       //iprintf("<O2 %d]", ICValue2);
 
-      /* RC5 */
+      //time falling to falling?
       RC5_DataSampling(ICValue2 - ICValue1 , 0);
    }  /* IC2 Interrupt */
    //else if((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_CC1) != RESET))
-   else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_CC1) != RESET)
+   else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_CC1))
    {
       //TIM_ClearFlag(IR_TIM, TIM_FLAG_CC1);
       __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC1);
@@ -155,7 +154,7 @@ void TIM2_IRQHandler(void)
    } 
    /* Checks whether the IR_TIM flag is set or not.*/
    //else if ((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_Update) != RESET))
-   else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_UPDATE) != RESET)
+   else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_UPDATE))
    {
       //FIXME rm
       iprintf("R\r\n\r\n]");

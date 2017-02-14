@@ -385,13 +385,10 @@ void RC5_Decode_Init(void)
   TIM_IC_InitTypeDef sConfigIC;
   TIM_MasterConfigTypeDef sMasterConfig;
 
-  /* Timer Clock */
+  //calculate timeouts
   TIMCLKValueKHz = TIM_GetCounterCLKValue()/1000; 
-
-  //FIXME rm
-  iprintf("Value KHz = %d\r\n", TIMCLKValueKHz);
-
   RC5TimeOut = TIMCLKValueKHz * (RC5_TIME_OUT_US / 1000);
+  iprintf("Value KHz = %d\r\n", TIMCLKValueKHz);
   iprintf("RC5 timeout = %d\r\n", RC5TimeOut);
 
   htim2.Instance = TIM2;
@@ -405,7 +402,6 @@ void RC5_Decode_Init(void)
      iprintf("Error\r\n");
      while(1) {}
   }
-
 
   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
   if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
@@ -421,36 +417,12 @@ void RC5_Decode_Init(void)
   }
 
   sSlaveConfig.SlaveMode = TIM_SLAVEMODE_RESET;
-  //sSlaveConfig.InputTrigger = TIM_TS_TI1FP1;
+  //tell the slave timer to take interrupts from timer (ch) 2
   sSlaveConfig.InputTrigger = TIM_TS_TI2FP2;
-  sSlaveConfig.TriggerPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
-  sSlaveConfig.TriggerPrescaler = TIM_ICPSC_DIV1;
+  sSlaveConfig.TriggerPolarity = TIM_INPUTCHANNELPOLARITY_FALLING;
+  //sSlaveConfig.TriggerPrescaler = TIM_ICPSC_DIV1;
   sSlaveConfig.TriggerFilter = 0;
-  //if (HAL_TIM_SlaveConfigSynchronization_IT(&htim2, &sSlaveConfig) != HAL_OK)
-  if (HAL_TIM_SlaveConfigSynchronization(&htim2, &sSlaveConfig) != HAL_OK)
-  {
-     iprintf("Error\r\n");
-     while(1) {}
-  }
-
-  //FIXME this causes it to trigger on both edges (as expected)
-  //sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_BOTHEDGE;
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
-  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
-  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
-  sConfigIC.ICFilter = 0;
-  if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
-  {
-     iprintf("Error\r\n");
-     while(1) {}
-  }
-
-
-  //FIXME is this commented out? I can do polarity both above...
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_FALLING;
-  //I think this links TIM input 1 to CH2?
-  sConfigIC.ICSelection = TIM_ICSELECTION_INDIRECTTI;
-  if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_2) != HAL_OK)
+  if (HAL_TIM_SlaveConfigSynchronization_IT(&htim2, &sSlaveConfig) != HAL_OK)
   {
      iprintf("Error\r\n");
      while(1) {}
@@ -464,20 +436,39 @@ void RC5_Decode_Init(void)
      while(1) {}
   }
 
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
+  sConfigIC.ICSelection = TIM_ICSELECTION_INDIRECTTI;
+  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
+  if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
+  {
+     iprintf("Error\r\n");
+     while(1) {}
+  }
+
+   //ch2 is FALLING
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_FALLING;
+  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
+  if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_2) != HAL_OK)
+  {
+     iprintf("Error\r\n");
+     while(1) {}
+  }
+
+
   /* Configures the TIM Update Request Interrupt source: counter overflow */
   //FIXME ?
   //TIM_UpdateRequestConfig(IR_TIM,  TIM_UpdateSource_Regular);
 
   __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);
-  __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC1);
-  __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC2);
+  //__HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC1);
+  //__HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC2);
 
   //FIXME needed?
   /* Enable TIM Update Event Interrupt Request */
   //TIM_ITConfig(IR_TIM, TIM_IT_Update, ENABLE);
   __HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_UPDATE);
-  __HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_CC1);
-  __HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_CC2);
+  //__HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_CC1);
+  //__HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_CC2);
 
   /* Bit time range */
   RC5MinT = (RC5_T_US - RC5_T_TOLERANCE_US) * TIMCLKValueKHz / 1000;
@@ -491,10 +482,9 @@ void RC5_Decode_Init(void)
   /* Default state */
   RC5_ResetPacket();
 
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-
-  //FIXME use this? how?
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_Base_Start(&htim2);
+  //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 }
 
 /**
