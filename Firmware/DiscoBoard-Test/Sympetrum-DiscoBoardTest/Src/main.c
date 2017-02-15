@@ -101,6 +101,7 @@ int main(void)
       if(b > 5) {
          //addr, instruc, ctrl
          //encoded as 0x0A23
+         //encoded as 0x35DC inverted (as IR RX'd)
          RC5_Encode_SendFrame(4, 20, RC5_Ctrl_Reset);
          b = 0;
       }
@@ -236,6 +237,13 @@ static void MX_GPIO_Init(void)
    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
    //GPIO for IR done in HAL MSP
+
+   //FIXME rm
+   GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
+   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+   GPIO_InitStruct.Pull = GPIO_NOPULL;
+   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
 }
 

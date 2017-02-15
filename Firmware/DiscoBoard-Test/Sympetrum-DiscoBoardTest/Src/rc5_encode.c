@@ -215,9 +215,14 @@ void RC5_Encode_SignalGenerate(void)
        //enable the data out clock
        HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
 
+       /*
        //FIXME rm, play out a GPIO for testing
        if(GPIO_PIN_RESET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
          HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
+       }
+       */
+       if(GPIO_PIN_SET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
+          HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
        }
     }
     else
@@ -225,9 +230,14 @@ void RC5_Encode_SignalGenerate(void)
        //FIXME rm, play out a GPIO for testing
        HAL_TIM_PWM_Stop(&htim17, TIM_CHANNEL_1);
 
+       /*
        //FIXME rm
        if(GPIO_PIN_SET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
           HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+       }
+       */
+       if(GPIO_PIN_RESET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
+         HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
        }
     }
     BitsSent_Counter++;

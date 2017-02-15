@@ -49,7 +49,7 @@ extern TIM_HandleTypeDef htim16;
 extern TIM_HandleTypeDef htim17;
 
 //FIXME move these out of this file (into RC5?)
-static uint32_t ICValue1, ICValue2;
+static uint32_t ICValue1 = 0, ICValue2 = 0;
 
 /******************************************************************************/
 /*            Cortex-M0 Processor Interruption and Exception Handlers         */ 
@@ -127,13 +127,15 @@ void TIM2_IRQHandler(void)
       //ICValue2 = TIM_GetCapture2(IR_TIM);
       //ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, 2);
       ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_2);
-      //ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_1);
 
       //FIXME rm
       //iprintf("<O2 %d]", ICValue2);
 
       //time falling to falling?
       RC5_DataSampling(ICValue2 - ICValue1 , 0);
+
+      //FIXME rm
+      HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_5);
    }  /* IC2 Interrupt */
    //else if((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_CC1) != RESET))
    else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_CC1))
@@ -151,9 +153,13 @@ void TIM2_IRQHandler(void)
       //iprintf("<O1 %d]", ICValue1);
 
       RC5_DataSampling(ICValue1 , 1);
+
+      //FIXME rm
+      HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_4);
    } 
    /* Checks whether the IR_TIM flag is set or not.*/
    //else if ((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_Update) != RESET))
+   //else if(__HAL_TIM_GET_IT_SOURCE(&htim2, TIM_FLAG_UPDATE) == SET)
    else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_UPDATE))
    {
       //FIXME rm

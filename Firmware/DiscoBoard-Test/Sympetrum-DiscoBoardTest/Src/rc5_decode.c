@@ -554,6 +554,9 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
   uint8_t pulse;
   tRC5_lastBitType tmpLastBit;
 
+  //FIXME rm
+//#define iprintf(...)
+
   /* Decode the pulse length in protocol units */
   pulse = RC5_GetPulseLength(rawPulseLength);
 
@@ -569,7 +572,7 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
     iprintf("r");
 
     if (pulse <= RC5_2T_TIME) 
-    { 
+    {
       /* Bit determination by the rising edge */
       tmpLastBit = RC5_logicTableRisingEdge[RC5TmpPacket.lastBit][pulse];
       RC5_modifyLastBit (tmpLastBit);

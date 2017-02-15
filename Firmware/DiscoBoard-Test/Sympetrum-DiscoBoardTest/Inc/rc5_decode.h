@@ -99,7 +99,7 @@ typedef enum RC5_lastBitType tRC5_lastBitType;
 #define RC5_T_TOLERANCE_US                   270    /*!< Tolerance time */
 #define RC5_NUMBER_OF_VALID_PULSE_LENGTH     2
 //FIXME isn't this 14 bits?
-#define RC5_PACKET_BIT_COUNT                 13      /*!< Total bits */
+#define RC5_PACKET_BIT_COUNT                 14      /*!< Total bits */
 
 /* Packet struct for reception*/
 #define RC5_PACKET_STATUS_EMPTY              1<<0
