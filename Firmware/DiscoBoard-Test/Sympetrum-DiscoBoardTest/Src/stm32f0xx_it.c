@@ -1,73 +1,75 @@
-/**
-  ******************************************************************************
-  * @file    stm32f0xx_it.c
-  * @brief   Interrupt Service Routines.
-  ******************************************************************************
-  *
-  * COPYRIGHT(c) 2017 STMicroelectronics
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
-/* Includes ------------------------------------------------------------------*/
+/*
+ * The root of all ISRs for the entire program live in this file.
+ */
 #include "stm32f0xx_hal.h"
 #include "stm32f0xx.h"
 #include "stm32f0xx_it.h"
+#include "stm32f0xx_hal_tim.h"
+#include "stm32f0xx_hal_tim_ex.h"
 
-/* USER CODE BEGIN 0 */
+#include "rc5_encode.h"
+#include "rc5_decode.h"
 
-/* USER CODE END 0 */
+#include "iprintf.h"
 
-/* External variables --------------------------------------------------------*/
 
-/******************************************************************************/
-/*            Cortex-M0 Processor Interruption and Exception Handlers         */ 
-/******************************************************************************/
+//TODO find a better way to pass these in
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim16;
+extern TIM_HandleTypeDef htim17;
+
+//TODO move these out of this file (into RC5?)?
+static uint32_t ICValue2 = 0;
+static uint8_t pol;
 
 /**
-* @brief This function handles System tick timer.
-*/
+ * @brief This function handles System tick timer.
+ */
 void SysTick_Handler(void)
 {
-  /* USER CODE BEGIN SysTick_IRQn 0 */
-
-  /* USER CODE END SysTick_IRQn 0 */
-  HAL_IncTick();
-  HAL_SYSTICK_IRQHandler();
-  /* USER CODE BEGIN SysTick_IRQn 1 */
-
-  /* USER CODE END SysTick_IRQn 1 */
+   HAL_IncTick();
+   HAL_SYSTICK_IRQHandler();
 }
 
-/******************************************************************************/
-/* STM32F0xx Peripheral Interrupt Handlers                                    */
-/* Add here the Interrupt Handlers for the used peripherals.                  */
-/* For the available peripheral interrupt handler names,                      */
-/* please refer to the startup file (startup_stm32f0xx.s).                    */
-/******************************************************************************/
+/*
+ * Handle the bit clock ISR for sending IR.
+ */
+void TIM16_IRQHandler(void)
+{
+   //figure out the next stage of the outgoing signal
+   RC5_Encode_SignalGenerate();
 
-/* USER CODE BEGIN 1 */
+   /* Clear TIM16 update interrupt */
+   __HAL_TIM_CLEAR_FLAG(&htim16, TIM_FLAG_UPDATE);
+}
 
-/* USER CODE END 1 */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/*
+ * Handle the ISR used when decoding incoming IR.
+ */
+void TIM2_IRQHandler(void)
+{
+   /* Clear the TIM2 Update pending bit (but doesn't clear the flag)*/
+   __HAL_TIM_CLEAR_IT(&htim2, TIM_FLAG_UPDATE);
+
+   // track the time between ALL edges of the incoming signal.
+   if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_CC2))
+   {
+      __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC2);
+
+      ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_2);
+
+      //get current polarity and assume we just saw the opposite edge
+      pol = (GPIO_PIN_SET == HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1));
+
+      RC5_DataSampling(ICValue2, pol);
+   }
+   //check for IR bit timeout
+   else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_UPDATE))
+   {
+      /* Clears the IR_TIM's pending flags*/
+      __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);
+
+      RC5_ResetPacket(); 
+   }
+}
+

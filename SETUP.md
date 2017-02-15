@@ -3,7 +3,7 @@
 
 A very handy GUI tool for confguring peripherals, clocktrees, etc. Can generate init code. Figuring out how to init peripherals in ST land can be _murderous_, so I recommend trying to use the tool.
 
-1. Download STM32 Cube MX
+1. Download [STM32 Cube MX](http://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-configurators-and-code-generators/stm32cubemx.html) from ST.
 
 2. Install it. This will REQURE a version of the JRE and JDK (1.8 at time of writing). You MUST install these from the Oracle website [1] before the CubeMX installer will run.
 

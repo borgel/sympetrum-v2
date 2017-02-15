@@ -69,7 +69,7 @@ CFLAGS += -std=c99 -MD -MP -MF .dep/$(@F).d
 #LDSCRIPT = STM32F051R8Tx_FLASH.ld
 LDSCRIPT = SW4STM32/Sympetrum-DiscoBoardTest/STM32F051R8Tx_FLASH.ld
 # libraries
-LIBS = -lc -lm -lnosys
+LIBS = -lc -lnosys
 LIBDIR =
 LDFLAGS = -mthumb -mcpu=cortex-m0 -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 

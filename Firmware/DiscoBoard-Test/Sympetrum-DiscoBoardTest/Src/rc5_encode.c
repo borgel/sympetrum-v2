@@ -1,82 +1,28 @@
-/**
-  ******************************************************************************
-  * @file    rc5_encode.c
-  * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-May-2012
-  * @brief   This file provides all the sony rc5 encode firmware functions
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
-  ******************************************************************************
-  */
-
-/* Includes ------------------------------------------------------------------*/        
+/*
+ */
 #include "main.h"
+#include "rc5_encode.h"
+#include "iprintf.h"
 
-/** @addtogroup STM320518_EVAL_Demo
-  * @{
-  */
+#include "stm32f0xx.h"
+#include "stm32f0xx_it.h"
+#include "stm32f0xx_hal.h"
+#include "stm32f0xx_hal_tim.h"
 
-/** @addtogroup RC5_ENCODE
-  * @brief RC5_ENCODE driver modules
-  * @{
-  */
-
-/** @defgroup RC5_ENCODE_Private_TypesDefinitions
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @defgroup RC5_ENCODE_Private_Defines
-  * @{
-  */
-#define MESSAGE1  "LEFT | RIGHT| DOWN  | SEL  "
-#define MESSAGE2  "PREV | NEXT |SWITCH | SEND "
+#include <stdint.h>
 
 #define  RC5HIGHSTATE     ((uint8_t )0x02)   /* RC5 high level definition*/
 #define  RC5LOWSTATE      ((uint8_t )0x01)   /* RC5 low level definition*/
-/**
-  * @}  
-  */
 
-
-/** @defgroup RC5_ENCODE_Private_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @defgroup RC5_ENCODE_Private_Variables
-  * @{
-  */
-uint8_t RC5_RealFrameLength = 14;
-uint8_t RC5_GlobalFrameLength = 64;
-uint16_t RC5_FrameBinaryFormat = 0;
-uint32_t RC5_FrameManchestarFormat = 0;
-uint8_t Send_Operation_Ready = 0;
+static uint8_t RC5_RealFrameLength = 14;
+static uint8_t RC5_GlobalFrameLength = 64;
+static uint16_t RC5_FrameBinaryFormat = 0;
+static uint32_t RC5_FrameManchestarFormat = 0;
+static uint8_t Send_Operation_Ready = 0;
 __IO uint8_t Send_Operation_Completed = 1;
-uint8_t BitsSent_Counter = 0;
+static uint8_t BitsSent_Counter = 0;
 
+//TODO are these used externally?
 uint8_t AddressIndex = 0;
 uint8_t InstructionIndex = 0;
 RC5_Ctrl_TypeDef RC5_Ctrl1 = RC5_Ctrl_Reset;
@@ -84,444 +30,281 @@ RC5_Ctrl_TypeDef RC5_Ctrl2 = RC5_Ctrl_Reset;
 extern uint8_t* rc5_Commands[];
 extern uint8_t* rc5_devices[];
 extern __IO uint8_t RFDemoStatus; 
-/**
-  * @}
-  */
 
-/** @defgroup RC5_ENCODE_Private_FunctionPrototypes
-  * @{
-  */
+//FIXME pass in?
+extern TIM_HandleTypeDef htim16;
+extern TIM_HandleTypeDef htim17;
+
 static uint16_t RC5_BinFrameGeneration(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl);
 static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat);
+static void TIM17_Init(void);
+static void TIM16_Init(void);
 
-/**
-  * @}
-  */
+//FIXME rm?
+static void Error_Handler(void) {}
 
-/** @defgroup RC5_ENCODE_Private_Functions
-  * @{
-  */
-
-/**
-  * @brief  RCR receiver demo exec.
-  * @param  None
-  * @retval None
-  */
-void Menu_RC5_Encode_Func(void)
+void RC5_Encode_Init(void)
 {
-  uint8_t pressedkey = 0, index = 0;
-  
-  /* Disable the JoyStick interrupt */
-  Demo_IntExtOnOffCmd(DISABLE);
-  
-  while (Menu_ReadKey() != NOKEY)
-  {}
-  /* Clear the LCD */ 
-  LCD_Clear(LCD_COLOR_WHITE);   
-  
-  /* Display Image */
-  LCD_SetDisplayWindow(120, 192, 64, 64);
-  Storage_OpenReadFile(120, 192, "STFILES/Icon11.BMP");  
-  LCD_WindowModeDisable();
-  
-  LCD_SetFont(&Font12x12);
-  /* Set the LCD Back Color */
-  LCD_SetBackColor(LCD_COLOR_CYAN);
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_BLACK); 
-  LCD_DisplayStringLine(LINE(18), (uint8_t *)MESSAGE1);
-  /* Set the LCD Back Color */
-  LCD_SetBackColor(LCD_COLOR_BLUE);
-  LCD_SetTextColor(LCD_COLOR_WHITE);
-  LCD_DisplayStringLine(LINE(19), (uint8_t *)MESSAGE2);
-  LCD_SetFont(&Font16x24);
 
-  RC5_Encode_Init();     
-  AddressIndex = 0;
-  RFDemoStatus = RC5DEMO;
-  InstructionIndex = 0;
-  
-  pressedkey = Menu_ReadKey();
+   TIM17_Init();
+   TIM16_Init();
+}
 
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_RED);
-  /* Display the device address message */
-  LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_WHITE);
-  /* Display the device address message */
-  LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-  
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_RED);
+/**
+ * @brief  Generate and Send the RC5 frame.
+ * @param  RC5_Address: the RC5 Device destination 
+ * @param  RC5_Instruction: the RC5 command instruction 
+ * @param  RC5_Ctrl: the RC5 Control bit.
+ * @retval None
+ */
+void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl)
+{
+   HAL_StatusTypeDef res;
+   uint16_t RC5_FrameBinaryFormat = 0;
 
-  while(pressedkey != UP)
-  { 
-    pressedkey = Menu_ReadKey();
-    /* To switch between device address and command */
-    if (pressedkey == DOWN)
-    {
-      /* Set the LCD Text Color */
-      LCD_SetTextColor(LCD_COLOR_WHITE);
+   /* Generate a binary format of the Frame */
+   RC5_FrameBinaryFormat = RC5_BinFrameGeneration(RC5_Address, RC5_Instruction, RC5_Ctrl);
 
-      if (index == 0)
-      { 
-        index = 1;
-        /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-        /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
+   /* Generate a Manchester format of the Frame */
+   RC5_FrameManchestarFormat = RC5_ManchesterConvert(RC5_FrameBinaryFormat);
+
+   /* Set the Send operation Ready flag to indicate that the frame is ready to be sent */
+   Send_Operation_Ready = 1;
+
+   //start the bit clock. Each edge it will send data on its own
+   res = HAL_TIM_Base_Start_IT(&htim16);
+   if(res != HAL_OK) {
+      iprintf("Failed to start TIM16 CH1 to send\r\n");
+   }
+}
+
+/**
+ * @brief  Send by hardware Manchester Format RC5 Frame.
+ * @param  RC5_BinaryFrameFormat: the RC5 frame in binary format.
+ * @retval Noe
+ */
+void RC5_Encode_SignalGenerate(void)
+{
+   uint8_t bit_msg = 0;
+
+   if((Send_Operation_Ready == 1) && (BitsSent_Counter <= (RC5_GlobalFrameLength * 2)))
+   {
+      Send_Operation_Completed = 0x00;
+      bit_msg = (uint8_t)((RC5_FrameManchestarFormat >> BitsSent_Counter)& 1);
+
+      if (bit_msg== 1)
+      {
+         //enable the data out clock
+         HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
+
+         /*
+         //FIXME rm, play out a GPIO for testing
+         if(GPIO_PIN_RESET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
+         HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
+         }
+          */
+         if(GPIO_PIN_SET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
+            HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+         }
       }
       else
       {
-        index = 0;
-        /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-          /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
+         //FIXME rm, play out a GPIO for testing
+         HAL_TIM_PWM_Stop(&htim17, TIM_CHANNEL_1);
+
+         /*
+         //FIXME rm
+         if(GPIO_PIN_SET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
+         HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+         }
+          */
+         if(GPIO_PIN_RESET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
+            HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
+         }
       }
-    }
-    if (index == 0)
-    {
-      /* Commands index decrement */
-      if (pressedkey == LEFT)
-      {
-        if (InstructionIndex == 0)
-        { 
-          InstructionIndex = 127;
-        }
-        else
-        {
-          InstructionIndex--;
-        }
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-        /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
+      BitsSent_Counter++;
+
+      //restart timer to count to next bit edge
+      HAL_TIM_Base_Start_IT(&htim16);
+   }
+   else
+   {
+      Send_Operation_Completed = 0x01;
+
+      HAL_StatusTypeDef res;
+
+      res = HAL_TIM_Base_Stop_IT(&htim16);
+      if(res != HAL_OK) {
+         iprintf("Failed to stop TIM16 after sending message\r\n");
       }
-      /* Commands index increment */
-      if (pressedkey == RIGHT)
-      {
-        if (InstructionIndex == 127)
-        { 
-          InstructionIndex = 0;
-        }
-        else
-        {
-          InstructionIndex++;
-        }
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-        LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
-      }
-    }
-    else
-    {
-      /* Decrement the address device index */
-      if (pressedkey == LEFT)
-      {
-        if (AddressIndex == 0)
-        { 
-          AddressIndex = 31;
-        }
-        else
-        {
-          AddressIndex--;
-        }
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-        /* Display the device address message */
-        LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-      }
-      /* Increment the address device index increment */
-      if (pressedkey == RIGHT)
-      {
-        if (AddressIndex == 31)
-        { 
-          AddressIndex = 0;
-        }
-        else
-        {
-          AddressIndex++;
-        }
-        /* Set the LCD Text Color */
-        LCD_SetTextColor(LCD_COLOR_RED);
-        LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-      }
-    }
-    if (pressedkey == SEL)
-    {
-      /* Set the LCD Text Color */
-      LCD_SetTextColor(LCD_COLOR_WHITE);
-      
-      LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
-      LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-      /* Button is pressed */
-      RC5_Encode_SendFrame(AddressIndex, InstructionIndex, RC5_Ctrl1);
-    }
-  }
-  LCD_Clear(LCD_COLOR_WHITE);
-  
-  /* Enable the JoyStick interrupt */
-  Demo_IntExtOnOffCmd(ENABLE);
-  
-  /* Display menu */
-  Menu_DisplayMenu();
-}
 
-/**
-  * @brief  Init Hardware (IPs used) for RC5 generation
-  * @param  None
-  * @retval None
-  */
-void RC5_Encode_Init(void)
-{
-  TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
-  TIM_OCInitTypeDef TIM_OCInitStructure;
-  GPIO_InitTypeDef GPIO_InitStructure;
-  NVIC_InitTypeDef NVIC_InitStructure;
-  
-  /* TIM16 clock enable */
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM16, ENABLE);
-  
-  /* TIM17 clock enable */
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM17, ENABLE);
-  
-  /* Pin configuration: input floating */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
-  GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-  GPIO_Init(GPIOB, &GPIO_InitStructure);
-  GPIO_PinAFConfig(GPIOB, GPIO_PinSource9, GPIO_AF_0);
+      //force TIM17's output low so it never accidentally idles high after sending
+      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
 
-  /* DeInit TIM17 */
-  TIM_DeInit(TIM17);
-
-  /* Elementary period 888us */
-  /* Time base configuration for timer 2 */
-  TIM_TimeBaseStructure.TIM_Period = 1333;
-  TIM_TimeBaseStructure.TIM_Prescaler = 0x00;
-  TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
-  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-  TIM_TimeBaseInit(TIM17, &TIM_TimeBaseStructure);
-  
-  /* Prescaler configuration */
-  TIM_PrescalerConfig(TIM17, 0, TIM_PSCReloadMode_Immediate);
-  
-  /* Output Compare Timing Mode configuration: Channel 1N */
-  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
-  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-  TIM_OCInitStructure.TIM_Pulse = 1333/4; /* Set duty cycle to 25% to be compatible with RC5 specification */
-  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-  TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
-  TIM_OC1Init(TIM17, &TIM_OCInitStructure);
-  
-  /* Timer17 preload enable */
-  TIM_OC1PreloadConfig(TIM17, TIM_OCPreload_Enable);
-  
-  /* Timer 17 Enable */
-  TIM_Cmd(TIM17, ENABLE);
-  
-  /* Enable the TIM16 channel1 output to be connected internly to the IRTIM */
-  TIM_CtrlPWMOutputs(TIM17, ENABLE);
-  
-  /* DeInit TIM16 */
-  TIM_DeInit(TIM16);
-
-  /* Time Base = 36Khz */
-  /* Time Base configuration for timer 16 */
-  TIM_TimeBaseStructure.TIM_Prescaler = 0;
-  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-  TIM_TimeBaseStructure.TIM_Period = 42627;//666;
-  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-  TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
-  TIM_TimeBaseInit(TIM16, &TIM_TimeBaseStructure);
-  
-  /* Duty Cycle = 25% */
-  /* Channel 1 Configuration in Timing mode */
-  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
-  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-  TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
-  TIM_OCInitStructure.TIM_Pulse = 42627;
-  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-  TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
-  TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
-  TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
-  TIM_OC1Init(TIM16, &TIM_OCInitStructure);
-   
-  /* Enable the TIM17 Interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = TIM16_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
-
-  /* TIM16 Main Output Enable */
-  TIM_CtrlPWMOutputs(TIM16, ENABLE);
-  
-  /* TIM IT Disable */
-  TIM_ITConfig(TIM16, TIM_IT_Update, DISABLE);
-  
-  /* TIM Disable */
-  TIM_Cmd(TIM16, DISABLE);
-  
-  /* Set the LCD Back Color */
-  LCD_SetBackColor(LCD_COLOR_RED);
-  
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_GREEN);    
-  LCD_DisplayStringLine(LCD_LINE_0, "   STM320518-EVAL   ");
-  LCD_DisplayStringLine(LCD_LINE_1, " RC5 InfraRed Demo  ");
-  LCD_SetBackColor(LCD_COLOR_BLUE);
-  
-  /* Set the LCD Text Color */
-  LCD_SetTextColor(LCD_COLOR_WHITE);  
-}
-
-/**
-  * @brief  Generate and Send the RC5 frame.
-  * @param  RC5_Address: the RC5 Device destination 
-  * @param  RC5_Instruction: the RC5 command instruction 
-  * @param  RC5_Ctrl: the RC5 Control bit.
-  * @retval None
-  */
-void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl)
-{
-  uint16_t RC5_FrameBinaryFormat = 0;
-  
-  /* Generate a binary format of the Frame */
-  RC5_FrameBinaryFormat = RC5_BinFrameGeneration(RC5_Address, RC5_Instruction, RC5_Ctrl);
-  
-  /* Generate a Manchester format of the Frame */
-  RC5_FrameManchestarFormat = RC5_ManchesterConvert(RC5_FrameBinaryFormat);
-  
-  /* Set the Send operation Ready flag to indicate that the frame is ready to be sent */
-  Send_Operation_Ready = 1;
-  
-  /* TIM IT Enable */
-  TIM_ITConfig(TIM16, TIM_IT_Update, ENABLE);
-  /* Enable all Interrupt */
-  TIM_Cmd(TIM16, ENABLE);
-}
-
-/**
-  * @brief  Send by hardware Manchester Format RC5 Frame.
-  * @param  RC5_BinaryFrameFormat: the RC5 frame in binary format.
-  * @retval Noe
-  */
-void RC5_Encode_SignalGenerate(uint32_t RC5_ManchestarFrameFormat)
-{
-  uint8_t bit_msg = 0;
-  
-  if((Send_Operation_Ready == 1) && (BitsSent_Counter <= (RC5_GlobalFrameLength * 2)))
-  {
-    Send_Operation_Completed = 0x00;
-    bit_msg = (uint8_t)((RC5_ManchestarFrameFormat >> BitsSent_Counter)& 1);
-    
-    if (bit_msg== 1)
-    {
-      TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_Active);
-    }
-    else
-    {
-      TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_InActive);
-    }
-    BitsSent_Counter++;
-  }
-  else
-  {
-    Send_Operation_Completed = 0x01;
-    /* TIM IT Disable */
-    TIM_ITConfig(TIM16, TIM_IT_Update, DISABLE);
-    TIM_Cmd(TIM16, DISABLE);
-    Send_Operation_Ready = 0;
-    BitsSent_Counter = 0;
-    TIM_ForcedOC1Config(TIM16, TIM_ForcedAction_InActive);
-  }
+      Send_Operation_Ready = 0;
+      BitsSent_Counter = 0;
+   }
 }
 /**
-  * @brief  Generate the binary format of the RC5 frame.
-  * @param  RC5_Address: Select the device adress.
-  * @param  RC5_Instruction: Select the device instruction.
-  * @param  RC5_Ctrl: Select the device control bit status.
-  * @retval Binary format of the RC5 Frame.
-  */
+ * @brief  Generate the binary format of the RC5 frame.
+ * @param  RC5_Address: Select the device adress.
+ * @param  RC5_Instruction: Select the device instruction.
+ * @param  RC5_Ctrl: Select the device control bit status.
+ * @retval Binary format of the RC5 Frame.
+ */
 static uint16_t RC5_BinFrameGeneration(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl)
 {
-  uint16_t star1 = 0x2000;
-  uint16_t star2 = 0x1000;
-  uint16_t addr = 0;
-  
-  while(Send_Operation_Completed == 0x00) 
-  { 
-  }
+   uint16_t star1 = 0x2000;
+   uint16_t star2 = 0x1000;
+   uint16_t addr = 0;
 
-  /* Check if Instruction is 128-bit length */
-  if(RC5_Instruction >= 64)
-  {
-    /* Reset field bit: command is 7-bit length */
-    star2 = 0;
-    /* Keep the lowest 6 bits of the command */
-    RC5_Instruction &= 0x003F;
-  }
-  else /* Instruction is 64-bit length */
-  {
-    /* Set field bit: command is 6-bit length */
-    star2 = 0x1000;
-  }
+   //don't wipe out globals before they're sent!
+   while(Send_Operation_Completed == 0x00) {}
 
-  Send_Operation_Ready = 0;
-  RC5_FrameManchestarFormat = 0;
-  RC5_FrameBinaryFormat=0;
-  addr = ((uint16_t)(RC5_Address))<<6;
-  RC5_FrameBinaryFormat =  (star1)|(star2)|(RC5_Ctrl)|(addr)|(RC5_Instruction);
-  return (RC5_FrameBinaryFormat);
+   /* Check if Instruction is 128-bit length */
+   if(RC5_Instruction >= 64)
+   {
+      /* Reset field bit: command is 7-bit length */
+      star2 = 0;
+      /* Keep the lowest 6 bits of the command */
+      RC5_Instruction &= 0x003F;
+   }
+   else /* Instruction is 64-bit length */
+   {
+      /* Set field bit: command is 6-bit length */
+      star2 = 0x1000;
+   }
+
+   Send_Operation_Ready = 0;
+   RC5_FrameManchestarFormat = 0;
+   RC5_FrameBinaryFormat=0;
+   addr = ((uint16_t)(RC5_Address))<<6;
+   RC5_FrameBinaryFormat =  (star1)|(star2)|(RC5_Ctrl)|(addr)|(RC5_Instruction);
+   return (RC5_FrameBinaryFormat);
 }
 
 /**
-  * @brief  Convert the RC5 frame from binary to Manchester Format.
-  * @param  RC5_BinaryFrameFormat : the RC5 frame in binary format.
-  * @retval The RC5 frame in Manchester format.
-  */
+ * @brief  Convert the RC5 frame from binary to Manchester Format.
+ * @param  RC5_BinaryFrameFormat : the RC5 frame in binary format.
+ * @retval The RC5 frame in Manchester format.
+ */
 static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat)
 {
-  uint8_t i=0;
-  uint16_t Mask = 1;
-  uint16_t bit_format = 0;
-  uint32_t ConvertedMsg =0;
-  
-  for (i=0; i < RC5_RealFrameLength; i++)
-  {
-    bit_format =((((uint16_t)(RC5_BinaryFrameFormat))>>i)& Mask)<<i;
-    ConvertedMsg = ConvertedMsg << 2;
-    
-    if(bit_format != 0 ) /* Manchester 1 -|_  */
-    {
-      ConvertedMsg |= RC5HIGHSTATE;
-    }
-    else /* Manchester 0 _|-  */
-    {
-      ConvertedMsg |= RC5LOWSTATE;
-    }
-  }
-  return (ConvertedMsg);
+   uint8_t i=0;
+   uint16_t Mask = 1;
+   uint16_t bit_format = 0;
+   uint32_t ConvertedMsg =0;
+
+   for (i=0; i < RC5_RealFrameLength; i++)
+   {
+      bit_format =((((uint16_t)(RC5_BinaryFrameFormat))>>i)& Mask)<<i;
+      ConvertedMsg = ConvertedMsg << 2;
+
+      if(bit_format != 0 ) /* Manchester 1 -|_  */
+      {
+         ConvertedMsg |= RC5HIGHSTATE;
+      }
+      else /* Manchester 0 _|-  */
+      {
+         ConvertedMsg |= RC5LOWSTATE;
+      }
+   }
+   return (ConvertedMsg);
 }
 
-/**
-* @}
-*/
+/* TIM16 init function */
+static void TIM16_Init(void)
+{
+   TIM_OC_InitTypeDef sConfigOC;
+   TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
 
-/**
-  * @}
-  */
+   htim16.Instance = TIM16;
+   htim16.Init.Prescaler = 0;
+   htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
+   htim16.Init.Period = 42627;
+   htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+   htim16.Init.RepetitionCounter = 0;
+   htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+   if (HAL_TIM_Base_Init(&htim16) != HAL_OK)
+   {
+      Error_Handler();
+   }
 
-/**
-  * @}
-  */
-  
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+   if (HAL_TIM_PWM_Init(&htim16) != HAL_OK)
+   {
+      Error_Handler();
+   }
+
+   sConfigOC.OCMode = TIM_OCMODE_PWM1;
+   sConfigOC.Pulse = 42627;
+   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+   sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
+   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
+   sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+   if (HAL_TIM_PWM_ConfigChannel(&htim16, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+   {
+      Error_Handler();
+   }
+
+   sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
+   sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
+   sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
+   sBreakDeadTimeConfig.DeadTime = 0;
+   sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
+   sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
+   sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_ENABLE;
+   if (HAL_TIMEx_ConfigBreakDeadTime(&htim16, &sBreakDeadTimeConfig) != HAL_OK)
+   {
+      Error_Handler();
+   }
+}
+
+/* TIM17 init function */
+static void TIM17_Init(void)
+{
+   TIM_OC_InitTypeDef sConfigOC;
+   TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
+
+   htim17.Instance = TIM17;
+   htim17.Init.Prescaler = 0;
+   htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
+   htim17.Init.Period = 1333;
+   htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+   htim17.Init.RepetitionCounter = 0;
+   htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+   if (HAL_TIM_Base_Init(&htim17) != HAL_OK)
+   {
+      Error_Handler();
+   }
+
+   if (HAL_TIM_PWM_Init(&htim17) != HAL_OK)
+   {
+      Error_Handler();
+   }
+
+   sConfigOC.OCMode = TIM_OCMODE_PWM1;
+   sConfigOC.Pulse = 333;
+   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+   sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
+   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
+   sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+   if (HAL_TIM_PWM_ConfigChannel(&htim17, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+   {
+      Error_Handler();
+   }
+
+   sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
+   sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
+   sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
+   sBreakDeadTimeConfig.DeadTime = 0;
+   sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
+   sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
+   sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
+   if (HAL_TIMEx_ConfigBreakDeadTime(&htim17, &sBreakDeadTimeConfig) != HAL_OK)
+   {
+      Error_Handler();
+   }
+}
+

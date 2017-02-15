@@ -3,6 +3,7 @@
 #include "main.h"
 #include "stm32f0xx_hal.h"
 #include "stm32f0xx_hal_gpio.h"
+#include "stm32f0xx_hal_tim.h"
 #include "iprintf.h"
 
 #include "rc5_encode.h"
@@ -13,6 +14,10 @@
 
 SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart2;
+
+TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim16;
+TIM_HandleTypeDef htim17;
 
 void SystemClock_Config(void);
 void Error_Handler(void);
@@ -58,23 +63,44 @@ int main(void)
    sendLEDTest(0);
    iprintf("Done sending LEDs\r\n");
 
+   iprintf("Setting up RC5 encode/decode...");
+   RC5_Encode_Init();
+   RC5_Decode_Init();
+   iprintf("ok\r\n");
+
    int i;
    uint8_t b = 0;
+   RC5_Frame_TypeDef rcf;
    while (1)
    {
-      iprintf("again ");
+      /*
+         iprintf("LEDs to %d\r\n", b);
+         sendLEDTest(b);
+         b += 10;
+       */
 
-      iprintf("LEDs to %d\r\n", b);
-      sendLEDTest(b);
-      b += 10;
+      if(RC5_Decode(&rcf)) {
+         iprintf("Addr   %d\r\n", rcf.Address);
+         iprintf("Comd   %d\r\n", rcf.Command);
+         iprintf("Field  %d\r\n", rcf.FieldBit);
+         iprintf("Toggle %d\r\n", rcf.ToggleBit);
+         iprintf("\r\n");
+      }
 
-      //FIXME rm toggle LED
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
-      HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-      // spend time
-      for (i = 0; i < 500000; i++);
-   }
 
+      // spend time
+      for (i = 0; i < 1000000; i++);
+
+      if(b > 5) {
+         //addr, instruc, ctrl
+         //encoded as 0x0A23
+         //encoded as 0x35DC inverted (as IR RX'd)
+         RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
+         b = 0;
+      }
+      b++;
+   }
 }
 
 /** System Clock Configuration
@@ -184,6 +210,7 @@ static void MX_GPIO_Init(void)
 
    /* GPIO Ports Clock Enable */
    __HAL_RCC_GPIOA_CLK_ENABLE();
+   __HAL_RCC_GPIOB_CLK_ENABLE();
    __HAL_RCC_GPIOC_CLK_ENABLE();
 
    /*Configure GPIO pin Output Level */
@@ -201,12 +228,7 @@ static void MX_GPIO_Init(void)
    GPIO_InitStruct.Pull = GPIO_NOPULL;
    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
 }
-
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */
 
 /**
  * @brief  This function is executed in case of error occurrence.
