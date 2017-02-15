@@ -28,7 +28,6 @@
 /* Includes ------------------------------------------------------------------*/        
 #include "main.h"
 #include "rc5_encode.h"
-#include "ir_decode.h"
 #include "iprintf.h"
 
 #include "stm32f0xx.h"

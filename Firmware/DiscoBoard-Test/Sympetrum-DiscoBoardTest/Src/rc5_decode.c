@@ -18,7 +18,6 @@
   */
 
 #include "rc5_decode.h"
-#include "ir_decode.h"
 #include "iprintf.h"
 
 #include "stm32f0xx_hal.h"
@@ -248,7 +247,7 @@ const tRC5_lastBitType RC5_logicTableFallingEdge[2][2] =
 //TODO pass this in instead
 extern TIM_HandleTypeDef htim2;
 
-__IO StatusYesOrNo RC5FrameReceived = NO; /*!< RC5 Frame state */ 
+__IO bool RC5FrameReceived = false; /*!< RC5 Frame state */ 
 __IO tRC5_packet   RC5TmpPacket;          /*!< First empty packet */
 
 /* RC5  bits time definitions */
@@ -367,7 +366,7 @@ void RC5_Decode_Init(void)
 bool RC5_Decode(RC5_Frame_TypeDef *rc5_frame)
 { 
   /* If frame received */
-  if(RC5FrameReceived != NO)
+  if(RC5FrameReceived)
   {
 
     RC5_Data = RC5TmpPacket.data ;
@@ -389,7 +388,7 @@ bool RC5_Decode(RC5_Frame_TypeDef *rc5_frame)
     iprintf("Device:%s\r\n", rc5_devices[rc5_frame->Address]);
 
     /* Default state */
-    RC5FrameReceived = NO;
+    RC5FrameReceived = false;
 
     RC5_ResetPacket();
 
@@ -559,7 +558,7 @@ static void RC5_WriteBit(uint8_t bitVal)
   } 
   else
   {
-    RC5FrameReceived = YES;
+    RC5FrameReceived = true;
   }
 }
 
