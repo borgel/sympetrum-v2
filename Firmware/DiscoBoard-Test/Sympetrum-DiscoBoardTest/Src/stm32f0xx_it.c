@@ -48,8 +48,8 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim16;
 extern TIM_HandleTypeDef htim17;
 
-//FIXME move these out of this file (into RC5?)
-static uint32_t ICValue1 = 0, ICValue2 = 0;
+//TODO move these out of this file (into RC5?)
+static uint32_t ICValue2 = 0;
 static uint8_t pol;
 
 /******************************************************************************/

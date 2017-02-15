@@ -1,54 +1,22 @@
 /**
+  TODO update this block
   ******************************************************************************
-  * @file    rc5_decode.c
-  * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-May-2012
-  * @brief   This file provides all the RC5 firmware functions.
-  *   
-  * 1. How to use this driver
-  * -------------------------  
-  *      - Call the function RC5_Init() to configure the Timer and GPIO hardware
-  *        resources needed for RC5 decoding.
-  *        
+  * Notes
+  * -------------------------
   *      - TIM2 Capture Compare and Update interrupts are used to decode the RC5
   *        frame, if a frame is received correctly a global variable RC5FrameReceived 
   *        will be set to inform the application.
-  *          
-  *      - Then the application should call the function RC5_Decode() to retrieve 
+  *
+  *      - The application should call the function RC5_Decode() to retrieve 
   *        the received RC5 frame.
-  *                   
-  * 2. Important to know
-  * --------------------  
-  *      - TIM2_IRQHandler  ISRs are coded within
-  *        this driver.
+  *
+  *      - TIM2_IRQHandler  ISR is used by this driver.
   *        If you are using one or both Interrupts in your application you have 
-  *        to proceed carefully:   
+  *        to proceed carefully:
   *           - either add your application code in these ISRs
   *           - or copy the contents of these ISRs in you application code
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
-  ******************************************************************************
   */
 
-/* Includes ------------------------------------------------------------------*/
-//FIXME rm?
-#include "main.h"
 #include "rc5_decode.h"
 #include "ir_decode.h"
 #include "iprintf.h"
@@ -60,35 +28,7 @@
 #include <stdbool.h>
 
 
-/** @addtogroup STM320518_EVAL_Demo
-  * @{
-  */
-
-/** @addtogroup RC5_DECODE
-  * @brief RC5_DECODE driver modules
-  * @{
-  */
-
-/** @defgroup RC5_DECODE_Private_TypesDefinitions
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @defgroup RC5_DECODE_Private_Defines
-  * @{
-  */
-/**
-  * @}  
-  */
-
-
-/** @defgroup RC5_DECODE_Private_Macros
-  * @{
-  */
-//FIXME rm these tables?
+//TODO rm these tables?
 /* RC5 address table */
 static char* const rc5_devices[32] = {
         "       TV1          ",                  /*  0 */
@@ -257,13 +197,37 @@ static char* const rc5_Commands[128] = {
         "  TV Parental Access"                                        /* 127 */
    };
 
-/**
-  * @}
-  */
+#define RC5_1T_TIME                          0x00
+#define RC5_2T_TIME                          0x01
+#define RC5_WRONG_TIME                       0xFF
+#define RC5_TIME_OUT_US                      3600
+#define RC5_T_US                             900     /*!< Half bit period */
+#define RC5_T_TOLERANCE_US                   270    /*!< Tolerance time */
+#define RC5_NUMBER_OF_VALID_PULSE_LENGTH     2
+//13 bits to allow 1 to be lost to syncing
+#define RC5_PACKET_BIT_COUNT                 13      /*!< Total bits */
 
-/** @defgroup RC5_DECODE_Private_Variables
-  * @{
-  */
+/* Packet struct for reception*/
+#define RC5_PACKET_STATUS_EMPTY              1<<0
+
+#define TIM_PRESCALER          47                       /* !< TIM prescaler */
+
+typedef struct
+{
+ __IO uint16_t data;     /*!< RC5 data */
+ __IO uint8_t  status;   /*!< RC5 status */
+ __IO uint8_t  lastBit;  /*!< RC5 last bit */
+ __IO uint8_t  bitCount; /*!< RC5 bit count */
+} tRC5_packet;
+
+enum RC5_lastBitType
+{
+  RC5_ZER,
+  RC5_ONE,
+  RC5_NAN,
+  RC5_INV
+};
+typedef enum RC5_lastBitType tRC5_lastBitType;
 
 /* Logic table for rising edge: every line has values corresponding to previous bit.
    In columns are actual bit values for given bit time. */
@@ -281,96 +245,26 @@ const tRC5_lastBitType RC5_logicTableFallingEdge[2][2] =
   {RC5_ONE ,RC5_INV},  /* lastbit = ONE  */
 };
 
+//TODO pass this in instead
+extern TIM_HandleTypeDef htim2;
 
 __IO StatusYesOrNo RC5FrameReceived = NO; /*!< RC5 Frame state */ 
 __IO tRC5_packet   RC5TmpPacket;          /*!< First empty packet */
 
 /* RC5  bits time definitions */
-uint16_t  RC5MinT = 0;
-uint16_t  RC5MaxT = 0;
-uint16_t  RC5Min2T = 0;
-uint16_t  RC5Max2T = 0;
+static uint16_t  RC5MinT = 0;
+static uint16_t  RC5MaxT = 0;
+static uint16_t  RC5Min2T = 0;
+static uint16_t  RC5Max2T = 0;
 static uint32_t TIMCLKValueKHz = 0; /*!< Timer clock */
-uint16_t RC5TimeOut = 0;
-uint32_t RC5_Data = 0;
+static uint16_t RC5TimeOut = 0;
+static uint32_t RC5_Data = 0;
 RC5_Frame_TypeDef RC5_FRAME;
 
-//FIXME pass in?
-extern TIM_HandleTypeDef htim2;
-
-#define TIM_PRESCALER          47                       /* !< TIM prescaler */
-/**
-  * @}
-  */
-
-/** @defgroup RC5_DECODE_Private_FunctionPrototypes
-  * @{
-  */
 static uint8_t RC5_GetPulseLength (uint16_t pulseLength);
 static void RC5_modifyLastBit(tRC5_lastBitType bit);
 static void RC5_WriteBit(uint8_t bitVal);
 static uint32_t TIM_GetCounterCLKValue(void);
-
-//FIXME rm
-static int seenEdges = 0;
-
-/**
-  * @}
-  */
-
-/** @defgroup RC5_Private_Functions
-  * @{
-  */
-  
-/**
-  * @brief  RCR receiver demo exec.
-  * @param  None
-  * @retval None
-  */
-void Menu_RC5Decode_Func(void)
-{
-   //TODO enable this later if needed
-   /*
-  TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-  TIM_OCInitTypeDef  TIM_OCInitStructure;
-
-  RC5_Init();
-
-  //FIXME used to run while key pressed, need to pump periodically
-  while(1)
-  {   
-    // Decode the RC5 frame
-    RC5_Decode(&RC5_FRAME);
-  }
-  
-  TIM_DeInit(TIM2);
-  // Time Base configuration 100ms
-  TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
-  TIM_TimeBaseStructure.TIM_Prescaler = 1000;
-  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-  TIM_TimeBaseStructure.TIM_Period = 0x0C80;
-  TIM_TimeBaseStructure.TIM_ClockDivision = 0x0;
-  TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
-  
-  // Channel 1, 2, 3 and 4 Configuration in Timing mode
-  TIM_OCStructInit(&TIM_OCInitStructure);
-  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
-  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-  TIM_OCInitStructure.TIM_Pulse = 0x0;  
-  TIM_OC1Init(TIM2, &TIM_OCInitStructure);
-  */
-}
-
-/**
-  * @brief  De-initializes the peripherals (RCC,GPIO, TIM)       
-  * @param  None
-  * @retval None
-  */
-void RC5_DeInit(void)
-{
-   //won't be needing this...
-  //TIM_DeInit(IR_TIM);
-}
 
 /**
   * @brief  Initialize the RC5 decoder module ( Time range)
@@ -379,17 +273,16 @@ void RC5_DeInit(void)
   */
 void RC5_Decode_Init(void)
 { 
-  //calculate timeouts
-  TIMCLKValueKHz = TIM_GetCounterCLKValue()/1000; 
-  RC5TimeOut = TIMCLKValueKHz * (RC5_TIME_OUT_US / 1000);
-  //TODO insert ^ into period
-  iprintf("Value KHz = %d\r\n", TIMCLKValueKHz);
-  iprintf("RC5 timeout = %d\r\n", RC5TimeOut);
-
   TIM_ClockConfigTypeDef sClockSourceConfig;
   TIM_SlaveConfigTypeDef sSlaveConfig;
   TIM_MasterConfigTypeDef sMasterConfig;
   TIM_IC_InitTypeDef sConfigIC;
+
+  //calculate timeouts
+  TIMCLKValueKHz = TIM_GetCounterCLKValue()/1000;
+  RC5TimeOut = TIMCLKValueKHz * (RC5_TIME_OUT_US / 1000);
+  iprintf("Value KHz = %d\r\n", TIMCLKValueKHz);
+  iprintf("RC5 timeout = %d\r\n", RC5TimeOut);
 
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 47;
@@ -429,19 +322,6 @@ void RC5_Decode_Init(void)
      iprintf("ERROR\r\n");
   }
 
-  /*
-  //FIXME not sure if this should be configred or not?
-  //it isn't in sample, but w/o it we only get falling edges
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
-  sConfigIC.ICSelection = TIM_ICSELECTION_INDIRECTTI;
-  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
-  sConfigIC.ICFilter = 0;
-  if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
-  {
-     iprintf("ERROR\r\n");
-  }
-  */
-
   sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_BOTHEDGE;
   sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
@@ -451,21 +331,9 @@ void RC5_Decode_Init(void)
      iprintf("ERROR\r\n");
   }
 
-
-  /* Configures the TIM Update Request Interrupt source: counter overflow */
-  //FIXME ?
-  //TIM_UpdateRequestConfig(IR_TIM,  TIM_UpdateSource_Regular);
-
-  __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);
-  //__HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC1);
-  //__HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC2);
-
-  //FIXME needed?
   /* Enable TIM Update Event Interrupt Request */
-  //TIM_ITConfig(IR_TIM, TIM_IT_Update, ENABLE);
+  __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);
   __HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_UPDATE);
-  //__HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_CC1);
-  //__HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_CC2);
 
   /* Bit time range */
   RC5MinT = (RC5_T_US - RC5_T_TOLERANCE_US) * TIMCLKValueKHz / 1000;
@@ -479,8 +347,6 @@ void RC5_Decode_Init(void)
   /* Default state */
   RC5_ResetPacket();
 
-  //HAL_TIM_Base_Start(&htim2);
-  //HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
   HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_2);
 }
 
@@ -529,7 +395,6 @@ bool RC5_Decode(RC5_Frame_TypeDef *rc5_frame)
 
     return true;
   }
-  iprintf("\r\n# bits = %x bitCount = %d status (1 is empty) = %d   seen %d edges", RC5TmpPacket.data, RC5TmpPacket.bitCount, RC5TmpPacket.status, seenEdges);
   return false;
 }
 
@@ -544,9 +409,6 @@ void RC5_ResetPacket(void)
   RC5TmpPacket.bitCount = RC5_PACKET_BIT_COUNT - 1;
   RC5TmpPacket.lastBit = RC5_ONE;
   RC5TmpPacket.status = RC5_PACKET_STATUS_EMPTY;
-
-  //FIXME rm
-  seenEdges = 0;
 }
 
 /**
@@ -560,23 +422,17 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
   uint8_t pulse;
   tRC5_lastBitType tmpLastBit;
 
-  //FIXME rm
-//#define iprintf(...)
+  //comment out for useful printing
+#define iprintf(...)
 
   /* Decode the pulse length in protocol units */
   pulse = RC5_GetPulseLength(rawPulseLength);
 
-  //iprintf("%d.%d:", pulse, edge);
-  //iprintf("%d:", pulse);
-  //FIXME rm
   iprintf("|%d:", rawPulseLength);
-
-  seenEdges++;
 
   /* On Rising Edge */
   if (edge == 1)
   {
-     //FIXME rm
     iprintf("r");
 
     if (pulse <= RC5_2T_TIME) 
@@ -587,20 +443,20 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
     }
     else
     {
-       //FIXME rm
       iprintf("R");
+
       RC5_ResetPacket();
     }
   } 
   else     /* On Falling Edge */
   {
-    //FIXME rm
     iprintf("f");
 
     /* If this is the first falling edge - don't compute anything */
     if (RC5TmpPacket.status & RC5_PACKET_STATUS_EMPTY)
     {
       iprintf("F");
+
       RC5TmpPacket.status &= (uint8_t)~RC5_PACKET_STATUS_EMPTY;
     }
     else	
@@ -613,12 +469,14 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
       }
       else
       {
-        //FIXME rm
         iprintf("R");
+
         RC5_ResetPacket();
       }
     }
   }
+
+#undef iprintf
 }
 
 /**
@@ -689,9 +547,9 @@ static void RC5_WriteBit(uint8_t bitVal)
   } 
 
   /* Write this particular bit to data field */
-  RC5TmpPacket.data |=  bitVal; 
+  RC5TmpPacket.data |=  bitVal;
   
-  /* Test the bit number determined */ 
+  /* Test the bit number determined */
   if (RC5TmpPacket.bitCount != 0)  /* If this is not the last bit */
   {
     /* Shift the data field */
@@ -714,14 +572,11 @@ static uint32_t TIM_GetCounterCLKValue(void)
 {
   uint32_t apbprescaler = 0, apbfrequency = 0;
   uint32_t timprescaler = 0;
-  //__IO RCC_ClocksTypeDef RCC_ClockFreq;   
   uint32_t pfLatency;
   RCC_ClkInitTypeDef  RCC_ClkInitStruct;
 
   /* This function fills the RCC_ClockFreq structure with the current
   frequencies of different on chip clocks */
-  //RCC_GetClocksFreq((RCC_ClocksTypeDef*)&RCC_ClockFreq);
-  //HAL_RCC_GetClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t *pFLatency);
   HAL_RCC_GetClockConfig(&RCC_ClkInitStruct, &pfLatency);
 
 
@@ -741,16 +596,3 @@ static uint32_t TIM_GetCounterCLKValue(void)
   }
 }
 
-/**
-* @}
-*/
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
