@@ -23,12 +23,12 @@ static uint32_t ICValue2 = 0;
 static uint8_t pol;
 
 /**
-* @brief This function handles System tick timer.
-*/
+ * @brief This function handles System tick timer.
+ */
 void SysTick_Handler(void)
 {
-  HAL_IncTick();
-  HAL_SYSTICK_IRQHandler();
+   HAL_IncTick();
+   HAL_SYSTICK_IRQHandler();
 }
 
 /*

@@ -74,10 +74,10 @@ int main(void)
    while (1)
    {
       /*
-      iprintf("LEDs to %d\r\n", b);
-      sendLEDTest(b);
-      b += 10;
-      */
+         iprintf("LEDs to %d\r\n", b);
+         sendLEDTest(b);
+         b += 10;
+       */
 
       if(RC5_Decode(&rcf)) {
          iprintf("Addr   %d\r\n", rcf.Address);

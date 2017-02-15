@@ -170,6 +170,5 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 
       HAL_NVIC_DisableIRQ(TIM17_IRQn);
    }
-
 }
 
