@@ -1,31 +1,5 @@
-/**
-  ******************************************************************************
-  * @file    rc5_encode.c
-  * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-May-2012
-  * @brief   This file provides all the sony rc5 encode firmware functions
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
-  ******************************************************************************
-  */
-
-/* Includes ------------------------------------------------------------------*/        
+/*
+ */
 #include "main.h"
 #include "rc5_encode.h"
 #include "iprintf.h"
@@ -37,52 +11,18 @@
 
 #include <stdint.h>
 
-/** @addtogroup STM320518_EVAL_Demo
-  * @{
-  */
-
-/** @addtogroup RC5_ENCODE
-  * @brief RC5_ENCODE driver modules
-  * @{
-  */
-
-/** @defgroup RC5_ENCODE_Private_TypesDefinitions
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @defgroup RC5_ENCODE_Private_Defines
-  * @{
-  */
 #define  RC5HIGHSTATE     ((uint8_t )0x02)   /* RC5 high level definition*/
 #define  RC5LOWSTATE      ((uint8_t )0x01)   /* RC5 low level definition*/
-/**
-  * @}  
-  */
 
-
-/** @defgroup RC5_ENCODE_Private_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @defgroup RC5_ENCODE_Private_Variables
-  * @{
-  */
-uint8_t RC5_RealFrameLength = 14;
-uint8_t RC5_GlobalFrameLength = 64;
-uint16_t RC5_FrameBinaryFormat = 0;
-uint32_t RC5_FrameManchestarFormat = 0;
-uint8_t Send_Operation_Ready = 0;
+static uint8_t RC5_RealFrameLength = 14;
+static uint8_t RC5_GlobalFrameLength = 64;
+static uint16_t RC5_FrameBinaryFormat = 0;
+static uint32_t RC5_FrameManchestarFormat = 0;
+static uint8_t Send_Operation_Ready = 0;
 __IO uint8_t Send_Operation_Completed = 1;
-uint8_t BitsSent_Counter = 0;
+static uint8_t BitsSent_Counter = 0;
 
+//TODO are these used externally?
 uint8_t AddressIndex = 0;
 uint8_t InstructionIndex = 0;
 RC5_Ctrl_TypeDef RC5_Ctrl1 = RC5_Ctrl_Reset;
@@ -94,75 +34,20 @@ extern __IO uint8_t RFDemoStatus;
 //FIXME pass in?
 extern TIM_HandleTypeDef htim16;
 extern TIM_HandleTypeDef htim17;
-/**
-  * @}
-  */
 
-/** @defgroup RC5_ENCODE_Private_FunctionPrototypes
-  * @{
-  */
 static uint16_t RC5_BinFrameGeneration(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl);
 static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat);
-static void MX_TIM17_Init(void);
-static void MX_TIM16_Init(void);
+static void TIM17_Init(void);
+static void TIM16_Init(void);
 
 //FIXME rm?
 static void Error_Handler(void) {}
 
-/**
-  * @}
-  */
-
-/** @defgroup RC5_ENCODE_Private_Functions
-  * @{
-  */
-
-/**
-  * @brief  RCR receiver demo exec.
-  * @param  None
-  * @retval None
-  */
-//FIXME rm, this isn't really useful now
-void Menu_RC5_Encode_Func(void)
-{
-  RC5_Encode_Init();
-
-  AddressIndex = 0;
-  InstructionIndex = 0;
-
-
-  //LCD_DisplayStringLine(LCD_LINE_6, rc5_Commands[InstructionIndex]);
-  //LCD_DisplayStringLine(LCD_LINE_7, rc5_devices[AddressIndex]);
-
-  RC5_Encode_SendFrame(AddressIndex, InstructionIndex, RC5_Ctrl1);
-}
-
-/**
-  * @brief  Init Hardware (IPs used) for RC5 generation
-  * @param  None
-  * @retval None
-  */
 void RC5_Encode_Init(void)
 {
 
-   MX_TIM17_Init();
-   MX_TIM16_Init();
-
-   /*
-   //FIXME TODO disable each?
-   HAL_StatusTypeDef res;
-
-   //res = HAL_TIM_PWM_Start(&htim17, 1);
-   //2nd param is u32 channel
-   //res = HAL_TIM_PWM_Stop(&htim17, 1);
-   if(res != HAL_OK) {
-      iprintf("Failed to stop TIM17 CH1 after init\r\n");
-   }
-   res = HAL_TIM_PWM_Stop(&htim16, 1);
-   if(res != HAL_OK) {
-      iprintf("Failed to stop TIM16 CH1 after init\r\n");
-   }
-   */
+   TIM17_Init();
+   TIM16_Init();
 }
 
 /**
@@ -198,8 +83,6 @@ void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl
   * @param  RC5_BinaryFrameFormat: the RC5 frame in binary format.
   * @retval Noe
   */
-//FIXME used to take in "RC5_ManchestarFrameFormat, not sure why. Replaced
-//with using RC5_FrameManchestarFormat directly.
 void RC5_Encode_SignalGenerate(void)
 {
   uint8_t bit_msg = 0;
@@ -274,10 +157,9 @@ static uint16_t RC5_BinFrameGeneration(uint8_t RC5_Address, uint8_t RC5_Instruct
   uint16_t star1 = 0x2000;
   uint16_t star2 = 0x1000;
   uint16_t addr = 0;
-  
-  while(Send_Operation_Completed == 0x00) 
-  { 
-  }
+
+  //don't wipe out globals before they're sent!
+  while(Send_Operation_Completed == 0x00) {}
 
   /* Check if Instruction is 128-bit length */
   if(RC5_Instruction >= 64)
@@ -331,7 +213,7 @@ static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat)
 }
 
 /* TIM16 init function */
-static void MX_TIM16_Init(void)
+static void TIM16_Init(void)
 {
   TIM_OC_InitTypeDef sConfigOC;
   TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
@@ -376,18 +258,10 @@ static void MX_TIM16_Init(void)
   {
     Error_Handler();
   }
-
-  /*
-  //for reference, this is how to start the timer with interrupts
-  if(HAL_TIM_Base_Start_IT(&htim16) != HAL_OK)
-  {
-    Error_Handler();
-  }
-   */
 }
 
 /* TIM17 init function */
-static void MX_TIM17_Init(void)
+static void TIM17_Init(void)
 {
   TIM_OC_InitTypeDef sConfigOC;
   TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
@@ -432,25 +306,5 @@ static void MX_TIM17_Init(void)
   {
     Error_Handler();
   }
-  /*
-  //for reference, this is how to start the PWM
-  if(HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-   */
 }
 
-/**
-* @}
-*/
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-  
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
