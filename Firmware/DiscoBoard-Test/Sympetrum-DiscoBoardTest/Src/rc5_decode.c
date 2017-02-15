@@ -90,7 +90,7 @@
   */
 //FIXME rm these tables?
 /* RC5 address table */
-char* rc5_devices[32] = {
+static char* const rc5_devices[32] = {
         "       TV1          ",                  /*  0 */
         "       TV2          ",                  /*  1 */
         "    Video Text      ",                  /*  2 */
@@ -126,7 +126,7 @@ char* rc5_devices[32] = {
        };
 
 /* RC5 commands table*/
-char* rc5_Commands[128] = {
+static char* const rc5_Commands[128] = {
         "       Num0         ",                                       /* 0 */
         "       Num1         ",                                       /* 1 */
         "       Num2         ",                                       /* 2 */
