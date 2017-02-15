@@ -79,12 +79,7 @@ int main(void)
       b += 10;
       */
 
-      //iprintf("TIM16,TIM17 %d,%d\r\n",  __HAL_TIM_GetCounter(&htim16),  __HAL_TIM_GetCounter(&htim17));
-
-      //iprintf("TIM2 %d\r\n",  __HAL_TIM_GetCounter(&htim2));
-
       if(RC5_Decode(&rcf)) {
-         //iprintf("Got full RC5 Packet!\r\n");
          iprintf("Addr   %d\r\n", rcf.Address);
          iprintf("Comd   %d\r\n", rcf.Command);
          iprintf("Field  %d\r\n", rcf.FieldBit);
@@ -92,9 +87,8 @@ int main(void)
          iprintf("\r\n");
       }
 
-      //FIXME rm toggle LED
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
-      //HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+
       // spend time
       for (i = 0; i < 1000000; i++);
 
@@ -107,7 +101,6 @@ int main(void)
       }
       b++;
    }
-
 }
 
 /** System Clock Configuration
@@ -235,21 +228,7 @@ static void MX_GPIO_Init(void)
    GPIO_InitStruct.Pull = GPIO_NOPULL;
    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-   //GPIO for IR done in HAL MSP
-
-   //FIXME rm
-   GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
-   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-   GPIO_InitStruct.Pull = GPIO_NOPULL;
-   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
 }
-
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */
 
 /**
  * @brief  This function is executed in case of error occurrence.
