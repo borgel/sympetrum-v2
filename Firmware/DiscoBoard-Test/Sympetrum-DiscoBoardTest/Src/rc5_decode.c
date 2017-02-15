@@ -311,6 +311,9 @@ static void RC5_modifyLastBit(tRC5_lastBitType bit);
 static void RC5_WriteBit(uint8_t bitVal);
 static uint32_t TIM_GetCounterCLKValue(void);
 
+//FIXME rm
+static int seenEdges = 0;
+
 /**
   * @}
   */
@@ -412,7 +415,7 @@ void RC5_Decode_Init(void)
 
   sSlaveConfig.SlaveMode = TIM_SLAVEMODE_RESET;
   sSlaveConfig.InputTrigger = TIM_TS_TI2FP2;
-  sSlaveConfig.TriggerPolarity = TIM_INPUTCHANNELPOLARITY_FALLING;
+  sSlaveConfig.TriggerPolarity = TIM_INPUTCHANNELPOLARITY_BOTHEDGE;
   sSlaveConfig.TriggerFilter = 0;
   if (HAL_TIM_SlaveConfigSynchronization(&htim2, &sSlaveConfig) != HAL_OK)
   {
@@ -426,6 +429,7 @@ void RC5_Decode_Init(void)
      iprintf("ERROR\r\n");
   }
 
+  /*
   //FIXME not sure if this should be configred or not?
   //it isn't in sample, but w/o it we only get falling edges
   sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
@@ -436,8 +440,9 @@ void RC5_Decode_Init(void)
   {
      iprintf("ERROR\r\n");
   }
+  */
 
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_FALLING;
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_BOTHEDGE;
   sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
   sConfigIC.ICFilter = 0;
@@ -475,9 +480,7 @@ void RC5_Decode_Init(void)
   RC5_ResetPacket();
 
   //HAL_TIM_Base_Start(&htim2);
-  //HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_1);
-  //HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_2);
-  HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
+  //HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
   HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_2);
 }
 
@@ -526,7 +529,7 @@ bool RC5_Decode(RC5_Frame_TypeDef *rc5_frame)
 
     return true;
   }
-  iprintf("\r\n# bits = %x bitCount = %d status (1 is empty) = %d", RC5TmpPacket.data, RC5TmpPacket.bitCount, RC5TmpPacket.status);
+  iprintf("\r\n# bits = %x bitCount = %d status (1 is empty) = %d   seen %d edges", RC5TmpPacket.data, RC5TmpPacket.bitCount, RC5TmpPacket.status, seenEdges);
   return false;
 }
 
@@ -541,6 +544,9 @@ void RC5_ResetPacket(void)
   RC5TmpPacket.bitCount = RC5_PACKET_BIT_COUNT - 1;
   RC5TmpPacket.lastBit = RC5_ONE;
   RC5TmpPacket.status = RC5_PACKET_STATUS_EMPTY;
+
+  //FIXME rm
+  seenEdges = 0;
 }
 
 /**
@@ -564,6 +570,8 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
   //iprintf("%d:", pulse);
   //FIXME rm
   iprintf("|%d:", rawPulseLength);
+
+  seenEdges++;
 
   /* On Rising Edge */
   if (edge == 1)
@@ -594,7 +602,6 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
     {
       iprintf("F");
       RC5TmpPacket.status &= (uint8_t)~RC5_PACKET_STATUS_EMPTY;
-
     }
     else	
     {

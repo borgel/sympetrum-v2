@@ -50,6 +50,7 @@ extern TIM_HandleTypeDef htim17;
 
 //FIXME move these out of this file (into RC5?)
 static uint32_t ICValue1 = 0, ICValue2 = 0;
+static uint8_t pol;
 
 /******************************************************************************/
 /*            Cortex-M0 Processor Interruption and Exception Handlers         */ 
@@ -131,19 +132,23 @@ void TIM2_IRQHandler(void)
       //FIXME rm
       //iprintf("<O2 %d]", ICValue2);
 
-      //time falling to falling?
-      RC5_DataSampling(ICValue2 - ICValue1 , 0);
+      //get current polarity and assume we just saw the opposite edge
+      pol = (GPIO_PIN_SET == HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1));
+      //pol = !pol;
+
+      RC5_DataSampling(ICValue2, pol);
 
       //FIXME rm
       HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_5);
    }  /* IC2 Interrupt */
+   /*
    //else if((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_CC1) != RESET))
    else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_CC1))
    {
       //TIM_ClearFlag(IR_TIM, TIM_FLAG_CC1);
       __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC1);
 
-      /* Get the Input Capture value */
+      // Get the Input Capture value
       //ICValue1 = TIM_GetCapture1(IR_TIM);
       //param is channel 1-4
       //ICValue1 = HAL_TIM_ReadCapturedValue(&htim2, 1);
@@ -156,7 +161,8 @@ void TIM2_IRQHandler(void)
 
       //FIXME rm
       HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_4);
-   } 
+   }
+   */
    /* Checks whether the IR_TIM flag is set or not.*/
    //else if ((TIM_GetFlagStatus(IR_TIM, TIM_FLAG_Update) != RESET))
    //else if(__HAL_TIM_GET_IT_SOURCE(&htim2, TIM_FLAG_UPDATE) == SET)

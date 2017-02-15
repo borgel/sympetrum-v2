@@ -102,7 +102,7 @@ int main(void)
          //addr, instruc, ctrl
          //encoded as 0x0A23
          //encoded as 0x35DC inverted (as IR RX'd)
-         RC5_Encode_SendFrame(4, 20, RC5_Ctrl_Reset);
+         RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
          b = 0;
       }
       b++;
