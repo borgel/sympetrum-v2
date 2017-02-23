@@ -31,6 +31,20 @@ void SysTick_Handler(void)
    HAL_SYSTICK_IRQHandler();
 }
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+   iprintf("EXTI0 ");
+   //Check if EXTI_Line0 is asserted
+   /*
+   if(EXTI_GetITStatus(EXTI_Line0) != RESET)
+   {
+      iprintf("Button");
+   }
+   //we need to clear line pending bit manually
+   */
+   //EXTI_ClearITPendingBit(EXTI_Line0);
+}
+
 /*
  * Handle the bit clock ISR for sending IR.
  */

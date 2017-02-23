@@ -100,7 +100,7 @@ int main(void)
 
    int i;
    uint8_t b = 0;
-   uint8_t l = 25;
+   uint8_t l = 10;
    RC5_Frame_TypeDef rcf;
    while (1)
    {
@@ -114,9 +114,14 @@ int main(void)
          iprintf("Field  %d\r\n", rcf.FieldBit);
          iprintf("Toggle %d\r\n", rcf.ToggleBit);
          iprintf("\r\n");
+         sendLEDTest(50);
+
+         for (i = 0; i < 100000; i++);
       }
 
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
+
+      iprintf("Button = %d\n", HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin));
 
       // spend time
       for (i = 0; i < 1000000; i++);
@@ -245,9 +250,14 @@ static void MX_GPIO_Init(void)
    /*Configure GPIO pin Output Level */
    HAL_GPIO_WritePin(GPIOC, LD4_Pin|LD3_Pin, GPIO_PIN_RESET);
 
+
+   //setup button vector
+   HAL_NVIC_SetPriority(EXTI0_1_IRQn, 0, 0);
+   HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
+
    /*Configure GPIO pin : B1_Pin */
    GPIO_InitStruct.Pin = B1_Pin;
-   GPIO_InitStruct.Mode = GPIO_MODE_EVT_RISING;
+   GPIO_InitStruct.Mode = GPIO_MODE_EVT_FALLING;
    GPIO_InitStruct.Pull = GPIO_NOPULL;
    HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
