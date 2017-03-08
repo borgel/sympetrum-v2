@@ -103,9 +103,11 @@ void RC5_Encode_SignalGenerate(void)
          HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
          }
           */
+         /*
          if(GPIO_PIN_SET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
             HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
          }
+         */
       }
       else
       {
@@ -118,9 +120,11 @@ void RC5_Encode_SignalGenerate(void)
          HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
          }
           */
+         /*
          if(GPIO_PIN_RESET == HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) {
             HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
          }
+         */
       }
       BitsSent_Counter++;
 

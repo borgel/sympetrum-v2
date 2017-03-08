@@ -26,6 +26,7 @@ static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
 
 static void sendLEDTest(uint8_t bright) {
+   int i;
    //4 x u8 (00)
    //32 bits of real data
    //4 x ua (FF)
@@ -35,13 +36,41 @@ static void sendLEDTest(uint8_t bright) {
    uint8_t start[4] = {0, 0, 0, 0};
    HAL_SPI_Transmit(&hspi1, start, sizeof(start), 10000);
 
-   //3 bits always, 5 bits global brightness, 8B, 8G, 8R
-   //Glob = 0xE1 = min bright
-   uint8_t data[4] = {0xFF, bright, bright, bright};
-   HAL_SPI_Transmit(&hspi1, data, sizeof(data), 10000);
+   for(i = 0; i < 10; i++) {
+      //3 bits always, 5 bits global brightness, 8B, 8G, 8R
+      //Glob = 0xE1 = min bright
+      uint8_t data[4] = {0xFF, bright, bright, bright};
+      //uint8_t data[4] = {0xE1, bright, bright, bright};
+      HAL_SPI_Transmit(&hspi1, data, sizeof(data), 10000);
+   }
 
    uint8_t stop[4] = {0xFF, 0xFF, 0xFF, 0xFF};
    HAL_SPI_Transmit(&hspi1, stop, sizeof(stop), 10000);
+
+   /*
+   uint8_t b;
+
+   b = 0x00;
+   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+
+   for(i = 0; i < 10; i++) {
+      b = 0xE1;
+      HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+      b = 0xFF;
+      HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+      HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+      HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+   }
+
+   b = 0xFF;
+   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
+   */
 }
 
 int main(void)
@@ -60,6 +89,7 @@ int main(void)
 
    iprintf("\r\nHello World!\r\n");
 
+   //sendLEDTest(0);
    sendLEDTest(0);
    iprintf("Done sending LEDs\r\n");
 
@@ -70,14 +100,13 @@ int main(void)
 
    int i;
    uint8_t b = 0;
+   uint8_t l = 10;
    RC5_Frame_TypeDef rcf;
    while (1)
    {
-      /*
-         iprintf("LEDs to %d\r\n", b);
-         sendLEDTest(b);
-         b += 10;
-       */
+      iprintf("LEDs to %d\r\n", b);
+      sendLEDTest(l);
+      //l += 10;
 
       if(RC5_Decode(&rcf)) {
          iprintf("Addr   %d\r\n", rcf.Address);
@@ -85,9 +114,14 @@ int main(void)
          iprintf("Field  %d\r\n", rcf.FieldBit);
          iprintf("Toggle %d\r\n", rcf.ToggleBit);
          iprintf("\r\n");
+         sendLEDTest(50);
+
+         for (i = 0; i < 100000; i++);
       }
 
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
+
+      iprintf("Button = %d\n", HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin));
 
       // spend time
       for (i = 0; i < 1000000; i++);
@@ -96,7 +130,7 @@ int main(void)
          //addr, instruc, ctrl
          //encoded as 0x0A23
          //encoded as 0x35DC inverted (as IR RX'd)
-         RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
+         //RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
          b = 0;
       }
       b++;
@@ -161,8 +195,8 @@ static void MX_SPI1_Init(void)
    hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
    hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
    hspi1.Init.NSS = SPI_NSS_SOFT;
-   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
-   //hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16; //for crappy saelae
+   //hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16; //for crappy saelae
    hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
    hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
    hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -216,10 +250,18 @@ static void MX_GPIO_Init(void)
    /*Configure GPIO pin Output Level */
    HAL_GPIO_WritePin(GPIOC, LD4_Pin|LD3_Pin, GPIO_PIN_RESET);
 
+
+   //setup button vector
+   HAL_NVIC_SetPriority(EXTI0_1_IRQn, 0, 0);
+   HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
+
    /*Configure GPIO pin : B1_Pin */
    GPIO_InitStruct.Pin = B1_Pin;
-   GPIO_InitStruct.Mode = GPIO_MODE_EVT_RISING;
-   GPIO_InitStruct.Pull = GPIO_NOPULL;
+   //GPIO_InitStruct.Mode = GPIO_MODE_EVT_FALLING;
+   //GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+   GPIO_InitStruct.Pull = GPIO_PULLUP;
+   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
    HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
    /*Configure GPIO pins : LD4_Pin LD3_Pin */
