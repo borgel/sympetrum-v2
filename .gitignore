@@ -1,3 +1,10 @@
+# VIMisms
+*.swp
+*.un~
+
+# Other stuff
+.DS_Store
+
 # Object files
 *.o
 *.ko
