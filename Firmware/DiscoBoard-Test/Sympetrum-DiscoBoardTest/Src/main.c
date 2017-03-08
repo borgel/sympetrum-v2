@@ -130,7 +130,7 @@ int main(void)
          //addr, instruc, ctrl
          //encoded as 0x0A23
          //encoded as 0x35DC inverted (as IR RX'd)
-         RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
+         //RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
          b = 0;
       }
       b++;
@@ -257,8 +257,11 @@ static void MX_GPIO_Init(void)
 
    /*Configure GPIO pin : B1_Pin */
    GPIO_InitStruct.Pin = B1_Pin;
-   GPIO_InitStruct.Mode = GPIO_MODE_EVT_FALLING;
-   GPIO_InitStruct.Pull = GPIO_NOPULL;
+   //GPIO_InitStruct.Mode = GPIO_MODE_EVT_FALLING;
+   //GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+   GPIO_InitStruct.Pull = GPIO_PULLUP;
+   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
    HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
    /*Configure GPIO pins : LD4_Pin LD3_Pin */
