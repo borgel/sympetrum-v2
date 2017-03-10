@@ -9,6 +9,8 @@
 #include "rc5_encode.h"
 #include "rc5_decode.h"
 
+#include "board_id.h"
+
 #include <string.h>
 
 
@@ -87,7 +89,7 @@ int main(void)
    MX_SPI1_Init();
    MX_USART2_UART_Init();
 
-   iprintf("\r\nHello World!\r\n");
+   iprintf("\r\nStarting... (0x%x | "__DATE__" : "__TIME__")\r\n", bid_GetID());
 
    //sendLEDTest(0);
    sendLEDTest(0);
