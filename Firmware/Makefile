@@ -77,7 +77,7 @@ CFLAGS += -std=c99 -MD -MP -MF .dep/$(@F).d
 #######################################
 # link script set above based on CPU
 # libraries
-LIBS = -lc -lnosys
+LIBS = -lc -lnosys -lm
 LIBDIR =
 LDFLAGS = -mthumb -mcpu=cortex-m0 -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
