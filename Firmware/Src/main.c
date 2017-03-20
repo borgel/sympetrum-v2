@@ -15,7 +15,7 @@
 
 
 SPI_HandleTypeDef hspi1;
-UART_HandleTypeDef huart2;
+UART_HandleTypeDef huart1;
 
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim16;
@@ -25,7 +25,7 @@ void SystemClock_Config(void);
 void Error_Handler(void);
 static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
-static void MX_USART2_UART_Init(void);
+static void MX_USART1_UART_Init(void);
 
 static void sendLEDTest(uint8_t bright) {
    int i;
@@ -87,7 +87,7 @@ int main(void)
    // Initialize all configured peripherals
    MX_GPIO_Init();
    MX_SPI1_Init();
-   MX_USART2_UART_Init();
+   MX_USART1_UART_Init();
 
    iprintf("\r\nStarting... (0x%x | "__DATE__" : "__TIME__")\r\n", bid_GetID());
 
@@ -212,21 +212,21 @@ static void MX_SPI1_Init(void)
 
 }
 
-/* USART2 init function */
-static void MX_USART2_UART_Init(void)
+/* USART1 init function */
+static void MX_USART1_UART_Init(void)
 {
 
-   huart2.Instance = USART2;
-   huart2.Init.BaudRate = 115200;
-   huart2.Init.WordLength = UART_WORDLENGTH_8B;
-   huart2.Init.StopBits = UART_STOPBITS_1;
-   huart2.Init.Parity = UART_PARITY_NONE;
-   huart2.Init.Mode = UART_MODE_TX_RX;
-   huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-   huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-   huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-   huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-   if (HAL_UART_Init(&huart2) != HAL_OK)
+   huart1.Instance = USART1;
+   huart1.Init.BaudRate = 115200;
+   huart1.Init.WordLength = UART_WORDLENGTH_8B;
+   huart1.Init.StopBits = UART_STOPBITS_1;
+   huart1.Init.Parity = UART_PARITY_NONE;
+   huart1.Init.Mode = UART_MODE_TX_RX;
+   huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+   huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+   huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+   if (HAL_UART_Init(&huart1) != HAL_OK)
    {
       Error_Handler();
    }
