@@ -6,6 +6,8 @@
 # target
 ######################################
 TARGET = sympetrum-v2
+#CPU = STM32F051x8
+CPU = STM32F030x6
 
 ######################################
 # building variables
@@ -25,11 +27,19 @@ BUILD_DIR = build
 # source
 ######################################
 
+ifeq ($(CPU), STM32F051x8)
+   STARTUP_FILE = Drivers/CMSIS/Device/ST/STM32F0xx/Source/Templates/gcc/startup_stm32f051x8.s
+   LDSCRIPT = SW4STM32/STM32F051R8Tx_FLASH.ld
+else ifeq ($(CPU), STM32F030x6))
+   STARTUP_FILE = Drivers/CMSIS/Device/ST/STM32F0xx/Source/Templates/gcc/startup_stm32f030x6.s
+   LDSCRIPT = SW4STM32/STM32F030K6Tx_FLASH.ld
+endif
+
 # may want to be more selective about this in the future
 C_SOURCES  = $(wildcard Src/*.c)
 C_SOURCES += $(wildcard Drivers/STM32F0xx_HAL_Driver/Src/*.c)
 
-ASM_SOURCES = SW4STM32/startup_stm32f051x8.s
+ASM_SOURCES = $(STARTUP_FILE)
 
 #######################################
 # binaries
@@ -47,7 +57,7 @@ BIN = $(CP) -O binary -S
 #######################################
 # macros for gcc
 AS_DEFS =
-C_DEFS = -D__weak="__attribute__((weak))" -D__packed="__attribute__((__packed__))" -DUSE_HAL_DRIVER -DSTM32F051x8
+C_DEFS = -D__weak="__attribute__((weak))" -D__packed="__attribute__((__packed__))" -DUSE_HAL_DRIVER -D$(CPU)
 # includes for gcc
 AS_INCLUDES =
 C_INCLUDES =
@@ -65,8 +75,7 @@ CFLAGS += -std=c99 -MD -MP -MF .dep/$(@F).d
 #######################################
 # LDFLAGS
 #######################################
-# link script
-LDSCRIPT = SW4STM32/Sympetrum-DiscoBoardTest/STM32F051R8Tx_FLASH.ld
+# link script set above based on CPU
 # libraries
 LIBS = -lc -lnosys
 LIBDIR =
@@ -111,7 +120,7 @@ $(BUILD_DIR):
 #######################################
 clean:
 	-rm -fR .dep $(BUILD_DIR)
-  
+
 #######################################
 # dependencies
 #######################################
