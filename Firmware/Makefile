@@ -5,7 +5,7 @@
 ######################################
 # target
 ######################################
-TARGET = Sympetrum-DiscoBoardTest
+TARGET = sympetrum-v2
 
 ######################################
 # building variables
@@ -47,7 +47,7 @@ BIN = $(CP) -O binary -S
 #######################################
 # macros for gcc
 AS_DEFS =
-C_DEFS = -D__weak="__attribute__((weak))" -D__packed="__attribute__((__packed__))" -DUSE_HAL_DRIVER -DSTM32F051x8 -D__weak="__attribute__((weak))" -D__packed="__attribute__((__packed__))" -DUSE_HAL_DRIVER -DSTM32F051x8
+C_DEFS = -D__weak="__attribute__((weak))" -D__packed="__attribute__((__packed__))" -DUSE_HAL_DRIVER -DSTM32F051x8
 # includes for gcc
 AS_INCLUDES =
 C_INCLUDES =
@@ -66,7 +66,6 @@ CFLAGS += -std=c99 -MD -MP -MF .dep/$(@F).d
 # LDFLAGS
 #######################################
 # link script
-#LDSCRIPT = STM32F051R8Tx_FLASH.ld
 LDSCRIPT = SW4STM32/Sympetrum-DiscoBoardTest/STM32F051R8Tx_FLASH.ld
 # libraries
 LIBS = -lc -lnosys
