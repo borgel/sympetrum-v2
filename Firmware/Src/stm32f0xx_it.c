@@ -14,7 +14,7 @@
 
 
 //TODO find a better way to pass these in
-extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim16;
 extern TIM_HandleTypeDef htim17;
 
@@ -63,14 +63,14 @@ void TIM16_IRQHandler(void)
 void TIM2_IRQHandler(void)
 {
    /* Clear the TIM2 Update pending bit (but doesn't clear the flag)*/
-   __HAL_TIM_CLEAR_IT(&htim2, TIM_FLAG_UPDATE);
+   __HAL_TIM_CLEAR_IT(&htim3, TIM_FLAG_UPDATE);
 
    // track the time between ALL edges of the incoming signal.
-   if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_CC2))
+   if(__HAL_TIM_GET_FLAG(&htim3, TIM_FLAG_CC2))
    {
-      __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_CC2);
+      __HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_CC2);
 
-      ICValue2 = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_2);
+      ICValue2 = HAL_TIM_ReadCapturedValue(&htim3, TIM_CHANNEL_1);
 
       //get current polarity and assume we just saw the opposite edge
       pol = (GPIO_PIN_SET == HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1));
@@ -78,10 +78,10 @@ void TIM2_IRQHandler(void)
       RC5_DataSampling(ICValue2, pol);
    }
    //check for IR bit timeout
-   else if(__HAL_TIM_GET_FLAG(&htim2, TIM_FLAG_UPDATE))
+   else if(__HAL_TIM_GET_FLAG(&htim3, TIM_FLAG_UPDATE))
    {
       /* Clears the IR_TIM's pending flags*/
-      __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);
+      __HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
 
       RC5_ResetPacket(); 
    }

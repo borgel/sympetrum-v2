@@ -245,7 +245,7 @@ const tRC5_lastBitType RC5_logicTableFallingEdge[2][2] =
 };
 
 //TODO pass this in instead
-extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 
 __IO bool RC5FrameReceived = false; /*!< RC5 Frame state */ 
 __IO tRC5_packet   RC5TmpPacket;          /*!< First empty packet */
@@ -283,24 +283,24 @@ void RC5_Decode_Init(void)
    iprintf("Value KHz = %d\r\n", TIMCLKValueKHz);
    iprintf("RC5 timeout = %d\r\n", RC5TimeOut);
 
-   htim2.Instance = TIM2;
-   htim2.Init.Prescaler = 47;
-   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-   htim2.Init.Period = RC5TimeOut;
-   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
-   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+   htim3.Instance = TIM3;
+   htim3.Init.Prescaler = 47;
+   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+   htim3.Init.Period = RC5TimeOut;
+   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
    {
       iprintf("ERROR\r\n");
    }
 
    sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-   if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+   if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
    {
       iprintf("ERROR\r\n");
    }
 
-   if (HAL_TIM_IC_Init(&htim2) != HAL_OK)
+   if (HAL_TIM_IC_Init(&htim3) != HAL_OK)
    {
       iprintf("ERROR\r\n");
    }
@@ -309,14 +309,14 @@ void RC5_Decode_Init(void)
    sSlaveConfig.InputTrigger = TIM_TS_TI2FP2;
    sSlaveConfig.TriggerPolarity = TIM_INPUTCHANNELPOLARITY_BOTHEDGE;
    sSlaveConfig.TriggerFilter = 0;
-   if (HAL_TIM_SlaveConfigSynchronization(&htim2, &sSlaveConfig) != HAL_OK)
+   if (HAL_TIM_SlaveConfigSynchronization(&htim3, &sSlaveConfig) != HAL_OK)
    {
       iprintf("ERROR\r\n");
    }
 
    sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
    sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_ENABLE;
-   if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+   if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
    {
       iprintf("ERROR\r\n");
    }
@@ -325,14 +325,14 @@ void RC5_Decode_Init(void)
    sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
    sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
    sConfigIC.ICFilter = 0;
-   if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_2) != HAL_OK)
+   if (HAL_TIM_IC_ConfigChannel(&htim3, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
    {
       iprintf("ERROR\r\n");
    }
 
    /* Enable TIM Update Event Interrupt Request */
-   __HAL_TIM_CLEAR_FLAG(&htim2, TIM_FLAG_UPDATE);
-   __HAL_TIM_ENABLE_IT(&htim2, TIM_FLAG_UPDATE);
+   __HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
+   __HAL_TIM_ENABLE_IT(&htim3, TIM_FLAG_UPDATE);
 
    /* Bit time range */
    RC5MinT = (RC5_T_US - RC5_T_TOLERANCE_US) * TIMCLKValueKHz / 1000;
@@ -346,7 +346,7 @@ void RC5_Decode_Init(void)
    /* Default state */
    RC5_ResetPacket();
 
-   HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_2);
+   HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
 }
 
 /**

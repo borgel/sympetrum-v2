@@ -7,12 +7,12 @@
 
 #include <stdint.h>
 
-extern UART_HandleTypeDef huart2;
+extern UART_HandleTypeDef huart1;
 
 static void iputc(char ch)
 {
    //TODO what should this timeout be?
-   HAL_UART_Transmit(&huart2, (uint8_t*)&ch, 1, 10000);
+   HAL_UART_Transmit(&huart1, (uint8_t*)&ch, 1, 10000);
 }
 
 static uint8_t* change(uint32_t Index)
