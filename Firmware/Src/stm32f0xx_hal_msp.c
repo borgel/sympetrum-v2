@@ -93,22 +93,22 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 {
    GPIO_InitTypeDef GPIO_InitStruct;
    //Bring up IR Decode peripherals
-   if(htim_base->Instance==TIM2)
+   if(htim_base->Instance==TIM3)
    {
       /* Peripheral clock enable */
-      __HAL_RCC_TIM2_CLK_ENABLE();
+      __HAL_RCC_TIM3_CLK_ENABLE();
       __HAL_RCC_GPIOA_CLK_ENABLE();
 
-      GPIO_InitStruct.Pin = GPIO_PIN_1;
+      GPIO_InitStruct.Pin = GPIO_PIN_6;
       GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
       GPIO_InitStruct.Pull = GPIO_NOPULL;
       GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-      GPIO_InitStruct.Alternate = GPIO_AF2_TIM2;
+      GPIO_InitStruct.Alternate = GPIO_AF1_TIM3;
       HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
       /* Peripheral interrupt init */
-      HAL_NVIC_SetPriority(TIM2_IRQn, 0, 0);
-      HAL_NVIC_EnableIRQ(TIM2_IRQn);
+      HAL_NVIC_SetPriority(TIM3_IRQn, 0, 0);
+      HAL_NVIC_EnableIRQ(TIM3_IRQn);
    }
 
    //Bring up IR Encode Envelope peripherals
@@ -145,15 +145,15 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 {
 
-   if(htim_base->Instance==TIM2)
+   if(htim_base->Instance==TIM3)
    {
       /* Peripheral clock disable */
-      __HAL_RCC_TIM2_CLK_DISABLE();
+      __HAL_RCC_TIM3_CLK_DISABLE();
 
-      HAL_GPIO_DeInit(GPIOA, GPIO_PIN_1);
+      HAL_GPIO_DeInit(GPIOA, GPIO_PIN_6);
 
       /* Peripheral interrupt DeInit*/
-      HAL_NVIC_DisableIRQ(TIM2_IRQn);
+      HAL_NVIC_DisableIRQ(TIM3_IRQn);
    }
    else if(htim_base->Instance==TIM16)
    {

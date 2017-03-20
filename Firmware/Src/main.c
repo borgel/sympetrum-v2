@@ -17,7 +17,7 @@
 SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart1;
 
-TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim16;
 TIM_HandleTypeDef htim17;
 
