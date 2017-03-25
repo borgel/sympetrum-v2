@@ -6,10 +6,11 @@
 #include "stm32f0xx_hal_tim.h"
 #include "iprintf.h"
 
+#include "led.h"
+#include "board_id.h"
+
 #include "rc5_encode.h"
 #include "rc5_decode.h"
-
-#include "board_id.h"
 
 #include <string.h>
 
@@ -27,53 +28,6 @@ static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
 
-static void sendLEDTest(uint8_t bright) {
-   int i;
-   //4 x u8 (00)
-   //32 bits of real data
-   //4 x ua (FF)
-
-   //HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout)
-
-   uint8_t start[4] = {0, 0, 0, 0};
-   HAL_SPI_Transmit(&hspi1, start, sizeof(start), 10000);
-
-   for(i = 0; i < 10; i++) {
-      //3 bits always, 5 bits global brightness, 8B, 8G, 8R
-      //Glob = 0xE1 = min bright
-      uint8_t data[4] = {0xFF, bright, bright, bright};
-      //uint8_t data[4] = {0xE1, bright, bright, bright};
-      HAL_SPI_Transmit(&hspi1, data, sizeof(data), 10000);
-   }
-
-   uint8_t stop[4] = {0xFF, 0xFF, 0xFF, 0xFF};
-   HAL_SPI_Transmit(&hspi1, stop, sizeof(stop), 10000);
-
-   /*
-   uint8_t b;
-
-   b = 0x00;
-   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-
-   for(i = 0; i < 10; i++) {
-      b = 0xE1;
-      HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-      b = 0xFF;
-      HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-      HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-      HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-   }
-
-   b = 0xFF;
-   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-   HAL_SPI_Transmit(&hspi1, &b, 1, 10000);
-   */
-}
 
 int main(void)
 {
@@ -91,9 +45,11 @@ int main(void)
 
    iprintf("\r\nStarting... (0x%x | "__DATE__" : "__TIME__")\r\n", bid_GetID());
 
-   //sendLEDTest(0);
-   sendLEDTest(0);
-   iprintf("Done sending LEDs\r\n");
+   led_Init(hspi1);
+
+   //FIXME rm
+   struct color_ColorRGB c = {.r = 100, .g = 0, .b = 200};
+   led_SetChannel(3, c);
 
    iprintf("Setting up RC5 encode/decode...");
    RC5_Encode_Init();
@@ -102,28 +58,22 @@ int main(void)
 
    int i;
    uint8_t b = 0;
-   uint8_t l = 10;
    RC5_Frame_TypeDef rcf;
    while (1)
    {
-      iprintf("LEDs to %d\r\n", b);
-      sendLEDTest(l);
-      //l += 10;
-
       if(RC5_Decode(&rcf)) {
          iprintf("Addr   %d\r\n", rcf.Address);
          iprintf("Comd   %d\r\n", rcf.Command);
          iprintf("Field  %d\r\n", rcf.FieldBit);
          iprintf("Toggle %d\r\n", rcf.ToggleBit);
          iprintf("\r\n");
-         sendLEDTest(50);
 
          for (i = 0; i < 100000; i++);
       }
 
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
 
-      iprintf("Button = %d\n", HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin));
+      //iprintf("Button = %d\n", HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin));
 
       // spend time
       for (i = 0; i < 1000000; i++);
@@ -136,6 +86,8 @@ int main(void)
          b = 0;
       }
       b++;
+
+      led_UpdateChannels();
    }
 }
 
