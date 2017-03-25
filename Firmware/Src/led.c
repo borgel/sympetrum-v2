@@ -64,9 +64,6 @@ bool led_SetChannel(uint8_t ch, struct color_ColorRGB color) {
 bool led_UpdateChannels(void) {
    int i;
 
-   //FIXME rm
-   iprintf("Updating LEDs...\n");
-
    //TODO we have to strip the const here. That's ok, right? Read the SRC
    //FIXME what is a good timeout here?
    HAL_SPI_Transmit(&state.spi, (uint8_t*)LED_FRAME_START, sizeof(LED_FRAME_START), 10000);

@@ -43,13 +43,15 @@ int main(void)
    MX_SPI1_Init();
    MX_USART1_UART_Init();
 
-   iprintf("\r\nStarting... (0x%x | "__DATE__" : "__TIME__")\r\n", bid_GetID());
+   iprintf("\r\nStarting... (0x%x | Built "__DATE__":"__TIME__")\r\n", bid_GetID());
 
    led_Init(hspi1);
 
    //FIXME rm
-   struct color_ColorRGB c = {.r = 100, .g = 0, .b = 200};
-   led_SetChannel(3, c);
+   struct color_ColorRGB c = {.r = 0, .g = 0, .b = 0};
+   led_SetChannel(0, c);
+   led_SetChannel(1, c);
+   led_UpdateChannels();
 
    iprintf("Setting up RC5 encode/decode...");
    RC5_Encode_Init();
@@ -68,12 +70,26 @@ int main(void)
          iprintf("Toggle %d\r\n", rcf.ToggleBit);
          iprintf("\r\n");
 
-         for (i = 0; i < 100000; i++);
+         struct color_ColorRGB c = {.r = 100, .g = 0, .b = 200};
+         led_SetChannel(0, c);
+         led_UpdateChannels();
+
+         for (i = 0; i < 1000000; i++);
       }
 
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
 
       //iprintf("Button = %d\n", HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin));
+      if(HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin)) {
+         struct color_ColorRGB cc = {.r = 0, .g = 200, .b = 0};
+         led_SetChannel(1, cc);
+         led_UpdateChannels();
+      }
+      else {
+         struct color_ColorRGB cc = {.r = 0, .g = 0, .b = 0};
+         led_SetChannel(1, cc);
+         led_UpdateChannels();
+      }
 
       // spend time
       for (i = 0; i < 1000000; i++);
@@ -82,12 +98,14 @@ int main(void)
          //addr, instruc, ctrl
          //encoded as 0x0A23
          //encoded as 0x35DC inverted (as IR RX'd)
-         //RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
+         RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
          b = 0;
+
+         struct color_ColorRGB cc = {.r = 200, .g = 0, .b = 0};
+         led_SetChannel(0, cc);
+         led_UpdateChannels();
       }
       b++;
-
-      led_UpdateChannels();
    }
 }
 
