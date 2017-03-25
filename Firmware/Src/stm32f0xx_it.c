@@ -60,7 +60,7 @@ void TIM16_IRQHandler(void)
 /*
  * Handle the ISR used when decoding incoming IR.
  */
-void TIM2_IRQHandler(void)
+void TIM3_IRQHandler(void)
 {
    /* Clear the TIM2 Update pending bit (but doesn't clear the flag)*/
    __HAL_TIM_CLEAR_IT(&htim3, TIM_FLAG_UPDATE);
