@@ -38,6 +38,7 @@ static struct led_State state;
 //SPI_HandleTypeDef hspi1;
 
 bool led_Init(SPI_HandleTypeDef spiBus) {
+   //note, SPI init is done in main
    state.spi = spiBus;
 
    memset(state.leds, 0, sizeof(state.leds) / sizeof(state.leds[0]));
@@ -46,7 +47,8 @@ bool led_Init(SPI_HandleTypeDef spiBus) {
       state.leds[i].globalHeader = 0x1F;
    }
 
-   //note, SPI init is done in main
+   led_UpdateChannels();
+
    return true;
 }
 
