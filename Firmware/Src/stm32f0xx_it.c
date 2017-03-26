@@ -66,14 +66,14 @@ void TIM3_IRQHandler(void)
    __HAL_TIM_CLEAR_IT(&htim3, TIM_FLAG_UPDATE);
 
    // track the time between ALL edges of the incoming signal.
-   if(__HAL_TIM_GET_FLAG(&htim3, TIM_FLAG_CC2))
+   if(__HAL_TIM_GET_FLAG(&htim3, TIM_FLAG_CC1))
    {
-      __HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_CC2);
+      __HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_CC1);
 
       ICValue2 = HAL_TIM_ReadCapturedValue(&htim3, TIM_CHANNEL_1);
 
       //get current polarity and assume we just saw the opposite edge
-      pol = (GPIO_PIN_SET == HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1));
+      pol = (GPIO_PIN_SET == HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6));
 
       RC5_DataSampling(ICValue2, pol);
    }

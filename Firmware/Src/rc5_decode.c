@@ -306,7 +306,7 @@ void RC5_Decode_Init(void)
    }
 
    sSlaveConfig.SlaveMode = TIM_SLAVEMODE_RESET;
-   sSlaveConfig.InputTrigger = TIM_TS_TI2FP2;
+   sSlaveConfig.InputTrigger = TIM_TS_TI1FP1;
    sSlaveConfig.TriggerPolarity = TIM_INPUTCHANNELPOLARITY_BOTHEDGE;
    sSlaveConfig.TriggerFilter = 0;
    if (HAL_TIM_SlaveConfigSynchronization(&htim3, &sSlaveConfig) != HAL_OK)
