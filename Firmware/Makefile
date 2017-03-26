@@ -30,7 +30,7 @@ BUILD_DIR = build
 ifeq ($(CPU), STM32F051x8)
    STARTUP_FILE = Drivers/CMSIS/Device/ST/STM32F0xx/Source/Templates/gcc/startup_stm32f051x8.s
    LDSCRIPT = SW4STM32/STM32F051R8Tx_FLASH.ld
-else ifeq ($(CPU), STM32F030x6))
+else ifeq ($(CPU), STM32F030x6)
    STARTUP_FILE = Drivers/CMSIS/Device/ST/STM32F0xx/Source/Templates/gcc/startup_stm32f030x6.s
    LDSCRIPT = SW4STM32/STM32F030K6Tx_FLASH.ld
 endif
