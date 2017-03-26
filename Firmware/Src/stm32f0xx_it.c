@@ -31,18 +31,16 @@ void SysTick_Handler(void)
    HAL_SYSTICK_IRQHandler();
 }
 
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-   iprintf("EXTI0 ");
-   //Check if EXTI_Line0 is asserted
-   /*
-   if(EXTI_GetITStatus(EXTI_Line0) != RESET)
-   {
-      iprintf("Button");
+/*
+ * Handle any EXTI0 events (IE all GPIO Pin 0's)
+ */
+void EXTI0_1_IRQHandler(void) {
+   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_0)) {
+      __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_0);
+      iprintf("EXTI on pin 0 (button is %d)", HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0));
+
+      //TODO forward this event somewhere
    }
-   //we need to clear line pending bit manually
-   */
-   //EXTI_ClearITPendingBit(EXTI_Line0);
 }
 
 /*
