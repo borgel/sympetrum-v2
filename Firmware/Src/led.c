@@ -38,6 +38,7 @@ static struct led_State state;
 //SPI_HandleTypeDef hspi1;
 
 bool led_Init(SPI_HandleTypeDef spiBus) {
+   //note, SPI init is done in main
    state.spi = spiBus;
 
    memset(state.leds, 0, sizeof(state.leds) / sizeof(state.leds[0]));
@@ -46,7 +47,8 @@ bool led_Init(SPI_HandleTypeDef spiBus) {
       state.leds[i].globalHeader = 0x1F;
    }
 
-   //note, SPI init is done in main
+   led_UpdateChannels();
+
    return true;
 }
 
@@ -61,9 +63,6 @@ bool led_SetChannel(uint8_t ch, struct color_ColorRGB color) {
 
 bool led_UpdateChannels(void) {
    int i;
-
-   //FIXME rm
-   iprintf("Updating LEDs...\n");
 
    //TODO we have to strip the const here. That's ok, right? Read the SRC
    //FIXME what is a good timeout here?

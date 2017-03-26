@@ -45,7 +45,6 @@ static void Error_Handler(void) {}
 
 void RC5_Encode_Init(void)
 {
-
    TIM17_Init();
    TIM16_Init();
 }
