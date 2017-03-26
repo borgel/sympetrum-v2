@@ -80,7 +80,7 @@ int main(void)
       HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
 
       //iprintf("Button = %d\n", HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin));
-      if(HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin)) {
+      if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)) {
          struct color_ColorRGB cc = {.r = 0, .g = 200, .b = 0};
          led_SetChannel(1, cc);
          led_UpdateChannels();
@@ -227,14 +227,16 @@ static void MX_GPIO_Init(void)
    HAL_NVIC_SetPriority(EXTI0_1_IRQn, 0, 0);
    HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
 
-   /*Configure GPIO pin : B1_Pin */
-   GPIO_InitStruct.Pin = B1_Pin;
+   // setup button
+   GPIO_InitStruct.Pin = GPIO_PIN_0;
    //GPIO_InitStruct.Mode = GPIO_MODE_EVT_FALLING;
-   //GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-   GPIO_InitStruct.Pull = GPIO_PULLUP;
+   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+   //GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+
+   //GPIO_InitStruct.Pull = GPIO_PULLUP;
+
    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
    /*Configure GPIO pins : LD4_Pin LD3_Pin */
    GPIO_InitStruct.Pin = LD4_Pin|LD3_Pin;
