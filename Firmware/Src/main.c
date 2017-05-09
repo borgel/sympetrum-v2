@@ -34,6 +34,7 @@ static void MX_USART1_UART_Init(void);
 
 int main(void)
 {
+   int i;
 
    // Reset of all peripherals, Initializes the Flash interface and the Systick
    HAL_Init();
@@ -46,10 +47,13 @@ int main(void)
    MX_SPI1_Init();
    MX_USART1_UART_Init();
 
-   iprintf("\r\nStarting... (0x%x | Built "__DATE__":"__TIME__")\r\n", bid_GetID());
+   iprintf("\r\nStarting... (v%d | #0x%x | Built "__DATE__":"__TIME__")\r\n", FW_VERSION, bid_GetID());
 
    led_Init(hspi1);
 
+   //display the FW version
+   VersionToLEDs();
+   HAL_Delay(1000);  //delay in MS
    //FIXME rm
    struct color_ColorRGB c = {.r = 0, .g = 0, .b = 0};
    led_SetChannel(0, c);
@@ -61,7 +65,6 @@ int main(void)
    RC5_Decode_Init();
    iprintf("ok\r\n");
 
-   int i;
    uint8_t b = 0;
    RC5_Frame_TypeDef rcf;
    while (1)
