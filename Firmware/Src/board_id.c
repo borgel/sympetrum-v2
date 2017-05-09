@@ -23,10 +23,10 @@ uint32_t bid_GetID(void) {
       iprintf("ID #%d - 0x%x (%c)\n", i, UNIQUE_ID_REG_GET8(i), UNIQUE_ID_REG_GET8(i));
    }
 
-   //use ASCII lot number as u32 board ID
-   return   UNIQUE_ID_REG_GET8( 8) << 0 |
-            UNIQUE_ID_REG_GET8( 9) << 8 |
-            UNIQUE_ID_REG_GET8(10) << 16|
-            UNIQUE_ID_REG_GET8(11) << 24;
+   // use wafer X/Y for ID. The tray I got all has the same lot number
+   return   UNIQUE_ID_REG_GET8(0) << 0 |
+            UNIQUE_ID_REG_GET8(1) << 8 |
+            UNIQUE_ID_REG_GET8(2) << 16|
+            UNIQUE_ID_REG_GET8(3) << 24;
 }
 
