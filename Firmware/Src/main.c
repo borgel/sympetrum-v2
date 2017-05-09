@@ -48,9 +48,10 @@ int main(void)
    led_Init(hspi1);
 
    //FIXME rm
-   struct color_ColorRGB c = {.r = 0, .g = 0, .b = 0};
-   led_SetChannel(0, c);
-   led_SetChannel(1, c);
+   struct color_ColorRGB c = {.r = 0, .g = 100, .b = 100};
+   for(int i = 0; i < 10; i++) {
+      led_SetChannel(i, c);
+   }
    led_UpdateChannels();
 
    iprintf("Setting up RC5 encode/decode...");
