@@ -8,6 +8,7 @@
 
 #include "led.h"
 #include "board_id.h"
+#include "version.h"
 
 #include "rc5_encode.h"
 #include "rc5_decode.h"
@@ -21,6 +22,8 @@ UART_HandleTypeDef huart1;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim16;
 TIM_HandleTypeDef htim17;
+
+static void VersionToLEDs(void);
 
 void SystemClock_Config(void);
 void Error_Handler(void);
@@ -106,6 +109,22 @@ int main(void)
       }
       b++;
    }
+}
+
+/*
+ * Write this unit's SW version to the LEDs once.
+ */
+static void VersionToLEDs(void) {
+   struct color_ColorRGB c = {.r = 0, .g = 0, .b = 0};
+   //unpack each bit, and set the Blue LED channel to it
+   uint16_t mask = 0x01;
+   for(int i = 0; i < 10; i++) {
+      c.b = (mask & FW_VERSION) ? 100 : 0;
+      led_SetChannel(i, c);
+
+      mask <<= 1;
+   }
+   led_UpdateChannels();
 }
 
 /** System Clock Configuration
