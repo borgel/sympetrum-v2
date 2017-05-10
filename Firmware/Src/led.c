@@ -2,6 +2,7 @@
 /**
  */
 #include "led.h"
+#include "platform_hw.h"
 #include "color.h"
 #include "iprintf.h"
 #include "stm32f0xx_hal.h"
@@ -35,11 +36,13 @@ struct led_State {
 static struct led_State state;
 
 
-//SPI_HandleTypeDef hspi1;
+static bool spi_Init(SPI_HandleTypeDef * const spi, SPI_TypeDef* spiInstance);
 
-bool led_Init(SPI_HandleTypeDef spiBus) {
-   //note, SPI init is done in main
-   state.spi = spiBus;
+bool led_Init(void) {
+   //start SPI
+   if(!spi_Init(&state.spi, LED_SPI_INSTANCE)) {
+      return false;
+   }
 
    memset(state.leds, 0, sizeof(state.leds) / sizeof(state.leds[0]));
    //now add back the headers
@@ -77,3 +80,27 @@ bool led_UpdateChannels(void) {
    return true;
 }
 
+/* SPI1 init function */
+static bool spi_Init(SPI_HandleTypeDef * const spi, SPI_TypeDef* spiInstance)
+{
+   spi->Instance = spiInstance;
+   spi->Init.Mode = SPI_MODE_MASTER;
+   spi->Init.Direction = SPI_DIRECTION_2LINES;
+   spi->Init.DataSize = SPI_DATASIZE_8BIT;
+   spi->Init.CLKPolarity = SPI_POLARITY_LOW;
+   spi->Init.CLKPhase = SPI_PHASE_1EDGE;
+   spi->Init.NSS = SPI_NSS_SOFT;
+   //spi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+   spi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16; //for crappy saelae
+   spi->Init.FirstBit = SPI_FIRSTBIT_MSB;
+   spi->Init.TIMode = SPI_TIMODE_DISABLE;
+   spi->Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+   spi->Init.CRCPolynomial = 7;
+   spi->Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+   spi->Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+   if (HAL_SPI_Init(spi) != HAL_OK)
+   {
+      return false;
+   }
+   return true;
+}

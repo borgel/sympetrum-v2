@@ -16,7 +16,6 @@
 #include <string.h>
 
 
-SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart1;
 
 TIM_HandleTypeDef htim3;
@@ -28,7 +27,6 @@ static void VersionToLEDs(void);
 void SystemClock_Config(void);
 void Error_Handler(void);
 static void MX_GPIO_Init(void);
-static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
 
 
@@ -44,16 +42,16 @@ int main(void)
 
    // Initialize all configured peripherals
    MX_GPIO_Init();
-   MX_SPI1_Init();
    MX_USART1_UART_Init();
 
    iprintf("\r\nStarting... (v%d | #0x%x | Built "__DATE__":"__TIME__")\r\n", FW_VERSION, bid_GetID());
 
-   led_Init(hspi1);
+   led_Init();
 
    //display the FW version
    VersionToLEDs();
    HAL_Delay(1000);  //delay in MS
+
    //FIXME rm
    struct color_ColorRGB c = {.r = 0, .g = 0, .b = 0};
    led_SetChannel(0, c);
@@ -173,32 +171,6 @@ void SystemClock_Config(void)
 
    /* SysTick_IRQn interrupt configuration */
    HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
-}
-
-/* SPI1 init function */
-static void MX_SPI1_Init(void)
-{
-
-   hspi1.Instance = SPI1;
-   hspi1.Init.Mode = SPI_MODE_MASTER;
-   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
-   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-   hspi1.Init.NSS = SPI_NSS_SOFT;
-   //hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
-   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16; //for crappy saelae
-   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
-   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
-   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-   hspi1.Init.CRCPolynomial = 7;
-   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-   hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
-   if (HAL_SPI_Init(&hspi1) != HAL_OK)
-   {
-      Error_Handler();
-   }
-
 }
 
 /* USART1 init function */
