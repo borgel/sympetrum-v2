@@ -18,10 +18,6 @@
 
 UART_HandleTypeDef huart1;
 
-TIM_HandleTypeDef htim3;
-TIM_HandleTypeDef htim16;
-TIM_HandleTypeDef htim17;
-
 static void VersionToLEDs(void);
 
 void SystemClock_Config(void);

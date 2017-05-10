@@ -244,8 +244,9 @@ const tRC5_lastBitType RC5_logicTableFallingEdge[2][2] =
    {RC5_ONE ,RC5_INV},  /* lastbit = ONE  */
 };
 
-//TODO pass this in instead
-extern TIM_HandleTypeDef htim3;
+//FIXME encapsulate this
+//not static so IT can see it
+TIM_HandleTypeDef htim3;
 
 __IO bool RC5FrameReceived = false; /*!< RC5 Frame state */ 
 __IO tRC5_packet   RC5TmpPacket;          /*!< First empty packet */

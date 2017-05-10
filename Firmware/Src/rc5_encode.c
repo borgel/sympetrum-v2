@@ -31,9 +31,10 @@ extern uint8_t* rc5_Commands[];
 extern uint8_t* rc5_devices[];
 extern __IO uint8_t RFDemoStatus; 
 
-//FIXME pass in?
-extern TIM_HandleTypeDef htim16;
-extern TIM_HandleTypeDef htim17;
+//FIXME encapsulate this
+//not static so IT can see it
+TIM_HandleTypeDef htim16;
+TIM_HandleTypeDef htim17;
 
 static uint16_t RC5_BinFrameGeneration(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl);
 static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat);
