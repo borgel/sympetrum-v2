@@ -1,6 +1,5 @@
 /**
  */
-#include "main.h"
 #include "stm32f0xx_hal.h"
 #include "stm32f0xx_hal_gpio.h"
 #include "stm32f0xx_hal_tim.h"
@@ -82,8 +81,6 @@ int main(void)
 
          for (i = 0; i < 1000000; i++);
       }
-
-      HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
 
       if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)) {
          struct color_ColorRGB cc = {.r = 0, .g = 200, .b = 0};
@@ -238,11 +235,6 @@ static void MX_GPIO_Init(void)
    /* GPIO Ports Clock Enable */
    __HAL_RCC_GPIOA_CLK_ENABLE();
    __HAL_RCC_GPIOB_CLK_ENABLE();
-   __HAL_RCC_GPIOC_CLK_ENABLE();
-
-   /*Configure GPIO pin Output Level */
-   HAL_GPIO_WritePin(GPIOC, LD4_Pin|LD3_Pin, GPIO_PIN_RESET);
-
 
    // setup button
    GPIO_InitStruct.Pin = GPIO_PIN_0;
@@ -253,13 +245,6 @@ static void MX_GPIO_Init(void)
    //setup button vector
    HAL_NVIC_SetPriority(EXTI0_1_IRQn, 0, 0);
    HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
-
-   /*Configure GPIO pins : LD4_Pin LD3_Pin */
-   GPIO_InitStruct.Pin = LD4_Pin|LD3_Pin;
-   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-   GPIO_InitStruct.Pull = GPIO_NOPULL;
-   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 }
 
 /**

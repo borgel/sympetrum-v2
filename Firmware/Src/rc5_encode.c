@@ -1,6 +1,5 @@
 /*
  */
-#include "main.h"
 #include "rc5_encode.h"
 #include "iprintf.h"
 
