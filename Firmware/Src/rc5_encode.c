@@ -1,6 +1,7 @@
 /*
  */
 #include "rc5_encode.h"
+#include "platform_hw.h"
 #include "iprintf.h"
 
 #include "stm32f0xx.h"

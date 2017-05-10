@@ -1,5 +1,6 @@
 /**
  */
+#include "platform_hw.h"
 #include "stm32f0xx_hal.h"
 #include "stm32f0xx_hal_gpio.h"
 #include "stm32f0xx_hal_tim.h"
@@ -237,10 +238,10 @@ static void MX_GPIO_Init(void)
    __HAL_RCC_GPIOB_CLK_ENABLE();
 
    // setup button
-   GPIO_InitStruct.Pin = GPIO_PIN_0;
+   GPIO_InitStruct.Pin = USER_BUTTON_PIN;
    GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+   HAL_GPIO_Init(USER_BUTTON_PORT, &GPIO_InitStruct);
 
    //setup button vector
    HAL_NVIC_SetPriority(EXTI0_1_IRQn, 0, 0);
