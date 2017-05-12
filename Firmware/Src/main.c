@@ -45,6 +45,7 @@ int main(void)
    RC5_Decode_Init();
    iprintf("ok\r\n");
 
+   int cnt = 0;
    uint8_t b = 0;
    RC5_Frame_TypeDef rcf;
    while (1)
@@ -78,17 +79,28 @@ int main(void)
       for (i = 0; i < 1000000; i++);
 
       if(b > 5) {
+         if(cnt % 2) {
+            RC5_DecodeDisable();
+         }
+
          //addr, instruc, ctrl
          //encoded as 0x0A23
          //encoded as 0x35DC inverted (as IR RX'd)
          RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
          b = 0;
 
+         if(cnt % 2) {
+            HAL_Delay(50);
+
+            RC5_DecodeEnable();
+         }
+
          struct color_ColorRGB cc = {.r = 200, .g = 0, .b = 0};
          led_SetChannel(0, cc);
          led_UpdateChannels();
       }
       b++;
+      cnt++;
    }
 }
 
