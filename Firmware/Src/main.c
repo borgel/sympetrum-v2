@@ -15,8 +15,6 @@
 
 #include <string.h>
 
-UART_HandleTypeDef huart1;
-
 static void VersionToLEDs(void);
 
 int main(void)
