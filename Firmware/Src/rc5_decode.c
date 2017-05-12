@@ -351,6 +351,19 @@ void RC5_Decode_Init(void)
 }
 
 /**
+ * Temporarily disable the RX pipeline (for when we are transmitting).
+ */
+void RC5_DecodeDisable(void) {
+   HAL_NVIC_DisableIRQ(TIM3_IRQn);
+   RC5_ResetPacket();
+}
+
+void RC5_DecodeEnable(void) {
+   RC5_ResetPacket();
+   HAL_NVIC_EnableIRQ(TIM3_IRQn);
+}
+
+/**
  * @brief  Decode the IR frame (ADDRESS, COMMAND) when all the frame is 
  *         received, the IRFrameReceived will equal to YES.
  *         The IRFrameReceived is set to YES inside the  IR_DataSampling() 
