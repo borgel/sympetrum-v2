@@ -90,7 +90,8 @@ int main(void)
          b = 0;
 
          if(cnt % 2) {
-            HAL_Delay(50);
+            //spin until send is done, then enable RX again
+            while(RC5_Encode_IsSending()) {}
 
             RC5_DecodeEnable();
          }

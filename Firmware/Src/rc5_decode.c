@@ -364,16 +364,16 @@ void RC5_DecodeEnable(void) {
 }
 
 /**
- * @brief  Decode the IR frame (ADDRESS, COMMAND) when all the frame is 
+ * @brief  Decode the IR frame (ADDRESS, COMMAND) when all the frame is
  *         received, the IRFrameReceived will equal to YES.
- *         The IRFrameReceived is set to YES inside the  IR_DataSampling() 
- *         function when the whole IR frame is received without any error.
+ *         The IRFrameReceived is set to YES inside the  IR_DataSampling()
+ *         function when the whole IR frame is received without any error
  *         If any received bit timing is out of the defined range, the IR packet
  *         is reset and the IRFrameReceived is set to NO.
  *         After the IR received display, the IRFrameReceived is set NO.
  *         User can check the IRFrameReceived variable status to verify if there
- *         is a new IR frame already received.          
- * @param  rc5_frame: pointer to IR_Frame_TypeDef structure that contains the 
+ *         is a new IR frame already received.
+ * @param  rc5_frame: pointer to IR_Frame_TypeDef structure that contains the
  *         the IR protocol fields (Address, Command,...).
  * @retval None
  */

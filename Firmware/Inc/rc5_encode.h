@@ -2,6 +2,7 @@
 #define __RC5_ENCODE_H
 
 #include "stm32f0xx.h"
+#include <stdbool.h>
 
 typedef enum
 {
@@ -12,6 +13,7 @@ typedef enum
 void RC5_Encode_Init(void);
 void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl);
 void RC5_Encode_SignalGenerate(void);
+bool RC5_Encode_IsSending(void);
 
 #endif  /*__RC5_ENCODE_H */
 
