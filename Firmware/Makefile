@@ -59,13 +59,14 @@ BIN = $(CP) -O binary -S
 AS_DEFS =
 C_DEFS = -D__weak="__attribute__((weak))" -D__packed="__attribute__((__packed__))" -DUSE_HAL_DRIVER -D$(CPU)
 # includes for gcc
-AS_INCLUDES =
-C_INCLUDES =
+C_INCLUDES = -IInc/ -IDrivers/STM32F0xx_HAL_Driver/Inc/ -IDrivers/CMSIS/Device/ST/STM32F0xx/Include/ -IDrivers/CMSIS/Include -IDrivers/STM32F0xx_HAL_Driver/Inc/Legacy
+AS_INCLUDES = $(C_INCLUDES)
+
 # compile gcc flags
 # FIXME rm INC search paths?
-ASFLAGS = -mthumb -mcpu=cortex-m0 $(AS_DEFS) -IInc/ -IDrivers/STM32F0xx_HAL_Driver/Inc/ -IDrivers/CMSIS/Device/ST/STM32F0xx/Include/ -IDrivers/CMSIS/Include -IDrivers/STM32F0xx_HAL_Driver/Inc/Legacy $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+ASFLAGS = -mthumb -mcpu=cortex-m0 $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 #FIXME find a better way of including all these header search paths
-CFLAGS = -mthumb -mcpu=cortex-m0 $(C_DEFS) -IInc/ -IDrivers/STM32F0xx_HAL_Driver/Inc/ -IDrivers/CMSIS/Device/ST/STM32F0xx/Include/ -IDrivers/CMSIS/Include -IDrivers/STM32F0xx_HAL_Driver/Inc/Legacy $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+CFLAGS = -mthumb -mcpu=cortex-m0 $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 ifeq ($(DEBUG), 1)
 CFLAGS += -g -gdwarf-2
 endif
