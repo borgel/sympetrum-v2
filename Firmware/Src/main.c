@@ -61,19 +61,16 @@ int main(void)
 
    int cnt = 0;
    uint8_t b = 0;
-   RC5_Frame_TypeDef rcf;
+   union IRMessage irm;
    while (1)
    {
-      if(RC5_Decode(&rcf)) {
-         iprintf("Addr   %d\r\n", rcf.Address);
-         iprintf("Comd   %d\r\n", rcf.Command);
-         iprintf("Field  %d\r\n", rcf.FieldBit);
-         iprintf("Toggle %d\r\n", rcf.ToggleBit);
+      if(RC5_Decode(&irm)) {
+         iprintf("Got a frame! 0x%x", irm.raw);
          iprintf("\r\n");
 
          led_SetChannel(0, COLOR_HSV_BLACK);
 
-         for (i = 0; i < 1000000; i++);
+         HAL_Delay(1000);
       }
 
       if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)) {
@@ -88,22 +85,27 @@ int main(void)
       for (i = 0; i < 1000000; i++);
 
       if(b > 5) {
+         /*
          if(cnt % 2) {
             RC5_DecodeDisable();
          }
+         */
 
          //addr, instruc, ctrl
          //encoded as 0x0A23
          //encoded as 0x35DC inverted (as IR RX'd)
-         RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
+         //RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
+         RC5_Encode_SendFrame(0xDEADBEEF);
          b = 0;
 
+         /*
          if(cnt % 2) {
             //spin until send is done, then enable RX again
             while(RC5_Encode_IsSending()) {}
 
             RC5_DecodeEnable();
          }
+         */
 
          led_SetChannel(0, COLOR_HSV_BLACK);
       }
