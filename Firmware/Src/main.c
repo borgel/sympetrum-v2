@@ -97,6 +97,7 @@ int main(void)
          //RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
          RC5_Encode_SendFrame(0xDEADBEEF);
          b = 0;
+         while(RC5_Encode_IsSending()) {}
 
          /*
          if(cnt % 2) {

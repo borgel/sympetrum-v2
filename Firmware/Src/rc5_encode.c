@@ -72,7 +72,9 @@ void RC5_Encode_SendFrame(uint32_t rawMessage)
 
    /* Set the Send operation Ready flag to indicate that the frame is ready to be sent */
    Send_Operation_Ready = 1;
+   Send_Operation_Completed = 0;
 
+   //FIXME re-enable
    //start the bit clock. Each edge it will send data on its own
    res = HAL_TIM_Base_Start_IT(&htim16);
    if(res != HAL_OK) {
@@ -81,6 +83,17 @@ void RC5_Encode_SendFrame(uint32_t rawMessage)
 
    //FIXME rm
    iprintf("Send started. Binary msg = 0x%x\n", RC5_FrameBinaryFormat);
+
+   //FIXME rm
+   return;
+
+   //while(!Send_Operation_Completed) {
+   int i;
+   for(i = 0; i < RC5_GlobalFrameLength * 2; i++) {
+      //TODO run entire pipe?
+      iprintf("%d", RC5_GetNextManchesterBit());
+   }
+   iprintf(" (that was %d)\n", i);
 }
 
 /**
@@ -113,10 +126,14 @@ void RC5_Encode_SignalGenerate(void)
       BitsSent_Counter++;
 
       //restart timer to count to next bit edge
+      //FIXME needed?
       HAL_TIM_Base_Start_IT(&htim16);
    }
    else
    {
+      //FIXME rm
+      iprintf("D manoff = %d\n", RC5_ManchesterOffset);
+
       Send_Operation_Completed = 0x01;
 
       HAL_StatusTypeDef res;
@@ -168,7 +185,7 @@ static uint8_t RC5_GetNextManchesterBit(void) {
    //if so, calculate it
    //look at offset to see if we send the first or second segment of the Manchester bit
 
-   uint16_t bit = 0;
+   uint8_t bit;
 
    //FIXME if this is bit 0, don't send it! send an RC5HIGH instead
 
@@ -178,10 +195,16 @@ static uint8_t RC5_GetNextManchesterBit(void) {
       if(RC5_FrameBinaryFormat & 0x1) // Manchester 1 -|_
       {
          RC5_ManchesterByte = RC5HIGHSTATE;
+
+         //FIXME rm
+         //iprintf("(1)");
       }
       else // Manchester 0 _|-
       {
          RC5_ManchesterByte = RC5LOWSTATE;
+
+         //FIXME rm
+         //iprintf("(0)");
       }
 
       //destructively consume frame to send
@@ -193,17 +216,17 @@ static uint8_t RC5_GetNextManchesterBit(void) {
 
    //redundant to make the logic clear
    if(RC5_ManchesterOffset % 2 == 0) {
-      bit = RC5_ManchesterByte | (1 << 0);
+      bit = RC5_ManchesterByte & (1 << 0);
    }
    else {
-      bit = RC5_ManchesterByte | (1 << 1);
+      bit = RC5_ManchesterByte & (1 << 1);
 
+      //FIXME rm
       //iprintf("\n");
-
    }
 
    RC5_ManchesterOffset++;
-   return bit != 0;
+   return bit == 0;
 }
 
 bool RC5_Encode_IsSending(void) {
