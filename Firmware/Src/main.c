@@ -37,15 +37,18 @@ int main(void)
    led_Init();
 
    //display the FW version
-   VersionToLEDs();
-   HAL_Delay(1000);  //delay in MS
+   //FIXME enable
+   //VersionToLEDs();
+   //FIXME en
+   //HAL_Delay(1000);  //delay in MS
 
    iprintf("Setting up RC5 encode/decode...");
    RC5_Encode_Init();
    RC5_Decode_Init();
    iprintf("ok\r\n");
 
-   led_StartAnimation();
+   //FIXME en
+   //led_StartAnimation();
 
    /*
    //FIXME rm
@@ -59,21 +62,68 @@ int main(void)
    }
    */
 
+//#define DECODE
+
+   union IRMessage irm;
+   int c = 0;
+
+   //FIXME rm
+   while(1) {
+      //iprintf("RX\r\n");
+#ifndef DECODE
+      //RC5_Encode_SendFrame(0xDEADBEEF);
+      //RC5_Encode_SendFrame(0xFFFFFFFF);
+      RC5_Encode_SendFrame(0x7FFFFFFF);
+      while(RC5_Encode_IsSending()) {}
+
+      //FIXME rm?
+      HAL_Delay(100);
+      if(RC5_Decode(&irm)) {
+         iprintf("Got a frame! 0x%x\r\n"  , irm.raw);
+      }
+#endif
+
+#ifdef DECODE
+      if(RC5_Decode(&irm)) {
+         iprintf("Got a frame! 0x%x\r\n"  , irm.raw);
+      }
+      HAL_Delay(500);
+
+      continue;
+#endif //decode
+
+#ifndef DECODE
+      if(c % 2) {
+         led_SetChannel(0, COLOR_HSV_WHITE);
+      }
+      else {
+         led_SetChannel(0, COLOR_HSV_BLACK);
+      }
+      led_GiveTime(c * 1000);
+
+      HAL_Delay(500);
+
+      c++;
+#endif//!decode
+   }
+
    int cnt = 0;
    uint8_t b = 0;
-   RC5_Frame_TypeDef rcf;
    while (1)
    {
-      if(RC5_Decode(&rcf)) {
-         iprintf("Addr   %d\r\n", rcf.Address);
-         iprintf("Comd   %d\r\n", rcf.Command);
-         iprintf("Field  %d\r\n", rcf.FieldBit);
-         iprintf("Toggle %d\r\n", rcf.ToggleBit);
-         iprintf("\r\n");
+      if(RC5_Decode(&irm)) {
+         iprintf("Got a frame! 0x%x\r\n"  , irm.raw);
+         iprintf("right 1 0x%x\r\n"       , irm.raw >> 1);
+         iprintf("left 1 0x%x\r\n"        , irm.raw << 1);
+         /*
+         iprintf("~raw 0x%x\r\n"          , ~irm.raw);
+         iprintf("~right 1 0x%x\r\n"      , ~(irm.raw >> 1));
+         iprintf("~left 1 0x%x\r\n"       , ~(irm.raw << 1));
+         */
 
          led_SetChannel(0, COLOR_HSV_BLACK);
 
-         for (i = 0; i < 1000000; i++);
+         HAL_Delay(1000);
       }
 
       if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)) {
@@ -84,26 +134,32 @@ int main(void)
          led_SetChannel(1, COLOR_HSV_BLACK);
       }
 
-      // spend time
-      for (i = 0; i < 1000000; i++);
+      HAL_Delay(500);
 
       if(b > 5) {
+         /*
          if(cnt % 2) {
             RC5_DecodeDisable();
          }
+         */
 
          //addr, instruc, ctrl
          //encoded as 0x0A23
          //encoded as 0x35DC inverted (as IR RX'd)
-         RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
+         //RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
+         iprintf("Start Beacon...\r\n");
+         RC5_Encode_SendFrame(0xDEADBEEF);
          b = 0;
+         //while(RC5_Encode_IsSending()) {}
 
+         /*
          if(cnt % 2) {
             //spin until send is done, then enable RX again
             while(RC5_Encode_IsSending()) {}
 
             RC5_DecodeEnable();
          }
+         */
 
          led_SetChannel(0, COLOR_HSV_BLACK);
       }
