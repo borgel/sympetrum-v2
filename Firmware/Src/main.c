@@ -65,8 +65,14 @@ int main(void)
    while (1)
    {
       if(RC5_Decode(&irm)) {
-         iprintf("Got a frame! 0x%x", irm.raw);
-         iprintf("\r\n");
+         iprintf("Got a frame! 0x%x\r\n"  , irm.raw);
+         iprintf("right 1 0x%x\r\n"       , irm.raw >> 1);
+         iprintf("left 1 0x%x\r\n"        , irm.raw << 1);
+         /*
+         iprintf("~raw 0x%x\r\n"          , ~irm.raw);
+         iprintf("~right 1 0x%x\r\n"      , ~(irm.raw >> 1));
+         iprintf("~left 1 0x%x\r\n"       , ~(irm.raw << 1));
+         */
 
          led_SetChannel(0, COLOR_HSV_BLACK);
 
