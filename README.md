@@ -14,5 +14,5 @@ If you have, there's a sequence around page 300 in which Miranda is first introd
 A [_Sympetrum_](https://en.wikipedia.org/wiki/Sympetrum) is a genus of Dragonfly.
 
 # How Do I Make One?
-Gerbers forthcoming so you can make your own! Firmware for this version currently in progress, but the hardware has been validated. Ping me for more.
+Gerbers and electrical sources in the [Hardware](Hardware/) directory! Firmware for this version currently in progress, but the hardware has been validated. Ping me for more.
 
