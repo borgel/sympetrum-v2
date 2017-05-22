@@ -118,6 +118,31 @@ static void MX_GPIO_Init(void)
    HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
 }
 
+/* SPI1 init function */
+bool platformHW_SpiInit(SPI_HandleTypeDef * const spi, SPI_TypeDef* spiInstance)
+{
+   spi->Instance = spiInstance;
+   spi->Init.Mode = SPI_MODE_MASTER;
+   spi->Init.Direction = SPI_DIRECTION_2LINES;
+   spi->Init.DataSize = SPI_DATASIZE_8BIT;
+   spi->Init.CLKPolarity = SPI_POLARITY_LOW;
+   spi->Init.CLKPhase = SPI_PHASE_1EDGE;
+   spi->Init.NSS = SPI_NSS_SOFT;
+   //spi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+   spi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16; //for crappy saelae
+   spi->Init.FirstBit = SPI_FIRSTBIT_MSB;
+   spi->Init.TIMode = SPI_TIMODE_DISABLE;
+   spi->Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+   spi->Init.CRCPolynomial = 7;
+   spi->Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+   spi->Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+   if (HAL_SPI_Init(spi) != HAL_OK)
+   {
+      return false;
+   }
+   return true;
+}
+
 /**
  * @brief  This function is executed in case of error occurrence.
  * @param  None

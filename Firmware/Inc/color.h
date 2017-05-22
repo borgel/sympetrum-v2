@@ -14,7 +14,12 @@ struct color_ColorRGB {
    uint8_t     r;
 };
 
-#define HSV_CHANNEL_MAX         255
+#define HSV_CHANNEL_MAX          255
+#define HSV_CHANNEL_MIN          0
+
+#define HSV_COLOR_R              0
+#define HSV_COLOR_G              127
+#define HSV_COLOR_B              254
 
 struct color_ColorHSV {
    uint8_t     h;
@@ -23,10 +28,17 @@ struct color_ColorHSV {
 };
 
 //AKA white
-static const struct color_ColorHSV COLOR_HSV_MAXSV = {
+static const struct color_ColorHSV COLOR_HSV_WHITE = {
    .h = 0,
    .s = HSV_CHANNEL_MAX,
    .v = HSV_CHANNEL_MAX
+};
+
+//AKA black
+static const struct color_ColorHSV COLOR_HSV_BLACK = {
+   .h = 0,
+   .s = HSV_CHANNEL_MAX,
+   .v = HSV_CHANNEL_MIN
 };
 
 void color_HSV2RGB(struct color_ColorHSV const *hsv, struct color_ColorRGB *rgb);

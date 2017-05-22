@@ -11,6 +11,8 @@
 #define  LED_SPI_INSTANCE        (SPI1)
 
 bool platformHW_Init(void);
+bool platformHW_SpiInit(SPI_HandleTypeDef * const spi, SPI_TypeDef* spiInstance);
+
 
 #endif//PLATFORM_HW_H__
 
