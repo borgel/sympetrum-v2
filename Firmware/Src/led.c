@@ -9,6 +9,7 @@
 #include "stm32f0xx_hal_gpio.h"
 #include "stm32f0xx_hal_spi.h"
 
+#include "baf/baf.h"
 #include "yabi/yabi.h"
 
 #include <string.h>
@@ -80,7 +81,7 @@ bool led_Init(void) {
       return false;
    }
 
-   //start the interpolator. We'll leave it running forever (this triggers an init of the LED HW)
+   //start the interpolator (we'll leave it running forever). This triggers an init of the LED HW
    yabi_setStarted(true);
 
    return true;
@@ -179,5 +180,13 @@ static void led_UpdateChannels(yabi_FrameID frame) {
    }
 
    HAL_SPI_Transmit(&state.spi, (uint8_t*)LED_FRAME_STOP, sizeof(LED_FRAME_STOP), 10000);
+}
+
+void led_GiveTime(uint32_t systimeMS) {
+   //TODO animation from (fake, anim) clock. Set bias in animation
+
+   //FYI: the NULL is time until next call. Not useful without threads
+   baf_giveTime(systimeMS, NULL);
+   yabi_giveTime(systimeMS);
 }
 

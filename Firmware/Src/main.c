@@ -10,8 +10,8 @@
 #include "board_id.h"
 #include "version.h"
 
+//FIXME rm?
 #include "baf/baf.h"
-#include "yabi/yabi.h"
 
 #include "rc5_encode.h"
 #include "rc5_decode.h"
@@ -19,6 +19,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+//FIXME make this only 10 channels. but set their IDs every 3 (0,2,5,8, etc). those are H. only anumate H!
 // statically allocated animation
 static baf_ChannelID animationChannelIDs[30] = {0};
 static struct baf_Animation AnimRGBFade = {
@@ -66,6 +67,8 @@ int main(void)
    HAL_Delay(1000);  //delay in MS
 
    //start the random animation
+   //FIXME setup animaton channels
+   animationChannelIDs[30] = {0};
    baf_startAnimation(&AnimRGBFade, BAF_ASTART_IMMEDIATE);
 
    iprintf("Setting up RC5 encode/decode...");
@@ -127,8 +130,7 @@ int main(void)
 
    //TODO track a systime (from systick?)
    // pump the animation frameworks
-   baf_giveTime(0, NULL);
-   yabi_giveTime(0);
+   led_GiveTime(0);
 }
 
 /*

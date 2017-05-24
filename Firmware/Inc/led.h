@@ -20,5 +20,9 @@ bool led_Init(void);
 bool led_SetChannel(uint32_t id, struct color_ColorHSV c);
 bool led_SetSubChannel(uint32_t id, yabi_ChanValue val, uint32_t timeMS);
 
+//TODO set clock fxn
+
+void led_GiveTime(uint32_t systimeMS);
+
 #endif//LED_H__
 
