@@ -1,8 +1,16 @@
 #include "platform_hw.h"
 #include "iprintf.h"
 
+#include <string.h>
+
 // the UART used for iprintf
 UART_HandleTypeDef huart1;
+
+static uint8_t const LED_FRAME_START[4] = {0x00, 0x00, 0x00, 0x00};
+static uint8_t const LED_FRAME_STOP[4]  = {0xFF, 0xFF, 0xFF, 0xFF};
+
+//pull in from outside
+union platformHW_LEDRegister  LedRegisterStates[LED_CHAIN_LENGTH];
 
 static void SystemClock_Config(void);
 static void Error_Handler(void);
@@ -21,7 +29,23 @@ bool platformHW_Init(void) {
    MX_GPIO_Init();
    MX_USART1_UART_Init();
 
+   memset(LedRegisterStates, 0, sizeof(LedRegisterStates) / sizeof(LedRegisterStates[0]));
+
    return true;
+}
+
+void platformHW_UpdateLEDs(SPI_HandleTypeDef* spi) {
+   int i;
+
+   //TODO we have to strip the const here. That's ok, right? Read the SRC
+   //TODO what is a better timeout here?
+   HAL_SPI_Transmit(spi, (uint8_t*)LED_FRAME_START, sizeof(LED_FRAME_START), 10000);
+
+   for(i = 0; i < LED_CHAIN_LENGTH; i++) {
+      HAL_SPI_Transmit(spi, LedRegisterStates[i].raw, 4, 10000);
+   }
+
+   HAL_SPI_Transmit(spi, (uint8_t*)LED_FRAME_STOP, sizeof(LED_FRAME_STOP), 10000);
 }
 
 /** System Clock Configuration

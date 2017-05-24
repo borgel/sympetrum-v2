@@ -12,13 +12,11 @@
 #include "stm32f0xx_hal.h"
 #include "yabi/yabi.h"
 
-#define LED_CHAIN_LENGTH       10
-
 bool led_Init(void);
+bool led_StartAnimation(void);
 
-// YABI is used for all LED control
+// YABI is used internally for all LED control
 bool led_SetChannel(uint32_t id, struct color_ColorHSV c);
-bool led_SetSubChannel(uint32_t id, yabi_ChanValue val, uint32_t timeMS);
 
 //TODO set clock fxn
 

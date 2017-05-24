@@ -10,44 +10,14 @@
 #include "board_id.h"
 #include "version.h"
 
-//FIXME rm?
-#include "baf/baf.h"
-
 #include "rc5_encode.h"
 #include "rc5_decode.h"
 
 #include <string.h>
 #include <stdlib.h>
 
-//FIXME make this only 10 channels. but set their IDs every 3 (0,2,5,8, etc). those are H. only anumate H!
-// statically allocated animation
-static baf_ChannelID animationChannelIDs[30] = {0};
-static struct baf_Animation AnimRGBFade = {
-   .id                     = 1,
-   .numSteps               = 1,
-   .timeStepMS             = 1000,     //how long to wait between setting color targets
-   .type                   = BAF_ASCHED_SIMPLE_RANDOM_LOOP,
-
-   .aRandomSimpleLoop      = {
-      .id                  = animationChannelIDs,
-      .idLen               = 30,
-      .transitionTimeMS     = 1000,    //how quickly to move towards the target color
-      .params              = {
-         .maxValue         = 255,      //255 is the max hue
-         .minValue         = 0,
-         .biasValue        = 0,        //these will be programmatically manipulated to set color tendencies
-         .biasWeight       = 0,
-      },
-   },
-};
-
 static void VersionToLEDs(void);
 
-static void initAnimationStack(void);
-static uint32_t bafRNGCB(uint32_t range);
-static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num);
-static void bafAnimStartCB(struct baf_Animation const * anim);
-static void bafAnimStopCB(struct baf_Animation const * anim);
 
 int main(void)
 {
@@ -60,21 +30,31 @@ int main(void)
 
    iprintf("\r\nStarting... (v%d | #0x%x | Built "__DATE__":"__TIME__")\r\n", FW_VERSION, bid_GetID());
 
-   initAnimationStack();
+   // seed the PRNG from the kinda unique board ID
+   srand(bid_GetID());
+
+   // setup the entire LED framework (w/ animation)
+   led_Init();
 
    //display the FW version
    VersionToLEDs();
    HAL_Delay(1000);  //delay in MS
 
-   //start the random animation
-   //FIXME setup animaton channels
-   animationChannelIDs[30] = {0};
-   baf_startAnimation(&AnimRGBFade, BAF_ASTART_IMMEDIATE);
-
    iprintf("Setting up RC5 encode/decode...");
    RC5_Encode_Init();
    RC5_Decode_Init();
    iprintf("ok\r\n");
+
+   led_StartAnimation();
+
+   //FIXME rm
+   uint32_t time = 0;
+   while(1) {
+      led_GiveTime(time);
+
+      HAL_Delay(100);
+      time += 100;
+   }
 
    int cnt = 0;
    uint8_t b = 0;
@@ -131,62 +111,6 @@ int main(void)
    //TODO track a systime (from systick?)
    // pump the animation frameworks
    led_GiveTime(0);
-}
-
-/*
- * Wire up the animation framework. It's composed of two parts:
- * BAF - High level triggering to set LEDs to certain values at a timer interval.
- * YABI - Interpolates between those points to create dank RGB fading action.
- *
- * The animation objects must be statically allocated, so ours is statically allocated
- *    up at the top of the file.
- */
-static void initAnimationStack(void) {
-   baf_Error bres;
-
-   struct baf_Config bc = {
-      .rngCB               = bafRNGCB,
-      .animationStartCB    = bafAnimStartCB,
-      .animationStopCB     = bafAnimStopCB,
-      .setChannelGroupCB   = bafChanGroupSetCB,
-   };
-
-   // setup the interpolator and LED HW
-   led_Init();
-
-   // seed the PRNG from the kinda unique board ID
-   srand(bid_GetID());
-
-   // setup the animation framework
-   bres = baf_init(&bc);
-   if(bres != BAF_OK) {
-      iprintf("BAF init returned %d\n", bres);
-      return;
-   }
-}
-
-// a crummy RNG, but we don't really care
-static uint32_t bafRNGCB(uint32_t range) {
-   return rand() % range;
-}
-
-// shim to connect BAF's channel group setting API to YABI's one-at-a-time API
-static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num) {
-   for(int i = 0; i < num; i++) {
-      //FIXME rm
-      iprintf("\tSet Chan #%d to %u in %ums\n", channels[i].id, values[i], channels[i].transitionTimeMS);
-
-      led_SetSubChannel(channels[i].id, values[i], channels[i].transitionTimeMS);
-   }
-}
-
-static void bafAnimStartCB(struct baf_Animation const * anim) {
-   iprintf("Animation #%u Start\n", anim->id);
-   //TODO wire?
-}
-static void bafAnimStopCB(struct baf_Animation const * anim) {
-   iprintf("Animation #%u Stop\n", anim->id);
-   //TODO wire?
 }
 
 /*

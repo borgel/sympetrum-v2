@@ -13,49 +13,73 @@
 #include "yabi/yabi.h"
 
 #include <string.h>
+#include <stdlib.h>
 
 #define YABI_CHANNELS      (LED_CHAIN_LENGTH * 3)
 
 static uint8_t const DefaultTransitionTimeMS = 100;
-
-static uint8_t const LED_FRAME_START[4] = {0x00, 0x00, 0x00, 0x00};
-static uint8_t const LED_FRAME_STOP[4]  = {0xFF, 0xFF, 0xFF, 0xFF};
-
-union led_Data {
-   uint8_t  raw[4];
-   struct {
-      //header/global brightness is 0bAAABBBBB
-      //A = 1
-      //B = integer brightness divisor from 0x0 -> 0x1F
-
-      //3 bits always, 5 bits global brightness, 8B, 8G, 8R
-      //Glob = 0xE1 = min bright
-      uint8_t                 globalHeader;
-      struct color_ColorRGB   color;
-   };
-};
-
 struct led_State {
-   SPI_HandleTypeDef          spi;
+   SPI_HandleTypeDef             spi;
 
    //this is crappy. We store BOTH the HSV state (for math) and the RGB state
-   //(for sending).
-   union led_Data             leds[LED_CHAIN_LENGTH];
-   struct color_ColorHSV      ledsHSV[LED_CHAIN_LENGTH];
+   struct color_ColorHSV         ledsHSV[LED_CHAIN_LENGTH];
 
    //the data which backs YABI's channels. Arranged in groups of 3. The grouping
    //goes like {H, S, V}{H, S, V}, etc. So for 10 LEDs we have 30 'channels'. Modulo
    //math is used to figure out which is which at channel-set time.
-   struct yabi_ChannelRecord  yabiBacking[YABI_CHANNELS];
+   struct yabi_ChannelRecord     yabiBacking[YABI_CHANNELS];
 };
 static struct led_State state;
+
+extern union platformHW_LEDRegister  LedRegisterStates[LED_CHAIN_LENGTH];
+
+static baf_ChannelID animationChannelIDs[LED_CHAIN_LENGTH] = {0};
+// This is the 'animation' that the system runs
+static struct baf_Animation AnimRGBFade = {
+   .id                     = 1,
+   .numSteps               = 1,
+   .timeStepMS             = 1000,     //how long to wait between setting color targets
+   .type                   = BAF_ASCHED_SIMPLE_RANDOM_LOOP,
+
+   .aRandomSimpleLoop      = {
+      .id                  = animationChannelIDs,
+      .idLen               = 30,
+      .transitionTimeMS     = 1000,    //how quickly to move towards the target color
+      .params              = {
+         .maxValue         = 255,      //255 is the max hue
+         .minValue         = 0,
+         .biasValue        = 0,        //these will be programmatically manipulated to set color tendencies
+         .biasWeight       = 0,
+      },
+   },
+};
 
 static void* const led_HwInit(void);
 static void led_SetChannelMulti(yabi_ChanID chan, yabi_ChanValue value);
 static void led_UpdateChannels(yabi_FrameID frame);
+static uint32_t bafRNGCB(uint32_t range);
+static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num);
+static void bafAnimStartCB(struct baf_Animation const * anim);
+static void bafAnimStopCB(struct baf_Animation const * anim);
 
+/*
+ * Wire up the animation framework. It's composed of two parts:
+ * BAF - High level triggering to set LEDs to certain values at a timer interval.
+ * YABI - Interpolates between those points to create dank RGB fading action.
+ *
+ * The animation objects must be statically allocated, so ours is statically allocated
+ *    up at the top of the file.
+ */
 bool led_Init(void) {
    yabi_Error yres;
+   baf_Error bres;
+
+   struct baf_Config bc = {
+      .rngCB               = bafRNGCB,
+      .animationStartCB    = bafAnimStartCB,
+      .animationStopCB     = bafAnimStopCB,
+      .setChannelGroupCB   = bafChanGroupSetCB,
+   };
 
    struct yabi_Config yc = {
       .frameStartCB           = NULL,
@@ -81,10 +105,33 @@ bool led_Init(void) {
       return false;
    }
 
-   //start the interpolator (we'll leave it running forever). This triggers an init of the LED HW
+   // start the interpolator (we'll leave it running forever). This triggers an init of the LED HW
    yabi_setStarted(true);
 
+   // prepare to start BAF later
+   for(int i = 0; i < YABI_CHANNELS; i++) {
+      //wire up BAF so it's channels are YABI's Hue's
+      if(i % 3 == 0) {
+         animationChannelIDs[YABI_CHANNELS/3] = i;
+      }
+   }
+
+   // setup the animation framework
+   bres = baf_init(&bc);
+   if(bres != BAF_OK) {
+      iprintf("BAF init returned %d\n", bres);
+      return false;
+   }
    return true;
+}
+
+/*
+ * This system is NOT general purpose. This starts the RGB fade animation w/
+ * Sympetrum algorithm.
+ */
+bool led_StartAnimation(void) {
+   //start the random animation
+   return BAF_OK == baf_startAnimation(&AnimRGBFade, BAF_ASTART_IMMEDIATE);
 }
 
 /*
@@ -103,18 +150,30 @@ bool led_SetChannel(uint32_t id, struct color_ColorHSV c) {
    return true;
 }
 
-/*
- * Used for BAF to reach in directly and control YABI
- */
-//FIXME encapsulate this better/rename it?
-bool led_SetSubChannel(uint32_t id, yabi_ChanValue val, uint32_t timeMS) {
-   yabi_Error res;
+static uint32_t bafRNGCB(uint32_t range) {
+   return rand() % range;
+}
 
-   res  = yabi_setChannel(id, val, timeMS);
-   if(res != YABI_OK) {
-      return false;
+// shim to connect BAF's channel group setting API to YABI's one-at-a-time API
+static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num) {
+   for(int i = 0; i < num; i++) {
+      //FIXME rm
+      iprintf("\tSet Chan #%d to %u in %ums\n", channels[i].id, values[i], channels[i].transitionTimeMS);
+
+      if(YABI_OK != yabi_setChannel(channels[i].id, values[i], channels[i].transitionTimeMS)) {
+         //TODO handle?
+         iprintf("\tFAILED\r\n");
+      }
    }
-   return true;
+}
+
+static void bafAnimStartCB(struct baf_Animation const * anim) {
+   iprintf("Animation #%u Start\n", anim->id);
+   //TODO wire?
+}
+static void bafAnimStopCB(struct baf_Animation const * anim) {
+   iprintf("Animation #%u Stop\n", anim->id);
+   //TODO wire?
 }
 
 static void* const led_HwInit(void) {
@@ -124,11 +183,10 @@ static void* const led_HwInit(void) {
    }
 
    //wipe out our state struct
-   memset(state.leds, 0, sizeof(state.leds) / sizeof(state.leds[0]));
    memset(state.ledsHSV, 0, sizeof(state.ledsHSV) / sizeof(state.ledsHSV[0]));
    //now add back the headers
    for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
-      state.leds[i].globalHeader = 0x1F;
+      LedRegisterStates[i].globalHeader = 0x1F;
    }
 
    return NULL;
@@ -162,24 +220,16 @@ static void led_SetChannelMulti(yabi_ChanID chan, yabi_ChanValue value) {
          break;
    }
 
-   //now apply the HSV array to the RGB array
-   color_HSV2RGB(hsv, &state.leds[realChan].color);
+   //now apply the HSV array directly to the RGB array (in platform_hw)
+   color_HSV2RGB(hsv, &LedRegisterStates[realChan].color);
 }
 
+/*
+ * Shim to connect ot platform_hw backend.
+ */
 static void led_UpdateChannels(yabi_FrameID frame) {
-   int i;
-
    (void)frame;
-
-   //TODO we have to strip the const here. That's ok, right? Read the SRC
-   //TODO what is a better timeout here?
-   HAL_SPI_Transmit(&state.spi, (uint8_t*)LED_FRAME_START, sizeof(LED_FRAME_START), 10000);
-
-   for(i = 0; i < LED_CHAIN_LENGTH; i++) {
-      HAL_SPI_Transmit(&state.spi, state.leds[i].raw, 4, 10000);
-   }
-
-   HAL_SPI_Transmit(&state.spi, (uint8_t*)LED_FRAME_STOP, sizeof(LED_FRAME_STOP), 10000);
+   platformHW_UpdateLEDs(&state.spi);
 }
 
 void led_GiveTime(uint32_t systimeMS) {
