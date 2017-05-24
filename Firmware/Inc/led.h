@@ -18,6 +18,7 @@ bool led_Init(void);
 
 // YABI is used for all LED control
 bool led_SetChannel(uint32_t id, struct color_ColorHSV c);
+bool led_SetSubChannel(uint32_t id, yabi_ChanValue val, uint32_t timeMS);
 
 #endif//LED_H__
 

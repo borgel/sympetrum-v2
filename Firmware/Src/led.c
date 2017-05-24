@@ -37,7 +37,10 @@ union led_Data {
 struct led_State {
    SPI_HandleTypeDef          spi;
 
+   //this is crappy. We store BOTH the HSV state (for math) and the RGB state
+   //(for sending).
    union led_Data             leds[LED_CHAIN_LENGTH];
+   struct color_ColorHSV      ledsHSV[LED_CHAIN_LENGTH];
 
    //the data which backs YABI's channels. Arranged in groups of 3. The grouping
    //goes like {H, S, V}{H, S, V}, etc. So for 10 LEDs we have 30 'channels'. Modulo
@@ -47,7 +50,6 @@ struct led_State {
 static struct led_State state;
 
 static void* const led_HwInit(void);
-static bool led_HwSetChannel(uint8_t ch, struct color_ColorRGB color);
 static void led_SetChannelMulti(yabi_ChanID chan, yabi_ChanValue value);
 static void led_UpdateChannels(yabi_FrameID frame);
 
@@ -100,6 +102,20 @@ bool led_SetChannel(uint32_t id, struct color_ColorHSV c) {
    return true;
 }
 
+/*
+ * Used for BAF to reach in directly and control YABI
+ */
+//FIXME encapsulate this better/rename it?
+bool led_SetSubChannel(uint32_t id, yabi_ChanValue val, uint32_t timeMS) {
+   yabi_Error res;
+
+   res  = yabi_setChannel(id, val, timeMS);
+   if(res != YABI_OK) {
+      return false;
+   }
+   return true;
+}
+
 static void* const led_HwInit(void) {
    //start SPI
    if(platformHW_SpiInit(&state.spi, LED_SPI_INSTANCE)) {
@@ -108,6 +124,7 @@ static void* const led_HwInit(void) {
 
    //wipe out our state struct
    memset(state.leds, 0, sizeof(state.leds) / sizeof(state.leds[0]));
+   memset(state.ledsHSV, 0, sizeof(state.ledsHSV) / sizeof(state.ledsHSV[0]));
    //now add back the headers
    for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
       state.leds[i].globalHeader = 0x1F;
@@ -117,18 +134,35 @@ static void* const led_HwInit(void) {
 }
 
 /*
+ * This is the hook Yabi calls to set a channel. Yabi doesn't know about HSV, so
+ * it uses a mapping scheme to control each parameter. This function is called by
+ * Yabi, applies the mapping, then applies the change to the LEDs.
+ * The mapping is the obvious one:
+ * 0 - H
+ * 1 - S
+ * 2 - V
+ *
+ * Example channel math for Yabi setting channel 28
+ * 28/3 = 9 (9th LED)
+ * 28%3 = 1 (S conponent)
  */
+//FIXME rename
 static void led_SetChannelMulti(yabi_ChanID chan, yabi_ChanValue value) {
-   //TODO use %3 math to guess H, S, or V to set
-}
-
-static bool led_HwSetChannel(uint8_t ch, struct color_ColorRGB color) {
-   if(ch > LED_CHAIN_LENGTH) {
-      return false;
+   uint8_t const realChan = (chan / 3);
+   struct color_ColorHSV * const hsv = &state.ledsHSV[realChan];
+   switch(chan % 3) {
+      case 0:
+         hsv->h = value;
+      case 1:
+         hsv->s = value;
+      case 2:
+         hsv->v = value;
+      default:
+         break;
    }
 
-   state.leds[ch].color = color;
-   return true;
+   //now apply the HSV array to the RGB array
+   color_HSV2RGB(hsv, &state.leds[realChan].color);
 }
 
 static void led_UpdateChannels(yabi_FrameID frame) {

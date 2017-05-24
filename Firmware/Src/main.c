@@ -20,6 +20,7 @@
 #include <stdlib.h>
 
 // statically allocated animation
+static baf_ChannelID animationChannelIDs[30] = {0};
 static struct baf_Animation AnimRGBFade = {
    .id                     = 1,
    .numSteps               = 1,
@@ -27,7 +28,8 @@ static struct baf_Animation AnimRGBFade = {
    .type                   = BAF_ASCHED_SIMPLE_RANDOM_LOOP,
 
    .aRandomSimpleLoop      = {
-      //.id set programmatically
+      .id                  = animationChannelIDs,
+      .idLen               = 30,
       .transitionTimeMS     = 1000,    //how quickly to move towards the target color
       .params              = {
          .maxValue         = 255,      //255 is the max hue
@@ -169,8 +171,10 @@ static uint32_t bafRNGCB(uint32_t range) {
 // shim to connect BAF's channel group setting API to YABI's one-at-a-time API
 static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num) {
    for(int i = 0; i < num; i++) {
+      //FIXME rm
       iprintf("\tSet Chan #%d to %u in %ums\n", channels[i].id, values[i], channels[i].transitionTimeMS);
-      //TODO connect to YABI instance
+
+      led_SetSubChannel(channels[i].id, values[i], channels[i].transitionTimeMS);
    }
 }
 
