@@ -82,6 +82,9 @@ void RC5_Encode_SendFrame(uint32_t rawMessage)
    }
 
    //FIXME rm
+   //HAL_TIM_Base_Stop_IT(&htim17);
+
+   //FIXME rm
    iprintf("Send started. Binary msg = 0x%x\n", RC5_FrameBinaryFormat);
 
    //FIXME rm
@@ -115,19 +118,25 @@ void RC5_Encode_SignalGenerate(void)
 
       if (bit_msg == 1)
       {
+         //High
          //enable the data out clock
-         HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
+         //HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
+
+         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
       }
       else
       {
-         //FIXME rm, play out a GPIO for testing
-         HAL_TIM_PWM_Stop(&htim17, TIM_CHANNEL_1);
+         //Low
+         //FIXME, play out a GPIO for testing
+         //HAL_TIM_PWM_Stop(&htim17, TIM_CHANNEL_1);
+
+         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
       }
       BitsSent_Counter++;
 
       //restart timer to count to next bit edge
-      //FIXME needed?
-      HAL_TIM_Base_Start_IT(&htim16);
+      //FIXME needed? doesn't seem to be
+      //HAL_TIM_Base_Start_IT(&htim16);
    }
    else
    {
@@ -136,7 +145,7 @@ void RC5_Encode_SignalGenerate(void)
 
       Send_Operation_Completed = 0x01;
 
-      HAL_StatusTypeDef res;
+      HAL_StatusTypeDef res = HAL_OK;
 
       res = HAL_TIM_Base_Stop_IT(&htim16);
       if(res != HAL_OK) {
@@ -144,6 +153,7 @@ void RC5_Encode_SignalGenerate(void)
       }
 
       //force TIM17's output low so it never accidentally idles high after sending
+      //(which would burn lots of power)
       HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
 
       Send_Operation_Ready = 0;
@@ -286,6 +296,8 @@ static void TIM17_Init(void)
 {
    TIM_OC_InitTypeDef sConfigOC;
    TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
+
+   return;
 
    htim17.Instance = TIM17;
    htim17.Init.Prescaler = 0;

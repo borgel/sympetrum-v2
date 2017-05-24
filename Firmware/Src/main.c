@@ -87,8 +87,7 @@ int main(void)
          led_SetChannel(1, COLOR_HSV_BLACK);
       }
 
-      // spend time
-      for (i = 0; i < 1000000; i++);
+      HAL_Delay(500);
 
       if(b > 5) {
          /*
