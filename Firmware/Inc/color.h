@@ -17,6 +17,7 @@ struct color_ColorRGB {
 #define HSV_CHANNEL_MAX          255
 #define HSV_CHANNEL_MIN          0
 
+//TODO check these
 #define HSV_COLOR_R              0
 #define HSV_COLOR_G              127
 #define HSV_COLOR_B              254

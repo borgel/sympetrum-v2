@@ -50,6 +50,7 @@ int main(void)
    //FIXME rm
    uint32_t time = 0;
    while(1) {
+      iprintf("<<< Starting %dms >>>\r\n", time);
       led_GiveTime(time);
 
       HAL_Delay(100);
@@ -117,12 +118,13 @@ int main(void)
  * Write this unit's SW version to the LEDs once.
  */
 static void VersionToLEDs(void) {
-   struct color_ColorHSV c = {0, 0, 0};
+   struct color_ColorHSV c = {.h = 0, .s = 255, .v = 0};
 
    //unpack each bit, and set the Blue LED channel to it
    uint16_t mask = 0x01;
-   for(int i = 0; i < 10; i++) {
+   for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
       // set the channel to 100 counts if the bit is set, 0 otherwise
+      c.h = (mask & FW_VERSION) ? HSV_COLOR_B : 0;
       c.v = (mask & FW_VERSION) ? 100 : 0;
 
       led_SetChannel(i, c);
@@ -130,7 +132,9 @@ static void VersionToLEDs(void) {
       mask <<= 1;
    }
 
-   yabi_giveTime(1);
+   //FIXME rm
+   //yabi_giveTime(1);
+   led_GiveTime(1);
 }
 
 #ifdef USE_FULL_ASSERT

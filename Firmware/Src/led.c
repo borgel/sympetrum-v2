@@ -43,7 +43,7 @@ static struct baf_Animation AnimRGBFade = {
 
    .aRandomSimpleLoop      = {
       .id                  = animationChannelIDs,
-      .idLen               = 30,
+      .idLen               = LED_CHAIN_LENGTH,
       .transitionTimeMS     = 1000,    //how quickly to move towards the target color
       .params              = {
          .maxValue         = 255,      //255 is the max hue
@@ -108,11 +108,20 @@ bool led_Init(void) {
    // start the interpolator (we'll leave it running forever). This triggers an init of the LED HW
    yabi_setStarted(true);
 
+   //FIXME rm
+   struct color_ColorHSV c = {.h = 0, .s = 255, .v = 10};
+
    // prepare to start BAF later
    for(int i = 0; i < YABI_CHANNELS; i++) {
       //wire up BAF so it's channels are YABI's Hue's
       if(i % 3 == 0) {
-         animationChannelIDs[YABI_CHANNELS/3] = i;
+         animationChannelIDs[i/3] = i;
+
+         //FIXME rm
+         //set everyone's saturation to 100 and brightness to 10%
+         led_SetChannel(i/3, c);
+
+         iprintf("YABI i/3 = %d i = %d\r\n", i/3, i);
       }
    }
 
@@ -158,7 +167,7 @@ static uint32_t bafRNGCB(uint32_t range) {
 static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num) {
    for(int i = 0; i < num; i++) {
       //FIXME rm
-      iprintf("\tSet Chan #%d to %u in %ums\n", channels[i].id, values[i], channels[i].transitionTimeMS);
+      iprintf("\tSet Chan #%d to %d in %dms\n", channels[i].id, values[i], channels[i].transitionTimeMS);
 
       if(YABI_OK != yabi_setChannel(channels[i].id, values[i], channels[i].transitionTimeMS)) {
          //TODO handle?
