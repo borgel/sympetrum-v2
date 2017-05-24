@@ -69,8 +69,9 @@ C_INCLUDES += -Isubmodules/baf/include -Isubmodules/yabi/include
 AS_INCLUDES = $(C_INCLUDES)
 
 # compile gcc flags
-ASFLAGS = -mthumb -mcpu=cortex-m0 $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections -ffunction-sections -fdata-sections -Os
-CFLAGS = -mthumb -mcpu=cortex-m0 $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections -ffunction-sections -fdata-sections -Os
+OPTIMIZATIONS = -Os -flto -fdata-sections -ffunction-sections
+ASFLAGS = -mthumb -mcpu=cortex-m0 $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall $(OPTIMIZATIONS)
+CFLAGS = -mthumb -mcpu=cortex-m0 $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall $(OPTIMIZATIONS)
 ifeq ($(DEBUG), 1)
 CFLAGS += -g -gdwarf-2
 endif
