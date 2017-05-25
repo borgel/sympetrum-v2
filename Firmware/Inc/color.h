@@ -31,14 +31,14 @@ struct color_ColorHSV {
 //AKA white
 static const struct color_ColorHSV COLOR_HSV_WHITE = {
    .h = 0,
-   .s = HSV_CHANNEL_MAX,
+   .s = 0,
    .v = HSV_CHANNEL_MAX
 };
 
 //AKA black
 static const struct color_ColorHSV COLOR_HSV_BLACK = {
    .h = 0,
-   .s = HSV_CHANNEL_MAX,
+   .s = 0,
    .v = HSV_CHANNEL_MIN
 };
 
