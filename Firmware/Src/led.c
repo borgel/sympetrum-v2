@@ -55,7 +55,7 @@ static struct baf_Animation AnimRGBFade = {
 };
 
 static void* const led_HwInit(void);
-static void led_SetChannelMulti(yabi_ChanID chan, yabi_ChanValue value);
+static void led_YabiSetChannelCB(yabi_ChanID chan, yabi_ChanValue value);
 static void led_UpdateChannels(yabi_FrameID frame);
 static uint32_t bafRNGCB(uint32_t range);
 static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num);
@@ -84,7 +84,7 @@ bool led_Init(void) {
    struct yabi_Config yc = {
       .frameStartCB           = NULL,
       .frameEndCB             = led_UpdateChannels,
-      .channelChangeCB        = led_SetChannelMulti,
+      .channelChangeCB        = led_YabiSetChannelCB,
       .channelChangeGroupCB   = NULL,        //TODO can we provide this?
       .hwConfig = {
          .setup               = led_HwInit,
@@ -212,7 +212,7 @@ static void* const led_HwInit(void) {
  * 28%3 = 1 (S conponent)
  */
 //FIXME rename
-static void led_SetChannelMulti(yabi_ChanID chan, yabi_ChanValue value) {
+static void led_YabiSetChannelCB(yabi_ChanID chan, yabi_ChanValue value) {
    uint8_t const realChan = (chan / 3);
    struct color_ColorHSV * const hsv = &state.ledsHSV[realChan];
    switch(chan % 3) {
