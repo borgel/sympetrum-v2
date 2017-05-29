@@ -38,13 +38,13 @@ static baf_ChannelID animationChannelIDs[LED_CHAIN_LENGTH] = {0};
 static struct baf_Animation AnimRGBFade = {
    .id                     = 1,
    .numSteps               = 1,
-   .timeStepMS             = 1000,     //how long to wait between setting color targets
+   .timeStepMS             = 5000,     //how long to wait between setting color targets
    .type                   = BAF_ASCHED_SIMPLE_RANDOM_LOOP,
 
    .aRandomSimpleLoop      = {
       .id                  = animationChannelIDs,
       .idLen               = LED_CHAIN_LENGTH,
-      .transitionTimeMS     = 1000,    //how quickly to move towards the target color
+      .transitionTimeMS     = 5000,    //how quickly to move towards the target color
       .params              = {
          .maxValue         = 255,      //255 is the max hue
          .minValue         = 0,
