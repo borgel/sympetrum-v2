@@ -10,7 +10,18 @@ static uint8_t const LED_FRAME_START[4] = {0x00, 0x00, 0x00, 0x00};
 static uint8_t const LED_FRAME_STOP[4]  = {0xFF, 0xFF, 0xFF, 0xFF};
 
 //pull in from outside
-union platformHW_LEDRegister  LedRegisterStates[LED_CHAIN_LENGTH];
+union platformHW_LEDRegister  LedRegisterStates[LED_CHAIN_LENGTH] = {
+   {.globalHeader = 0x1F},
+   {.globalHeader = 0x1F},
+   {.globalHeader = 0x1F},
+   {.globalHeader = 0x1F},
+   {.globalHeader = 0x1F},
+   {.globalHeader = 0x1F},
+   {.globalHeader = 0x1F},
+   {.globalHeader = 0x1F},
+   {.globalHeader = 0x1F},
+   {.globalHeader = 0x1F},
+};
 
 static void SystemClock_Config(void);
 static void Error_Handler(void);
@@ -28,8 +39,6 @@ bool platformHW_Init(void) {
    // Initialize all configured peripherals
    MX_GPIO_Init();
    MX_USART1_UART_Init();
-
-   memset(LedRegisterStates, 0, sizeof(LedRegisterStates) / sizeof(LedRegisterStates[0]));
 
    return true;
 }

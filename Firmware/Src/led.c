@@ -193,10 +193,7 @@ static void* const led_HwInit(void) {
 
    //wipe out our state struct
    memset(state.ledsHSV, 0, sizeof(state.ledsHSV) / sizeof(state.ledsHSV[0]));
-   //now add back the headers
-   for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
-      LedRegisterStates[i].globalHeader = 0x1F;
-   }
+   //TODO anything else to clear?
 
    return NULL;
 }
