@@ -215,18 +215,16 @@ static void* const led_HwInit(void) {
 static void led_YabiSetChannelCB(yabi_ChanID chan, yabi_ChanValue value) {
    uint8_t const realChan = (chan / 3);
    struct color_ColorHSV * const hsv = &state.ledsHSV[realChan];
+
    switch(chan % 3) {
       case 0:
          hsv->h = value;
-         iprintf("h = %d", value);
          break;
       case 1:
          hsv->s = value;
-         iprintf("s = %d", value);
          break;
       case 2:
          hsv->v = value;
-         iprintf("v = %d", value);
          break;
       default:
          break;
@@ -234,8 +232,6 @@ static void led_YabiSetChannelCB(yabi_ChanID chan, yabi_ChanValue value) {
 
    //now apply the HSV array directly to the RGB array (in platform_hw)
    color_HSV2RGB(hsv, &LedRegisterStates[realChan].color);
-
-   iprintf("\r\n");
 }
 
 /*

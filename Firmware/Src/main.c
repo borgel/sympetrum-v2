@@ -36,32 +36,6 @@ int main(void)
    // setup the entire LED framework (w/ animation)
    led_Init();
 
-   //FIXME rm
-   //test colors
-   struct color_ColorRGB r;
-   struct color_ColorHSV h1 = {.h = 0, .s = 0, .v = 255};
-
-   color_HSV2RGB(&h1, &r);
-   iprintf("R = %d, G = %d, B = %d\n", r.r, r.g, r.b);
-   color_HSV2RGB(&COLOR_HSV_BLACK, &r);
-   iprintf("R = %d, G = %d, B = %d\n", r.r, r.g, r.b);
-   color_HSV2RGB(&COLOR_HSV_WHITE, &r);
-   iprintf("R = %d, G = %d, B = %d\n", r.r, r.g, r.b);
-
-   struct color_ColorHSV h2 = {.h = HSV_COLOR_R, .s = 255, .v = 255};
-   color_HSV2RGB(&h2, &r);
-   iprintf("R = %d, G = %d, B = %d\n", r.r, r.g, r.b);
-
-   struct color_ColorHSV h3 = {.h = HSV_COLOR_G, .s = 255, .v = 255};
-   color_HSV2RGB(&h3, &r);
-   iprintf("R = %d, G = %d, B = %d\n", r.r, r.g, r.b);
-
-   struct color_ColorHSV h4 = {.h = HSV_COLOR_B, .s = 255, .v = 255};
-   color_HSV2RGB(&h4, &r);
-   iprintf("R = %d, G = %d, B = %d\n", r.r, r.g, r.b);
-
-   while(1);
-
    //display the FW version
    VersionToLEDs();
    HAL_Delay(1000);  //delay in MS
@@ -73,15 +47,17 @@ int main(void)
 
    led_StartAnimation();
 
+   /*
    //FIXME rm
    uint32_t time = 0;
    while(1) {
-      iprintf("<<< Starting %dms >>>\r\n", time);
+      //iprintf("<<< Starting %dms >>>\r\n", time);
       led_GiveTime(time);
 
-      HAL_Delay(100);
-      time += 100;
+      HAL_Delay(30);
+      time += 30;
    }
+   */
 
    int cnt = 0;
    uint8_t b = 0;
@@ -143,6 +119,7 @@ int main(void)
 /*
  * Write this unit's SW version to the LEDs once.
  */
+//FIXME fix color logic stuff
 static void VersionToLEDs(void) {
    struct color_ColorHSV c = {.h = 0, .s = 255, .v = 0};
 
