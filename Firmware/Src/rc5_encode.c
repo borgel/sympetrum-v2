@@ -1,7 +1,7 @@
 /*
  */
-#include "main.h"
 #include "rc5_encode.h"
+#include "platform_hw.h"
 #include "iprintf.h"
 
 #include "stm32f0xx.h"
@@ -22,18 +22,10 @@ static uint8_t Send_Operation_Ready = 0;
 __IO uint8_t Send_Operation_Completed = 1;
 static uint8_t BitsSent_Counter = 0;
 
-//TODO are these used externally?
-uint8_t AddressIndex = 0;
-uint8_t InstructionIndex = 0;
-RC5_Ctrl_TypeDef RC5_Ctrl1 = RC5_Ctrl_Reset;
-RC5_Ctrl_TypeDef RC5_Ctrl2 = RC5_Ctrl_Reset;
-extern uint8_t* rc5_Commands[];
-extern uint8_t* rc5_devices[];
-extern __IO uint8_t RFDemoStatus; 
-
-//FIXME pass in?
-extern TIM_HandleTypeDef htim16;
-extern TIM_HandleTypeDef htim17;
+//FIXME encapsulate this
+//not static so IT can see it
+TIM_HandleTypeDef htim16;
+TIM_HandleTypeDef htim17;
 
 static uint16_t RC5_BinFrameGeneration(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl);
 static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat);
@@ -59,13 +51,13 @@ void RC5_Encode_Init(void)
 void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl)
 {
    HAL_StatusTypeDef res;
-   uint16_t RC5_FrameBinaryFormat = 0;
+   uint16_t frameBinaryFormat = 0;
 
    /* Generate a binary format of the Frame */
-   RC5_FrameBinaryFormat = RC5_BinFrameGeneration(RC5_Address, RC5_Instruction, RC5_Ctrl);
+   frameBinaryFormat = RC5_BinFrameGeneration(RC5_Address, RC5_Instruction, RC5_Ctrl);
 
    /* Generate a Manchester format of the Frame */
-   RC5_FrameManchestarFormat = RC5_ManchesterConvert(RC5_FrameBinaryFormat);
+   RC5_FrameManchestarFormat = RC5_ManchesterConvert(frameBinaryFormat);
 
    /* Set the Send operation Ready flag to indicate that the frame is ready to be sent */
    Send_Operation_Ready = 1;
@@ -213,6 +205,10 @@ static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat)
       }
    }
    return (ConvertedMsg);
+}
+
+bool RC5_Encode_IsSending(void) {
+   return (Send_Operation_Completed == 0x00);
 }
 
 /* TIM16 init function */
