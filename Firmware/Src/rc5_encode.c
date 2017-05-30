@@ -120,17 +120,17 @@ void RC5_Encode_SignalGenerate(void)
       {
          //High
          //enable the data out clock
-         //HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
+         HAL_TIM_PWM_Start(&htim17, TIM_CHANNEL_1);
 
-         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+         //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
       }
       else
       {
          //Low
          //FIXME, play out a GPIO for testing
-         //HAL_TIM_PWM_Stop(&htim17, TIM_CHANNEL_1);
+         HAL_TIM_PWM_Stop(&htim17, TIM_CHANNEL_1);
 
-         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+         //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
       }
       BitsSent_Counter++;
 
@@ -296,8 +296,6 @@ static void TIM17_Init(void)
 {
    TIM_OC_InitTypeDef sConfigOC;
    TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
-
-   return;
 
    htim17.Instance = TIM17;
    htim17.Init.Prescaler = 0;
