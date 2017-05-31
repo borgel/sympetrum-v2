@@ -217,6 +217,14 @@ bool RC5_Decode(union IRMessage * const frame)
 
       return true;
    }
+   //FIXME rm
+   else {
+      //iprintf("(%d)Pkt:0x%x\n", RC5TmpPacket.bitCount, RC5TmpPacket.data);
+      iprintf("%d|", RC5TmpPacket.bitCount);
+      if(RC5TmpPacket.bitCount == 0) {
+         iprintf("Pkt:0x%x\n", RC5TmpPacket.data);
+      }
+   }
    return false;
 }
 
@@ -243,6 +251,10 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
 {
    uint8_t pulse;
    tRC5_lastBitType tmpLastBit;
+
+   if(RC5FrameReceived) {
+      return;
+   }
 
    //comment out for useful printing
 #define iprintf(...)
@@ -277,7 +289,7 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
       /* If this is the first falling edge - don't compute anything */
       if (RC5TmpPacket.status & RC5_PACKET_STATUS_EMPTY)
       {
-         iprintf("F");
+         iprintf("\r\nF");
 
          //NOTE: This throws away the first bit! That's good! It's used to sync
          //the timers.
@@ -357,21 +369,24 @@ static void RC5_WriteBit(uint8_t bitVal)
 {
    /* First convert RC5 symbols to ones and zeros */
    if (bitVal == RC5_ONE)
-   { 
+   {
+      //iprintf("1");
       bitVal = 1;
    }
    else if (bitVal == RC5_ZER)
    {
+      //iprintf("0");
       bitVal = 0;
    }
    else
    {
+      //iprintf("R %d]", RC5TmpPacket.bitCount);
       RC5_ResetPacket();
       return;
-   } 
+   }
 
    /* Write this particular bit to data field */
-   RC5TmpPacket.data |=  bitVal;
+   RC5TmpPacket.data |= bitVal;
 
    /* Test the bit number determined */
    if (RC5TmpPacket.bitCount != 0)  /* If this is not the last bit */
@@ -384,6 +399,11 @@ static void RC5_WriteBit(uint8_t bitVal)
    else
    {
       RC5FrameReceived = true;
+
+      //FIXME rm
+      iprintf("\r\nGOT ONE: 0x%d\r\n", RC5TmpPacket.data);
+      RC5_ResetPacket();
+      RC5FrameReceived = false;
    }
 }
 
