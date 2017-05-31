@@ -23,6 +23,7 @@ static uint32_t RC5_FrameBinaryFormat = 0;
 
 // offset in packet we are sending
 static uint8_t RC5_ManchesterOffset = 0;
+static uint8_t RC5_FrameBinaryOffset = 0;
 //the curent 2 bit 'Manchester Bit' in progress
 static uint8_t RC5_ManchesterByte = 0x0;
 
@@ -69,6 +70,7 @@ void RC5_Encode_SendFrame(uint32_t rawMessage)
    BitsSent_Counter = 0;
    RC5_ManchesterByte = RC5HIGHSTATE;
    RC5_ManchesterOffset = 0;
+   RC5_FrameBinaryOffset = 0;
 
    /* Set the Send operation Ready flag to indicate that the frame is ready to be sent */
    Send_Operation_Ready = 1;
@@ -81,6 +83,8 @@ void RC5_Encode_SendFrame(uint32_t rawMessage)
       iprintf("Failed to start TIM16 CH1 to send\r\n");
    }
 
+   return;
+
    //FIXME rm
    //HAL_TIM_Base_Stop_IT(&htim17);
 
@@ -88,10 +92,21 @@ void RC5_Encode_SendFrame(uint32_t rawMessage)
    iprintf("Send started. Binary msg = 0x%x\n", RC5_FrameBinaryFormat);
 
    //FIXME rm
-   return;
+   //return;
 
    //while(!Send_Operation_Completed) {
+   int b;
    int i;
+   for(i = 0; i < RC5_GlobalFrameLength; i++) {
+      b = (RC5_FrameBinaryFormat & (1 << i)) ? 1 : 0;
+      iprintf("%d", b);
+      iprintf("[%d",  RC5_GetNextManchesterBit());
+      iprintf("%d] ", RC5_GetNextManchesterBit());
+   }
+   iprintf("\r\n");
+
+   return;
+
    for(i = 0; i < RC5_GlobalFrameLength * 2; i++) {
       //TODO run entire pipe?
       iprintf("%d", RC5_GetNextManchesterBit());
@@ -141,7 +156,7 @@ void RC5_Encode_SignalGenerate(void)
    else
    {
       //FIXME rm
-      iprintf("D manoff = %d\n", RC5_ManchesterOffset);
+      //iprintf("D manoff = %d\n", RC5_ManchesterOffset);
 
       Send_Operation_Completed = 0x01;
 
@@ -202,7 +217,9 @@ static uint8_t RC5_GetNextManchesterBit(void) {
    // if we need to calculate a new 'Manchester Bit'
    //FIXME make this not a global
    if(RC5_ManchesterOffset % 2 == 0) {
-      if(RC5_FrameBinaryFormat & 0x1) // Manchester 1 -|_
+      //iprintf("(R %d)", RC5_FrameBinaryFormat & (1 << RC5_FrameBinaryOffset));
+      if(RC5_FrameBinaryFormat & (1 << RC5_FrameBinaryOffset))
+      //if(RC5_FrameBinaryFormat & 0x1) // Manchester 1 -|_
       {
          RC5_ManchesterByte = RC5HIGHSTATE;
 
@@ -218,7 +235,8 @@ static uint8_t RC5_GetNextManchesterBit(void) {
       }
 
       //destructively consume frame to send
-      RC5_FrameBinaryFormat >>= 1;
+      //RC5_FrameBinaryFormat >>= 1;
+      RC5_FrameBinaryOffset++;
    }
 
    //FIXME rm
