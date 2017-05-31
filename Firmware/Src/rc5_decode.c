@@ -219,11 +219,13 @@ bool RC5_Decode(union IRMessage * const frame)
    }
    //FIXME rm
    else {
+      /*
       //iprintf("(%d)Pkt:0x%x\n", RC5TmpPacket.bitCount, RC5TmpPacket.data);
       iprintf("%d|", RC5TmpPacket.bitCount);
       if(RC5TmpPacket.bitCount == 0) {
          iprintf("Pkt:0x%x\n", RC5TmpPacket.data);
       }
+      */
    }
    return false;
 }
@@ -400,10 +402,12 @@ static void RC5_WriteBit(uint8_t bitVal)
    {
       RC5FrameReceived = true;
 
+      /*
       //FIXME rm
       iprintf("\r\nGOT ONE: 0x%d\r\n", RC5TmpPacket.data);
       RC5_ResetPacket();
       RC5FrameReceived = false;
+      */
    }
 }
 

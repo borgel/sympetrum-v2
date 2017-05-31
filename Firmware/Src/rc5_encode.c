@@ -122,7 +122,7 @@ void RC5_Encode_SignalGenerate(void)
 {
    uint8_t bit_msg = 0;
 
-   if((Send_Operation_Ready == 1) && (BitsSent_Counter <= (RC5_GlobalFrameLength * 2)))
+   if((Send_Operation_Ready == 1) && (BitsSent_Counter <= (RC5_GlobalFrameLength * 4)))
    {
       //FIXME update to use a bool
       Send_Operation_Completed = 0x00;
@@ -213,10 +213,23 @@ static uint8_t RC5_GetNextManchesterBit(void) {
    uint8_t bit;
 
    //FIXME if this is bit 0, don't send it! send an RC5HIGH instead
+   //FIXME is this right?
+   //if(RC5_ManchesterOffset > 1+(RC5_GlobalFrameLength * 3)) {
+   /*
+   if(RC5_ManchesterOffset > 66) {
+      Send_Operation_Ready = 0;
+
+      return 0;
+   }
+   else if(RC5_ManchesterOffset == 0) {
+   */
+   if(RC5_ManchesterOffset == 0) {
+      RC5_ManchesterByte = RC5HIGHSTATE;
+   }
 
    // if we need to calculate a new 'Manchester Bit'
    //FIXME make this not a global
-   if(RC5_ManchesterOffset % 2 == 0) {
+   else if(RC5_ManchesterOffset % 2 == 0) {
       //iprintf("(R %d)", RC5_FrameBinaryFormat & (1 << RC5_FrameBinaryOffset));
       if(RC5_FrameBinaryFormat & (1 << RC5_FrameBinaryOffset))
       //if(RC5_FrameBinaryFormat & 0x1) // Manchester 1 -|_

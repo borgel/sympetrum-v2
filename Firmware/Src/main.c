@@ -71,8 +71,17 @@ int main(void)
    while(1) {
       //iprintf("RX\r\n");
 #ifndef DECODE
-      RC5_Encode_SendFrame(0xDEADBEEF);
+      //RC5_Encode_SendFrame(0xDEADBEEF);
+      RC5_Encode_SendFrame(0xFFFFFFFF);
       while(RC5_Encode_IsSending()) {}
+
+      //FIXME rm?
+      HAL_Delay(100);
+      if(RC5_Decode(&irm)) {
+         iprintf("Got a frame! 0x%x\r\n"  , irm.raw);
+         iprintf("right 1 0x%x\r\n"       , irm.raw >> 1);
+         iprintf("left 1 0x%x\r\n"        , irm.raw << 1);
+      }
 #endif
 
 #ifdef DECODE
