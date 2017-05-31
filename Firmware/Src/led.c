@@ -108,18 +108,13 @@ bool led_Init(void) {
    // start the interpolator (we'll leave it running forever). This triggers an init of the LED HW
    yabi_setStarted(true);
 
-   //FIXME rm
-   struct color_ColorHSV c = {.h = 0, .s = 255, .v = 10};
-
    // prepare to start BAF later
    for(int i = 0; i < YABI_CHANNELS; i++) {
       //wire up BAF so it's channels are YABI's Hue's
       if(i % 3 == 0) {
          animationChannelIDs[i/3] = i;
 
-         //FIXME rm
-         //set everyone's saturation to 100 and brightness to 10%
-         led_SetChannel(i/3, c);
+         led_SetChannel(i/3, COLOR_HSV_BLACK);
 
          iprintf("YABI i/3 = %d i = %d\r\n", i/3, i);
       }
