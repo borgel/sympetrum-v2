@@ -71,8 +71,8 @@ void RC5_Encode_SendFrame(uint32_t rawMessage)
    //reset the message objects
    BitsSent_Counter = 0;
    RC5_ManchesterByte = RC5HIGHSTATE;
-   RC5_ManchesterOffset = RC5_GlobalFrameLength * 2;
-   RC5_FrameBinaryOffset = RC5_GlobalFrameLength - 1;
+   RC5_ManchesterOffset = 0;
+   RC5_FrameBinaryOffset = 0;
 
    /* Set the Send operation Ready flag to indicate that the frame is ready to be sent */
    Send_Operation_Ready = 1;
@@ -229,7 +229,7 @@ static uint8_t RC5_GetNextManchesterBit(void) {
    }
    else if(RC5_ManchesterOffset == 0) {
    */
-   if(RC5_ManchesterOffset == (RC5_GlobalFrameLength * 2) + 0) {
+   if(RC5_ManchesterOffset == 0) {
       RC5_ManchesterByte = RC5HIGHSTATE;
       RC5_ManchesterByte = RC5LOWSTATE;
       iprintf("s1");
@@ -241,7 +241,7 @@ static uint8_t RC5_GetNextManchesterBit(void) {
       //if(RC5_FrameBinaryFormat & (1 << RC5_FrameBinaryOffset))
       if(RC5_FrameBinaryFormat & (1 << RC5_FrameBinaryOffset))
       {
-         //RC5_ManchesterByte = RC5HIGHSTATE;
+         RC5_ManchesterByte = RC5HIGHSTATE;
          RC5_ManchesterByte = RC5LOWSTATE;
 
          //FIXME rm
@@ -249,7 +249,7 @@ static uint8_t RC5_GetNextManchesterBit(void) {
       }
       else // Manchester 0 _|-
       {
-         //RC5_ManchesterByte = RC5LOWSTATE;
+         RC5_ManchesterByte = RC5LOWSTATE;
          RC5_ManchesterByte = RC5HIGHSTATE;
 
          //FIXME rm
@@ -262,7 +262,7 @@ static uint8_t RC5_GetNextManchesterBit(void) {
       }
 
       //iprintf("(%d)", RC5_FrameBinaryOffset);
-      RC5_FrameBinaryOffset--;
+      RC5_FrameBinaryOffset++;
    }
 
    //FIXME rm
@@ -279,12 +279,12 @@ static uint8_t RC5_GetNextManchesterBit(void) {
       //iprintf("\n");
    }
 
-   if(RC5_ManchesterOffset == 0) {
+   if(RC5_ManchesterOffset > RC5_GlobalFrameLength * 2) {
       //iprintf("M\r\n");
       Send_Operation_Ready = 0;
    }
 
-   RC5_ManchesterOffset--;
+   RC5_ManchesterOffset++;
 
    /*
    if(f) {

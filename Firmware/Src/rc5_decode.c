@@ -207,7 +207,17 @@ bool RC5_Decode(union IRMessage * const frame)
       iprintf("Device:%s\r\n", rc5_devices[rc5_frame->Address]);
       */
 
-      frame->raw = ~RC5TmpPacket.data;
+      frame->raw = RC5TmpPacket.data;
+
+      /*
+      //FIXME rm
+      frame->raw = 0;
+      int j;
+      for(j = 0; j < 32; j++) {
+         frame->raw |= (RC5TmpPacket.data & (32 - j)) << j;
+      }
+      */
+
       iprintf("Packet RX: 0x%x\n", frame->raw);
 
       // Default state
