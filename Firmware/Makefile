@@ -53,6 +53,7 @@ AS = /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/arm-none-eabi-gcc -x assembler-
 CP = /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/arm-none-eabi-objcopy
 AR = /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/arm-none-eabi-ar
 SZ = /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/arm-none-eabi-size
+NM = /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/arm-none-eabi-nm
 HEX = $(CP) -O ihex
 BIN = $(CP) -O binary -S
  
@@ -121,6 +122,9 @@ $(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
 	
 $(BUILD_DIR):
 	mkdir -p $@		
+
+size:
+	$(NM) build/sympetrum-v2.elf |sort
 
 #######################################
 # clean up
