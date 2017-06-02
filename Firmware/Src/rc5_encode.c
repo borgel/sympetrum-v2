@@ -11,19 +11,21 @@
 
 #include <stdint.h>
 
-#define  RC5HIGHSTATE     ((uint8_t )0x02)   /* RC5 high level definition*/
-#define  RC5LOWSTATE      ((uint8_t )0x01)   /* RC5 low level definition*/
+#define  RC5HIGHSTATE     ((uint8_t )0x02)   /* RC5 high level definition, 10 */
+#define  RC5LOWSTATE      ((uint8_t )0x01)   /* RC5 low level definition   01 */
 
 //was 64? for a 14 bit frame?
 // real length is 32, X2 for Manchester Encoding
+//FIXME +2 for 2 start bits?
+//'real length' was 14 for RC5, which IS it's real length. but it already includes 2 start bits in the message format
 static uint8_t const RC5_GlobalFrameLength = 32;
 
 //FIXME use proper union
 static uint32_t RC5_FrameBinaryFormat = 0;
 
 // offset in packet we are sending
-static uint8_t RC5_ManchesterOffset = 0;
-static uint8_t RC5_FrameBinaryOffset = 0;
+static uint8_t RC5_ManchesterOffset;
+static uint8_t RC5_FrameBinaryOffset;
 //the curent 2 bit 'Manchester Bit' in progress
 static uint8_t RC5_ManchesterByte = 0x0;
 
@@ -69,8 +71,8 @@ void RC5_Encode_SendFrame(uint32_t rawMessage)
    //reset the message objects
    BitsSent_Counter = 0;
    RC5_ManchesterByte = RC5HIGHSTATE;
-   RC5_ManchesterOffset = 0;
-   RC5_FrameBinaryOffset = 0;
+   RC5_ManchesterOffset = RC5_GlobalFrameLength * 2;
+   RC5_FrameBinaryOffset = RC5_GlobalFrameLength;
 
    /* Set the Send operation Ready flag to indicate that the frame is ready to be sent */
    Send_Operation_Ready = 1;
@@ -122,7 +124,9 @@ void RC5_Encode_SignalGenerate(void)
 {
    uint8_t bit_msg = 0;
 
-   if((Send_Operation_Ready == 1) && (BitsSent_Counter <= (RC5_GlobalFrameLength * 4)))
+   //if((Send_Operation_Ready == 1) && (BitsSent_Counter <= ((RC5_GlobalFrameLength * 2) + 2)))
+   if((Send_Operation_Ready == 1) && (RC5_FrameBinaryOffset > 0))
+   //if((Send_Operation_Ready == 1) && (BitsSent_Counter <= RC5_FrameBinaryOffset > 0))
    {
       //FIXME update to use a bool
       Send_Operation_Completed = 0x00;
@@ -156,7 +160,7 @@ void RC5_Encode_SignalGenerate(void)
    else
    {
       //FIXME rm
-      //iprintf("D manoff = %d\n", RC5_ManchesterOffset);
+      iprintf("D manoff = %d (want just past 0) FBO = %d (want 0)\n", RC5_ManchesterOffset, RC5_FrameBinaryOffset);
 
       Send_Operation_Completed = 0x01;
 
@@ -210,6 +214,8 @@ static uint8_t RC5_GetNextManchesterBit(void) {
    //if so, calculate it
    //look at offset to see if we send the first or second segment of the Manchester bit
 
+   //FIXME rm
+   bool f = false;
    uint8_t bit;
 
    //FIXME if this is bit 0, don't send it! send an RC5HIGH instead
@@ -223,33 +229,45 @@ static uint8_t RC5_GetNextManchesterBit(void) {
    }
    else if(RC5_ManchesterOffset == 0) {
    */
-   if(RC5_ManchesterOffset == 0) {
+   if(RC5_ManchesterOffset == (RC5_GlobalFrameLength * 2) + 2) {
       RC5_ManchesterByte = RC5HIGHSTATE;
+      //RC5_ManchesterByte = RC5LOWSTATE;
+      iprintf("s1");
+   }
+   else if(RC5_ManchesterOffset == (RC5_GlobalFrameLength * 2) - 0) {
+      RC5_ManchesterByte = RC5HIGHSTATE;
+      //RC5_ManchesterByte = RC5LOWSTATE;
+      iprintf("s2");
    }
 
    // if we need to calculate a new 'Manchester Bit'
    //FIXME make this not a global
    else if(RC5_ManchesterOffset % 2 == 0) {
       //iprintf("(R %d)", RC5_FrameBinaryFormat & (1 << RC5_FrameBinaryOffset));
+      //if(RC5_FrameBinaryFormat & (1 << RC5_FrameBinaryOffset))
       if(RC5_FrameBinaryFormat & (1 << RC5_FrameBinaryOffset))
-      //if(RC5_FrameBinaryFormat & 0x1) // Manchester 1 -|_
       {
-         RC5_ManchesterByte = RC5HIGHSTATE;
-
-         //FIXME rm
-         //iprintf("(1)");
-      }
-      else // Manchester 0 _|-
-      {
+         //RC5_ManchesterByte = RC5HIGHSTATE;
          RC5_ManchesterByte = RC5LOWSTATE;
 
          //FIXME rm
-         //iprintf("(0)");
+         iprintf("1");
+      }
+      else // Manchester 0 _|-
+      {
+         //RC5_ManchesterByte = RC5LOWSTATE;
+         RC5_ManchesterByte = RC5HIGHSTATE;
+
+         //FIXME rm
+         iprintf("0");
       }
 
-      //destructively consume frame to send
-      //RC5_FrameBinaryFormat >>= 1;
-      RC5_FrameBinaryOffset++;
+      //FIXME rm
+      if(RC5_FrameBinaryOffset == 0) {
+         f = true;
+      }
+
+      RC5_FrameBinaryOffset--;
    }
 
    //FIXME rm
@@ -266,7 +284,11 @@ static uint8_t RC5_GetNextManchesterBit(void) {
       //iprintf("\n");
    }
 
-   RC5_ManchesterOffset++;
+   RC5_ManchesterOffset--;
+
+   if(f) {
+      iprintf("\r\n");
+   }
    return bit == 0;
 }
 
