@@ -207,7 +207,7 @@ bool RC5_Decode(union IRMessage * const frame)
       iprintf("Device:%s\r\n", rc5_devices[rc5_frame->Address]);
       */
 
-      frame->raw = RC5TmpPacket.data;
+      frame->raw = ~RC5TmpPacket.data;
       iprintf("Packet RX: 0x%x\n", frame->raw);
 
       // Default state
