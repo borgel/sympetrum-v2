@@ -37,7 +37,7 @@ static uint8_t BitsSent_Counter = 0;
 //FIXME encapsulate this
 //not static so IT can see it
 TIM_HandleTypeDef htim16;
-TIM_HandleTypeDef htim17;
+static TIM_HandleTypeDef htim17;
 
 //static uint16_t RC5_BinFrameGeneration(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl);
 static uint8_t RC5_GetNextManchesterBit(void);
