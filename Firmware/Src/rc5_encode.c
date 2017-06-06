@@ -316,12 +316,14 @@ static void TIM16_Init(void)
    htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
    if (HAL_TIM_Base_Init(&htim16) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    if (HAL_TIM_PWM_Init(&htim16) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    sConfigOC.OCMode = TIM_OCMODE_PWM1;
@@ -333,7 +335,8 @@ static void TIM16_Init(void)
    sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
    if (HAL_TIM_PWM_ConfigChannel(&htim16, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
@@ -345,7 +348,8 @@ static void TIM16_Init(void)
    sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_ENABLE;
    if (HAL_TIMEx_ConfigBreakDeadTime(&htim16, &sBreakDeadTimeConfig) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 }
 
@@ -364,12 +368,14 @@ static void TIM17_Init(void)
    htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
    if (HAL_TIM_Base_Init(&htim17) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    if (HAL_TIM_PWM_Init(&htim17) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    sConfigOC.OCMode = TIM_OCMODE_PWM1;
@@ -381,7 +387,8 @@ static void TIM17_Init(void)
    sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
    if (HAL_TIM_PWM_ConfigChannel(&htim17, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
@@ -393,7 +400,8 @@ static void TIM17_Init(void)
    sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
    if (HAL_TIMEx_ConfigBreakDeadTime(&htim17, &sBreakDeadTimeConfig) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 }
 
