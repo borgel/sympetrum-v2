@@ -187,7 +187,7 @@ static void bafAnimStopCB(struct baf_Animation const * anim) {
 
 static void* const led_HwInit(void) {
    //start SPI
-   if(platformHW_SpiInit(&state.spi, LED_SPI_INSTANCE)) {
+   if(!platformHW_SpiInit(&state.spi, LED_SPI_INSTANCE)) {
       return NULL;
    }
 
