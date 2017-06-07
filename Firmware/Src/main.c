@@ -92,10 +92,8 @@ int main(void)
             RC5_DecodeDisable();
          }
 
-         //addr, instruc, ctrl
-         //encoded as 0x0A23
-         //encoded as 0x35DC inverted (as IR RX'd)
-         RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
+         //RC5_Encode_SendRC5(4, 23, RC5_Ctrl_Reset);
+         RC5_Encode_SendRaw(0x0EEF);
          b = 0;
 
          if(cnt % 2) {

@@ -48,13 +48,21 @@ void RC5_Encode_Init(void)
  * @param  RC5_Ctrl: the RC5 Control bit.
  * @retval None
  */
-void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl)
+void RC5_Encode_SendRC5(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl)
+{
+   RC5_Encode_SendRaw(RC5_BinFrameGeneration(RC5_Address, RC5_Instruction, RC5_Ctrl));
+}
+
+/**
+ * Send an unstructured 14 bit messags.
+ */
+void RC5_Encode_SendRaw(uint16_t message)
 {
    HAL_StatusTypeDef res;
    uint16_t frameBinaryFormat = 0;
 
-   /* Generate a binary format of the Frame */
-   frameBinaryFormat = RC5_BinFrameGeneration(RC5_Address, RC5_Instruction, RC5_Ctrl);
+   // make sure there is a start bit set
+   frameBinaryFormat = message | (1 << (RC5_RealFrameLength - 1));
 
    /* Generate a Manchester format of the Frame */
    RC5_FrameManchestarFormat = RC5_ManchesterConvert(frameBinaryFormat);
