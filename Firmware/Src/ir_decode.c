@@ -87,7 +87,7 @@ static uint32_t TIM_GetCounterCLKValue(void);
  * @param  None
  * @retval None
  */
-void RC5_Decode_Init(void)
+void ir_InitDecode(void)
 { 
    TIM_ClockConfigTypeDef sClockSourceConfig;
    TIM_SlaveConfigTypeDef sSlaveConfig;
@@ -161,7 +161,7 @@ void RC5_Decode_Init(void)
    iprintf("Min2T = %d, Max2T = %d\r\n", RC5Min2T, RC5Max2T);
 
    /* Default state */
-   RC5_ResetPacket();
+   ir_ResetPacket();
 
    HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
 }
@@ -169,13 +169,13 @@ void RC5_Decode_Init(void)
 /**
  * Temporarily disable the RX pipeline (for when we are transmitting).
  */
-void RC5_DecodeDisable(void) {
+void ir_DecodeDisable(void) {
    HAL_NVIC_DisableIRQ(TIM3_IRQn);
-   RC5_ResetPacket();
+   ir_ResetPacket();
 }
 
-void RC5_DecodeEnable(void) {
-   RC5_ResetPacket();
+void ir_DecodeEnable(void) {
+   ir_ResetPacket();
    HAL_NVIC_EnableIRQ(TIM3_IRQn);
 }
 
@@ -193,7 +193,7 @@ void RC5_DecodeEnable(void) {
  *         the IR protocol fields (Address, Command,...).
  * @retval None
  */
-bool RC5_Decode(RC5_Frame_TypeDef *rc5_frame)
+bool ir_GetDecoded(RC5_Frame_TypeDef *rc5_frame)
 { 
    /* If frame received */
    if(RC5FrameReceived)
@@ -217,7 +217,7 @@ bool RC5_Decode(RC5_Frame_TypeDef *rc5_frame)
       /* Default state */
       RC5FrameReceived = false;
 
-      RC5_ResetPacket();
+      ir_ResetPacket();
 
       return true;
    }
@@ -229,7 +229,7 @@ bool RC5_Decode(RC5_Frame_TypeDef *rc5_frame)
  * @param  None
  * @retval None
  */
-void RC5_ResetPacket(void)
+void ir_ResetPacket(void)
 {
    RC5TmpPacket.data = 0;
    RC5TmpPacket.bitCount = RC5_PACKET_BIT_COUNT - 1;
@@ -243,7 +243,7 @@ void RC5_ResetPacket(void)
  * @param  edge: '1' for Rising  or '0' for falling edge
  * @retval None
  */
-void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
+void ir_DataSampling(uint16_t rawPulseLength, uint8_t edge)
 {
    uint8_t pulse;
    tRC5_lastBitType tmpLastBit;
@@ -271,7 +271,7 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
       {
          iprintf("R");
 
-         RC5_ResetPacket();
+         ir_ResetPacket();
       }
    } 
    else     /* On Falling Edge */
@@ -297,7 +297,7 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge)
          {
             iprintf("R");
 
-            RC5_ResetPacket();
+            ir_ResetPacket();
          }
       }
    }
@@ -345,7 +345,7 @@ static void RC5_modifyLastBit(tRC5_lastBitType bit)
       }
       else 
       {
-         RC5_ResetPacket();
+         ir_ResetPacket();
       }
    }
 }
@@ -368,7 +368,7 @@ static void RC5_WriteBit(uint8_t bitVal)
    }
    else
    {
-      RC5_ResetPacket();
+      ir_ResetPacket();
       return;
    } 
 

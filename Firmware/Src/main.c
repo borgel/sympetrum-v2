@@ -42,7 +42,7 @@ int main(void)
 
    iprintf("Setting up RC5 encode/decode...");
    ir_InitEncode();
-   RC5_Decode_Init();
+   ir_InitDecode();
    iprintf("ok\r\n");
 
    led_StartAnimation();
@@ -64,7 +64,7 @@ int main(void)
    RC5_Frame_TypeDef rcf;
    while (1)
    {
-      if(RC5_Decode(&rcf)) {
+      if(ir_GetDecoded(&rcf)) {
          iprintf("Addr   %d\r\n", rcf.Address);
          iprintf("Comd   %d\r\n", rcf.Command);
          iprintf("Field  %d\r\n", rcf.FieldBit);
@@ -89,7 +89,7 @@ int main(void)
 
       if(b > 5) {
          if(cnt % 2) {
-            RC5_DecodeDisable();
+            ir_DecodeDisable();
          }
 
          //ir_SendRC5(4, 23, RC5_Ctrl_Reset);
@@ -100,7 +100,7 @@ int main(void)
             //spin until send is done, then enable RX again
             while(ir_IsSending()) {}
 
-            RC5_DecodeEnable();
+            ir_DecodeEnable();
          }
 
          led_SetChannel(0, COLOR_HSV_BLACK);

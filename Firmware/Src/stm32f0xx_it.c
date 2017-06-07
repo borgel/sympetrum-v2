@@ -72,7 +72,7 @@ void TIM3_IRQHandler(void)
       //get current polarity and assume we just saw the opposite edge
       pol = (GPIO_PIN_SET == HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6));
 
-      RC5_DataSampling(ICValue2, pol);
+      ir_DataSampling(ICValue2, pol);
    }
    //check for IR bit timeout
    else if(__HAL_TIM_GET_FLAG(&htim3, TIM_FLAG_UPDATE))
@@ -80,7 +80,7 @@ void TIM3_IRQHandler(void)
       /* Clears the IR_TIM's pending flags*/
       __HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
 
-      RC5_ResetPacket(); 
+      ir_ResetPacket();
    }
 }
 
