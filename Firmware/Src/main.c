@@ -127,8 +127,9 @@ static void VersionToLEDs(void) {
    uint16_t mask = 0x01;
    for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
       // set the channel to 100 counts if the bit is set, 0 otherwise
-      c.h = (mask & FW_VERSION) ? HSV_COLOR_B : 0;
-      c.v = (mask & FW_VERSION) ? HSV_CHANNEL_MIN : HSV_CHANNEL_MAX;
+      c.h = (mask & FW_VERSION) ? HSV_COLOR_B : HSV_COLOR_G;
+      c.s = 254;
+      c.v = (mask & FW_VERSION) ? 100: 0;
 
       led_SetChannel(i, c);
 
