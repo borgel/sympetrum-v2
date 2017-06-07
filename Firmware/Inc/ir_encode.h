@@ -1,5 +1,5 @@
-#ifndef __RC5_ENCODE_H
-#define __RC5_ENCODE_H
+#ifndef __IR_ENCODE_H
+#define __IR_ENCODE_H
 
 #include "stm32f0xx.h"
 #include <stdbool.h>
@@ -16,5 +16,5 @@ void ir_SendRaw(uint16_t message);
 void ir_SignalGenerate(void);
 bool ir_IsSending(void);
 
-#endif  /*__RC5_ENCODE_H */
+#endif  /*__IR_ENCODE_H */
 

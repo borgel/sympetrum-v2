@@ -10,7 +10,7 @@
 #include "board_id.h"
 #include "version.h"
 
-#include "rc5_encode.h"
+#include "ir_encode.h"
 #include "rc5_decode.h"
 
 #include <string.h>
