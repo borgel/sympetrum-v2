@@ -48,7 +48,7 @@ void EXTI0_1_IRQHandler(void) {
 void TIM16_IRQHandler(void)
 {
    //figure out the next stage of the outgoing signal
-   RC5_Encode_SignalGenerate();
+   ir_SignalGenerate();
 
    /* Clear TIM16 update interrupt */
    __HAL_TIM_CLEAR_FLAG(&htim16, TIM_FLAG_UPDATE);

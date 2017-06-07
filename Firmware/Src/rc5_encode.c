@@ -19,21 +19,18 @@ static uint8_t RC5_GlobalFrameLength = 64;
 static uint16_t RC5_FrameBinaryFormat = 0;
 static uint32_t RC5_FrameManchestarFormat = 0;
 static uint8_t Send_Operation_Ready = 0;
-__IO uint8_t Send_Operation_Completed = 1;
+__IO bool Send_Operation_Completed = true;
 static uint8_t BitsSent_Counter = 0;
 
 //FIXME encapsulate this
 //not static so IT can see it
 TIM_HandleTypeDef htim16;
-TIM_HandleTypeDef htim17;
+static TIM_HandleTypeDef htim17;
 
 static uint16_t RC5_BinFrameGeneration(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl);
 static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat);
 static void TIM17_Init(void);
 static void TIM16_Init(void);
-
-//FIXME rm?
-static void Error_Handler(void) {}
 
 void ir_InitEncode(void)
 {
@@ -88,7 +85,7 @@ void ir_SignalGenerate(void)
 
    if((Send_Operation_Ready == 1) && (BitsSent_Counter <= (RC5_GlobalFrameLength * 2)))
    {
-      Send_Operation_Completed = 0x00;
+      Send_Operation_Completed = false;
       bit_msg = (uint8_t)((RC5_FrameManchestarFormat >> BitsSent_Counter)& 1);
 
       if (bit_msg== 1)
@@ -132,7 +129,7 @@ void ir_SignalGenerate(void)
    }
    else
    {
-      Send_Operation_Completed = 0x01;
+      Send_Operation_Completed = true;
 
       HAL_StatusTypeDef res;
 
@@ -162,7 +159,7 @@ static uint16_t RC5_BinFrameGeneration(uint8_t RC5_Address, uint8_t RC5_Instruct
    uint16_t addr = 0;
 
    //don't wipe out globals before they're sent!
-   while(Send_Operation_Completed == 0x00) {}
+   while(Send_Operation_Completed == false) {}
 
    /* Check if Instruction is 128-bit length */
    if(RC5_Instruction >= 64)
@@ -234,12 +231,14 @@ static void TIM16_Init(void)
    htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
    if (HAL_TIM_Base_Init(&htim16) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    if (HAL_TIM_PWM_Init(&htim16) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    sConfigOC.OCMode = TIM_OCMODE_PWM1;
@@ -251,7 +250,8 @@ static void TIM16_Init(void)
    sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
    if (HAL_TIM_PWM_ConfigChannel(&htim16, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
@@ -263,7 +263,8 @@ static void TIM16_Init(void)
    sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_ENABLE;
    if (HAL_TIMEx_ConfigBreakDeadTime(&htim16, &sBreakDeadTimeConfig) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 }
 
@@ -282,12 +283,14 @@ static void TIM17_Init(void)
    htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
    if (HAL_TIM_Base_Init(&htim17) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    if (HAL_TIM_PWM_Init(&htim17) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    sConfigOC.OCMode = TIM_OCMODE_PWM1;
@@ -299,7 +302,8 @@ static void TIM17_Init(void)
    sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
    if (HAL_TIM_PWM_ConfigChannel(&htim17, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 
    sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
@@ -311,7 +315,8 @@ static void TIM17_Init(void)
    sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
    if (HAL_TIMEx_ConfigBreakDeadTime(&htim17, &sBreakDeadTimeConfig) != HAL_OK)
    {
-      Error_Handler();
+      iprintf("Error\r\n");
+      return;
    }
 }
 
