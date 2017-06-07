@@ -10,8 +10,8 @@
 #include "board_id.h"
 #include "version.h"
 
-#include "rc5_encode.h"
-#include "rc5_decode.h"
+#include "ir_encode.h"
+#include "ir_decode.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -41,8 +41,8 @@ int main(void)
    HAL_Delay(1000);  //delay in MS
 
    iprintf("Setting up RC5 encode/decode...");
-   RC5_Encode_Init();
-   RC5_Decode_Init();
+   ir_InitEncode();
+   ir_InitDecode();
    iprintf("ok\r\n");
 
    led_StartAnimation();
@@ -61,10 +61,12 @@ int main(void)
 
    int cnt = 0;
    uint8_t b = 0;
+   uint16_t rawFrame;
    RC5_Frame_TypeDef rcf;
    while (1)
    {
-      if(RC5_Decode(&rcf)) {
+      if(ir_GetDecoded(&rawFrame, &rcf)) {
+         iprintf("Raw  0x%x\r\n", rawFrame);
          iprintf("Addr   %d\r\n", rcf.Address);
          iprintf("Comd   %d\r\n", rcf.Command);
          iprintf("Field  %d\r\n", rcf.FieldBit);
@@ -89,20 +91,18 @@ int main(void)
 
       if(b > 5) {
          if(cnt % 2) {
-            RC5_DecodeDisable();
+            ir_DecodeDisable();
          }
 
-         //addr, instruc, ctrl
-         //encoded as 0x0A23
-         //encoded as 0x35DC inverted (as IR RX'd)
-         RC5_Encode_SendFrame(4, 23, RC5_Ctrl_Reset);
+         //ir_SendRC5(4, 23, RC5_Ctrl_Reset);
+         ir_SendRaw(0x0EEF);
          b = 0;
 
          if(cnt % 2) {
             //spin until send is done, then enable RX again
-            while(RC5_Encode_IsSending()) {}
+            while(ir_IsSending()) {}
 
-            RC5_DecodeEnable();
+            ir_DecodeEnable();
          }
 
          led_SetChannel(0, COLOR_HSV_BLACK);
@@ -127,8 +127,9 @@ static void VersionToLEDs(void) {
    uint16_t mask = 0x01;
    for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
       // set the channel to 100 counts if the bit is set, 0 otherwise
-      c.h = (mask & FW_VERSION) ? HSV_COLOR_B : 0;
-      c.v = (mask & FW_VERSION) ? HSV_CHANNEL_MIN : HSV_CHANNEL_MAX;
+      c.h = (mask & FW_VERSION) ? HSV_COLOR_B : HSV_COLOR_G;
+      c.s = 254;
+      c.v = (mask & FW_VERSION) ? 100: 0;
 
       led_SetChannel(i, c);
 

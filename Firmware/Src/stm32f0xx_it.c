@@ -7,8 +7,8 @@
 #include "stm32f0xx_hal_tim.h"
 #include "stm32f0xx_hal_tim_ex.h"
 
-#include "rc5_encode.h"
-#include "rc5_decode.h"
+#include "ir_encode.h"
+#include "ir_decode.h"
 
 #include "iprintf.h"
 
@@ -16,7 +16,6 @@
 //TODO find a better way to pass these in
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim16;
-extern TIM_HandleTypeDef htim17;
 
 //TODO move these out of this file (into RC5?)?
 static uint32_t ICValue2 = 0;
@@ -49,7 +48,7 @@ void EXTI0_1_IRQHandler(void) {
 void TIM16_IRQHandler(void)
 {
    //figure out the next stage of the outgoing signal
-   RC5_Encode_SignalGenerate();
+   ir_SignalGenerate();
 
    /* Clear TIM16 update interrupt */
    __HAL_TIM_CLEAR_FLAG(&htim16, TIM_FLAG_UPDATE);
@@ -73,7 +72,7 @@ void TIM3_IRQHandler(void)
       //get current polarity and assume we just saw the opposite edge
       pol = (GPIO_PIN_SET == HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6));
 
-      RC5_DataSampling(ICValue2, pol);
+      ir_DataSampling(ICValue2, pol);
    }
    //check for IR bit timeout
    else if(__HAL_TIM_GET_FLAG(&htim3, TIM_FLAG_UPDATE))
@@ -81,7 +80,7 @@ void TIM3_IRQHandler(void)
       /* Clears the IR_TIM's pending flags*/
       __HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
 
-      RC5_ResetPacket(); 
+      ir_ResetPacket();
    }
 }
 
