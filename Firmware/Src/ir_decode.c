@@ -23,14 +23,14 @@
 #define RC5_PACKET_BIT_COUNT                 13      /*!< Total bits */
 
 /* Packet struct for reception*/
-#define RC5_PACKET_STATUS_EMPTY              1<<0
+#define RC5_PACKET_STATUS_EMPTY              false 
 
 #define TIM_PRESCALER                        47                       /* !< TIM prescaler */
 
 typedef struct
 {
    __IO uint16_t data;     /*!< RC5 data */
-   __IO uint8_t  status;   /*!< RC5 status */
+   __IO bool     status;   /*!< RC5 status */
    __IO uint8_t  lastBit;  /*!< RC5 last bit */
    __IO uint8_t  bitCount; /*!< RC5 bit count */
 } tRC5_packet;
@@ -279,11 +279,11 @@ void ir_DataSampling(uint16_t rawPulseLength, uint8_t edge)
       iprintf("f");
 
       /* If this is the first falling edge - don't compute anything */
-      if (RC5TmpPacket.status & RC5_PACKET_STATUS_EMPTY)
+      if (RC5TmpPacket.status == RC5_PACKET_STATUS_EMPTY)
       {
          iprintf("F");
 
-         RC5TmpPacket.status &= (uint8_t)~RC5_PACKET_STATUS_EMPTY;
+         RC5TmpPacket.status = true;
       }
       else	
       {
