@@ -11,7 +11,7 @@
 #include "version.h"
 
 #include "ir_encode.h"
-#include "rc5_decode.h"
+#include "ir_decode.h"
 
 #include <string.h>
 #include <stdlib.h>

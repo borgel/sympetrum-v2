@@ -2,7 +2,7 @@
   TODO update this block
  */
 
-#include "rc5_decode.h"
+#include "ir_decode.h"
 #include "iprintf.h"
 
 #include "stm32f0xx_hal.h"

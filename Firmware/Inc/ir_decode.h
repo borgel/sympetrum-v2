@@ -1,5 +1,5 @@
-#ifndef __RC5_DECODE_H
-#define __RC5_DECODE_H
+#ifndef __IR_DECODE_H
+#define __IR_DECODE_H
 
 #include "stm32f0xx.h"
 
@@ -22,5 +22,5 @@ void RC5_DataSampling(uint16_t rawPulseLength, uint8_t edge);
 void RC5_DecodeDisable(void);
 void RC5_DecodeEnable(void);
 
-#endif /* __RC5_DECODE_H */
+#endif /* __IR_DECODE_H */
 
