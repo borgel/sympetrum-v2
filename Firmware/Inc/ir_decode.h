@@ -13,7 +13,7 @@ typedef struct
 } RC5_Frame_TypeDef;
 
 void ir_InitDecode(void);
-bool ir_GetDecoded(RC5_Frame_TypeDef *rc5_frame);
+bool ir_GetDecoded(uint16_t *raw, RC5_Frame_TypeDef *rc5_frame);
 
 //used internally to decode incoming IR data
 void ir_ResetPacket(void);

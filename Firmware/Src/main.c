@@ -61,10 +61,12 @@ int main(void)
 
    int cnt = 0;
    uint8_t b = 0;
+   uint16_t rawFrame;
    RC5_Frame_TypeDef rcf;
    while (1)
    {
-      if(ir_GetDecoded(&rcf)) {
+      if(ir_GetDecoded(&rawFrame, &rcf)) {
+         iprintf("Raw  0x%x\r\n", rawFrame);
          iprintf("Addr   %d\r\n", rcf.Address);
          iprintf("Comd   %d\r\n", rcf.Command);
          iprintf("Field  %d\r\n", rcf.FieldBit);

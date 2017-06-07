@@ -74,7 +74,6 @@ static uint16_t  RC5Min2T = 0;
 static uint16_t  RC5Max2T = 0;
 static uint32_t TIMCLKValueKHz = 0; /*!< Timer clock */
 static uint16_t RC5TimeOut = 0;
-static uint32_t RC5_Data = 0;
 RC5_Frame_TypeDef RC5_FRAME;
 
 static uint8_t RC5_GetPulseLength (uint16_t pulseLength);
@@ -193,25 +192,26 @@ void ir_DecodeEnable(void) {
  *         the IR protocol fields (Address, Command,...).
  * @retval None
  */
-bool ir_GetDecoded(RC5_Frame_TypeDef *rc5_frame)
+bool ir_GetDecoded(uint16_t *raw, RC5_Frame_TypeDef *rc5_frame)
 { 
    /* If frame received */
    if(RC5FrameReceived)
    {
-      RC5_Data = RC5TmpPacket.data;
+      if(raw) {
+         *raw = RC5TmpPacket.data;
+      }
+      if(rc5_frame) {
+         /* RC5 frame field decoding */
+         rc5_frame->Address = (RC5TmpPacket.data >> 6) & 0x1F;
+         rc5_frame->Command = (RC5TmpPacket.data) & 0x3F; 
+         rc5_frame->FieldBit = (RC5TmpPacket.data >> 12) & 0x1;
+         rc5_frame->ToggleBit = (RC5TmpPacket.data >> 11) & 0x1;
 
-      /* RC5 frame field decoding */
-      rc5_frame->Address = (RC5TmpPacket.data >> 6) & 0x1F;
-      rc5_frame->Command = (RC5TmpPacket.data) & 0x3F; 
-      rc5_frame->FieldBit = (RC5TmpPacket.data >> 12) & 0x1;
-      rc5_frame->ToggleBit = (RC5TmpPacket.data >> 11) & 0x1;
-
-      iprintf("Raw = 0x%x\r\n", RC5TmpPacket.data);
-
-      /* Check if command ranges between 64 to 127:Upper Field */
-      if (rc5_frame->FieldBit == 0x00)
-      {
-         rc5_frame->Command =  (1<<6)| rc5_frame->Command; 
+         /* Check if command ranges between 64 to 127:Upper Field */
+         if (rc5_frame->FieldBit == 0x00)
+         {
+            rc5_frame->Command =  (1<<6)| rc5_frame->Command; 
+         }
       }
 
       /* Default state */
