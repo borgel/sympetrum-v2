@@ -10,10 +10,11 @@ typedef enum
    RC5_Ctrl_Set                          = ((uint16_t)0x0800)
 } RC5_Ctrl_TypeDef;
 
-void RC5_Encode_Init(void);
-void RC5_Encode_SendFrame(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl);
-void RC5_Encode_SignalGenerate(void);
-bool RC5_Encode_IsSending(void);
+void ir_InitEncode(void);
+void ir_SendRC5(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl);
+void ir_SendRaw(uint16_t message);
+void ir_SignalGenerate(void);
+bool ir_IsSending(void);
 
 #endif  /*__RC5_ENCODE_H */
 

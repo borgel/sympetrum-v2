@@ -41,7 +41,7 @@ int main(void)
    HAL_Delay(1000);  //delay in MS
 
    iprintf("Setting up RC5 encode/decode...");
-   RC5_Encode_Init();
+   ir_InitEncode();
    RC5_Decode_Init();
    iprintf("ok\r\n");
 
@@ -92,13 +92,13 @@ int main(void)
             RC5_DecodeDisable();
          }
 
-         //RC5_Encode_SendRC5(4, 23, RC5_Ctrl_Reset);
-         RC5_Encode_SendRaw(0x0EEF);
+         //ir_SendRC5(4, 23, RC5_Ctrl_Reset);
+         ir_SendRaw(0x0EEF);
          b = 0;
 
          if(cnt % 2) {
             //spin until send is done, then enable RX again
-            while(RC5_Encode_IsSending()) {}
+            while(ir_IsSending()) {}
 
             RC5_DecodeEnable();
          }

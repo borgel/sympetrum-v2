@@ -16,7 +16,6 @@
 //TODO find a better way to pass these in
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim16;
-extern TIM_HandleTypeDef htim17;
 
 //TODO move these out of this file (into RC5?)?
 static uint32_t ICValue2 = 0;

@@ -35,7 +35,7 @@ static void TIM16_Init(void);
 //FIXME rm?
 static void Error_Handler(void) {}
 
-void RC5_Encode_Init(void)
+void ir_InitEncode(void)
 {
    TIM17_Init();
    TIM16_Init();
@@ -48,15 +48,15 @@ void RC5_Encode_Init(void)
  * @param  RC5_Ctrl: the RC5 Control bit.
  * @retval None
  */
-void RC5_Encode_SendRC5(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl)
+void ir_SendRC5(uint8_t RC5_Address, uint8_t RC5_Instruction, RC5_Ctrl_TypeDef RC5_Ctrl)
 {
-   RC5_Encode_SendRaw(RC5_BinFrameGeneration(RC5_Address, RC5_Instruction, RC5_Ctrl));
+   ir_SendRaw(RC5_BinFrameGeneration(RC5_Address, RC5_Instruction, RC5_Ctrl));
 }
 
 /**
  * Send an unstructured 14 bit messags.
  */
-void RC5_Encode_SendRaw(uint16_t message)
+void ir_SendRaw(uint16_t message)
 {
    HAL_StatusTypeDef res;
    uint16_t frameBinaryFormat = 0;
@@ -82,7 +82,7 @@ void RC5_Encode_SendRaw(uint16_t message)
  * @param  RC5_BinaryFrameFormat: the RC5 frame in binary format.
  * @retval Noe
  */
-void RC5_Encode_SignalGenerate(void)
+void ir_SignalGenerate(void)
 {
    uint8_t bit_msg = 0;
 
@@ -215,8 +215,8 @@ static uint32_t RC5_ManchesterConvert(uint16_t RC5_BinaryFrameFormat)
    return (ConvertedMsg);
 }
 
-bool RC5_Encode_IsSending(void) {
-   return (Send_Operation_Completed == 0x00);
+bool ir_IsSending(void) {
+   return (Send_Operation_Completed == false);
 }
 
 /* TIM16 init function */
