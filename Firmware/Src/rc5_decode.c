@@ -16,10 +16,9 @@
 #define RC5_WRONG_TIME                       0xFF
 #define RC5_TIME_OUT_US                      3600
 #define RC5_T_US                             900     /*!< Half bit period */
-#define RC5_T_TOLERANCE_US                   270    /*!< Tolerance time */
+#define RC5_T_TOLERANCE_US                   270     /*!< Tolerance time */
 #define RC5_NUMBER_OF_VALID_PULSE_LENGTH     2
 //FIXME rm
-//13 bits (not 14) to allow 1 to be lost to syncing
 //32 bits + 1 to be lost to syncing
 #define RC5_PACKET_BIT_COUNT                 32      /*!< Total bits */
 
@@ -78,14 +77,13 @@ static uint16_t  RC5Max2T = 0;
 static uint32_t TIMCLKValueKHz = 0; /*!< Timer clock */
 static uint16_t RC5TimeOut = 0;
 static uint32_t RC5_Data = 0;
-//RC5_Frame_TypeDef RC5_FRAME;
 
 static uint8_t RC5_GetPulseLength (uint16_t pulseLength);
 static void RC5_modifyLastBit(tRC5_lastBitType bit);
 static void RC5_WriteBit(uint8_t bitVal);
 static uint32_t TIM_GetCounterCLKValue(void);
 
-uint32_t reverse(uint32_t x)
+static uint32_t reverseU32(uint32_t x)
 {
    x = (((x & 0xaaaaaaaa) >> 1) | ((x & 0x55555555) << 1));
    x = (((x & 0xcccccccc) >> 2) | ((x & 0x33333333) << 2));
@@ -197,30 +195,7 @@ bool RC5_Decode(union IRMessage * const frame)
    /* If frame received */
    if(RC5FrameReceived && frame)
    {
-      /*
-      RC5_Data = RC5TmpPacket.data;
-
-      // RC5 frame field decoding
-      rc5_frame->Address = (RC5TmpPacket.data >> 6) & 0x1F;
-      rc5_frame->Command = (RC5TmpPacket.data) & 0x3F; 
-      rc5_frame->FieldBit = (RC5TmpPacket.data >> 12) & 0x1;
-      rc5_frame->ToggleBit = (RC5TmpPacket.data >> 11) & 0x1;
-
-      // Check if command ranges between 64 to 127:Upper Field
-      if (rc5_frame->FieldBit == 0x00)
-      {
-         rc5_frame->Command =  (1<<6)| rc5_frame->Command; 
-      }
-
-      // Display RC5 message
-      iprintf("Command:%s\r\n", rc5_Commands[rc5_frame->Command]);
-      iprintf("Device:%s\r\n", rc5_devices[rc5_frame->Address]);
-      */
-
-      frame->raw = ~RC5TmpPacket.data;
-      iprintf("Packet RX: 0x%x\n", frame->raw);
-      frame->raw = reverse(frame->raw);
-      iprintf("Packet RX: 0x%x\n", frame->raw);
+      frame->raw = reverseU32(~RC5TmpPacket.data);
 
       // Default state
       RC5FrameReceived = false;
@@ -228,16 +203,6 @@ bool RC5_Decode(union IRMessage * const frame)
       RC5_ResetPacket();
 
       return true;
-   }
-   //FIXME rm
-   else {
-      /*
-      //iprintf("(%d)Pkt:0x%x\n", RC5TmpPacket.bitCount, RC5TmpPacket.data);
-      iprintf("%d|", RC5TmpPacket.bitCount);
-      if(RC5TmpPacket.bitCount == 0) {
-         iprintf("Pkt:0x%x\n", RC5TmpPacket.data);
-      }
-      */
    }
    return false;
 }
@@ -384,17 +349,14 @@ static void RC5_WriteBit(uint8_t bitVal)
    /* First convert RC5 symbols to ones and zeros */
    if (bitVal == RC5_ONE)
    {
-      //iprintf("1");
       bitVal = 1;
    }
    else if (bitVal == RC5_ZER)
    {
-      //iprintf("0");
       bitVal = 0;
    }
    else
    {
-      //iprintf("R %d]", RC5TmpPacket.bitCount);
       RC5_ResetPacket();
       return;
    }
@@ -413,13 +375,6 @@ static void RC5_WriteBit(uint8_t bitVal)
    else
    {
       RC5FrameReceived = true;
-
-      /*
-      //FIXME rm
-      iprintf("\r\nGOT ONE: 0x%d\r\n", RC5TmpPacket.data);
-      RC5_ResetPacket();
-      RC5FrameReceived = false;
-      */
    }
 }
 

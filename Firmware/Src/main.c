@@ -71,9 +71,9 @@ int main(void)
    while(1) {
       //iprintf("RX\r\n");
 #ifndef DECODE
-      //RC5_Encode_SendFrame(0xDEADBEEF);
+      RC5_Encode_SendFrame(0xDEADBEEF);
       //RC5_Encode_SendFrame(0xFFFFFFFF);
-      RC5_Encode_SendFrame(0x7FFFFFFF);
+      //RC5_Encode_SendFrame(0x7FFFFFFF);
       while(RC5_Encode_IsSending()) {}
 
       //FIXME rm?
