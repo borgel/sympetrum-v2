@@ -8,11 +8,14 @@
 
 #include <stdint.h>
 
+#pragma pack(push)  /* push current alignment to stack */
+#pragma pack(1)     /* set alignment to 1 byte boundary */
 struct color_ColorRGB {
    uint8_t     b;
    uint8_t     g;
    uint8_t     r;
 };
+#pragma pack(pop)   /* restore original alignment from stack */
 
 #define HSV_CHANNEL_MAX          255
 #define HSV_CHANNEL_MIN          0

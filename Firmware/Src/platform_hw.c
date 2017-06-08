@@ -9,18 +9,22 @@ UART_HandleTypeDef huart1;
 static uint8_t const LED_FRAME_START[4] = {0x00, 0x00, 0x00, 0x00};
 static uint8_t const LED_FRAME_STOP[4]  = {0xFF, 0xFF, 0xFF, 0xFF};
 
+#define LED_GLOB_BRIGHTNESS_MAX     0x1F
+#define LED_GLOB_BRIGHTNESS_MIN     0x01
+#define LED_GLOB_BRIGHTNESS         (LED_GLOB_BRIGHTNESS_MIN)
+
 //pull in from outside
 union platformHW_LEDRegister  LedRegisterStates[LED_CHAIN_LENGTH] = {
-   {.globalHeader = 0x1F},
-   {.globalHeader = 0x1F},
-   {.globalHeader = 0x1F},
-   {.globalHeader = 0x1F},
-   {.globalHeader = 0x1F},
-   {.globalHeader = 0x1F},
-   {.globalHeader = 0x1F},
-   {.globalHeader = 0x1F},
-   {.globalHeader = 0x1F},
-   {.globalHeader = 0x1F},
+   {.header = 0x7, .globalBrightness = LED_GLOB_BRIGHTNESS},
+   {.header = 0x7, .globalBrightness = LED_GLOB_BRIGHTNESS},
+   {.header = 0x7, .globalBrightness = LED_GLOB_BRIGHTNESS},
+   {.header = 0x7, .globalBrightness = LED_GLOB_BRIGHTNESS},
+   {.header = 0x7, .globalBrightness = LED_GLOB_BRIGHTNESS},
+   {.header = 0x7, .globalBrightness = LED_GLOB_BRIGHTNESS},
+   {.header = 0x7, .globalBrightness = LED_GLOB_BRIGHTNESS},
+   {.header = 0x7, .globalBrightness = LED_GLOB_BRIGHTNESS},
+   {.header = 0x7, .globalBrightness = LED_GLOB_BRIGHTNESS},
+   {.header = 0x7, .globalBrightness = LED_GLOB_BRIGHTNESS},
 };
 
 static void SystemClock_Config(void);

@@ -13,6 +13,8 @@
 
 #define  LED_SPI_INSTANCE        (SPI1)
 
+#pragma pack(push)  /* push current alignment to stack */
+#pragma pack(1)     /* set alignment to 1 byte boundary */
 union platformHW_LEDRegister {
    uint8_t  raw[4];
    struct {
@@ -20,12 +22,16 @@ union platformHW_LEDRegister {
       //A = 1
       //B = integer brightness divisor from 0x0 -> 0x1F
 
+      uint8_t const                 header      :3;
+
       //3 bits always, 5 bits global brightness, 8B, 8G, 8R
       //Glob = 0xE1 = min bright
-      uint8_t const           globalHeader;
+      //uint8_t const           globalHeader      :8;
+      uint8_t                 globalBrightness  :5;
       struct color_ColorRGB   color;
    };
 };
+#pragma pack(pop)   /* restore original alignment from stack */
 
 
 bool platformHW_Init(void);
