@@ -137,11 +137,11 @@ int main(void)
       }
       b++;
       cnt++;
-   }
 
-   //TODO track a systime (from systick?)
-   // pump the animation frameworks
-   led_GiveTime(0);
+      //TODO track a systime (from systick?)
+      // pump the animation frameworks
+      led_GiveTime(cnt);
+   }
 }
 
 /*
