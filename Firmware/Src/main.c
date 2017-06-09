@@ -36,9 +36,32 @@ int main(void)
    // setup the entire LED framework (w/ animation)
    led_Init();
 
+   /*
+   led_GiveTime(1000);
+
+   //FIXME rm
+   for(int i = 8; i < 1; i++) {
+      iprintf(">>Chan %d\n", i);
+      led_SetChannel(i, COLOR_HSV_BLACK);
+      //led_GiveTime(10);
+   }
+   led_GiveTime(2000);
+   */
+
+   //while(1) {}
+
+   //FIXME enable
    //display the FW version
-   VersionToLEDs();
-   HAL_Delay(1000);  //delay in MS
+   //VersionToLEDs();
+   //HAL_Delay(1000);  //delay in MS
+
+   // FIXME rm?
+   /*
+   for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
+      led_SetChannel(i, COLOR_HSV_WHITE);
+   }
+   led_GiveTime(2000);
+   */
 
    iprintf("Setting up RC5 encode/decode...");
    ir_InitEncode();
@@ -47,19 +70,24 @@ int main(void)
 
    led_StartAnimation();
 
-   /*
+
    //FIXME rm
    uint32_t time = 0;
-   while(1) {
+   while(1)
+   {
       //iprintf("<<< Starting %dms >>>\r\n", time);
       led_GiveTime(time);
 
       HAL_Delay(30);
       time += 30;
    }
-   */
 
-   int cnt = 0;
+   //FIXME rm
+   for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
+      led_SetChannel(i, COLOR_HSV_WHITE);
+   }
+
+   int cnt = 2;
    uint8_t b = 0;
    uint16_t rawFrame;
    RC5_Frame_TypeDef rcf;
