@@ -52,8 +52,7 @@ int main(void)
 
    //FIXME enable
    //display the FW version
-   //VersionToLEDs();
-   //HAL_Delay(1000);  //delay in MS
+   VersionToLEDs();
 
    // FIXME rm?
    /*
@@ -69,7 +68,6 @@ int main(void)
    iprintf("ok\r\n");
 
    led_StartAnimation();
-
 
    //FIXME rm
    uint32_t time = 0;
@@ -147,7 +145,6 @@ int main(void)
 /*
  * Write this unit's SW version to the LEDs once.
  */
-//FIXME fix color logic stuff
 static void VersionToLEDs(void) {
    struct color_ColorHSV c = {.h = 0, .s = 255, .v = 0};
 
@@ -156,17 +153,19 @@ static void VersionToLEDs(void) {
    for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
       // set the channel to 100 counts if the bit is set, 0 otherwise
       c.h = (mask & FW_VERSION) ? HSV_COLOR_B : HSV_COLOR_G;
-      c.s = 254;
-      c.v = (mask & FW_VERSION) ? 100: 0;
+      c.s = 255;
+      c.v = 255;
 
       led_SetChannel(i, c);
 
       mask <<= 1;
    }
 
-   //FIXME rm
-   //yabi_giveTime(1);
-   led_GiveTime(1);
+   // Fade in over 1.5 seconds
+   for(int i = 0; i < 150; i++) {
+      led_GiveTime(i);
+      HAL_Delay(10);  //delay in MS
+   }
 }
 
 #ifdef USE_FULL_ASSERT
