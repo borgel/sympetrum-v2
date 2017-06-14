@@ -69,21 +69,15 @@ int main(void)
 
    led_StartAnimation();
 
+   /*
    //FIXME rm
-   uint32_t time = 0;
    while(1)
    {
       //iprintf("<<< Starting %dms >>>\r\n", time);
-      led_GiveTime(time);
-
+      led_GiveTime(HAL_GetTick());
       HAL_Delay(30);
-      time += 30;
    }
-
-   //FIXME rm
-   for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
-      led_SetChannel(i, COLOR_HSV_WHITE);
-   }
+   */
 
    int cnt = 2;
    uint8_t b = 0;
@@ -138,7 +132,7 @@ int main(void)
 
       //TODO track a systime (from systick?)
       // pump the animation frameworks
-      led_GiveTime(cnt);
+      led_GiveTime(HAL_GetTick());
    }
 }
 
