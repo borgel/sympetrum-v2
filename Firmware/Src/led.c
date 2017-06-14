@@ -109,19 +109,19 @@ bool led_Init(void) {
    yabi_setStarted(true);
 
    //FIXME rm
-   struct color_ColorHSV c = {.h = 0, .s = 255, .v = 10};
+   struct color_ColorHSV c = {.h = 0, .s = 254, .v = 10};
 
    // prepare to start BAF later
    for(int i = 0; i < YABI_CHANNELS; i++) {
       //wire up BAF so it's channels are YABI's Hue's
       if(i % 3 == 0) {
+         iprintf("Setting BAF channel ID %d to YABI %d\r\n", i/3, i);
+
          animationChannelIDs[i/3] = i;
 
-         //FIXME rm
+         //FIXME rm?
          //set everyone's saturation to 100 and brightness to 10%
          led_SetChannel(i/3, c);
-
-         iprintf("YABI i/3 = %d i = %d\r\n", i/3, i);
       }
    }
 

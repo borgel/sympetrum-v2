@@ -36,9 +36,31 @@ int main(void)
    // setup the entire LED framework (w/ animation)
    led_Init();
 
+   /*
+   led_GiveTime(1000);
+
+   //FIXME rm
+   for(int i = 8; i < 1; i++) {
+      iprintf(">>Chan %d\n", i);
+      led_SetChannel(i, COLOR_HSV_BLACK);
+      //led_GiveTime(10);
+   }
+   led_GiveTime(2000);
+   */
+
+   //while(1) {}
+
+   //FIXME enable
    //display the FW version
    VersionToLEDs();
-   HAL_Delay(1000);  //delay in MS
+
+   // FIXME rm?
+   /*
+   for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
+      led_SetChannel(i, COLOR_HSV_WHITE);
+   }
+   led_GiveTime(2000);
+   */
 
    iprintf("Setting up RC5 encode/decode...");
    ir_InitEncode();
@@ -47,19 +69,23 @@ int main(void)
 
    led_StartAnimation();
 
-   /*
    //FIXME rm
    uint32_t time = 0;
-   while(1) {
+   while(1)
+   {
       //iprintf("<<< Starting %dms >>>\r\n", time);
       led_GiveTime(time);
 
       HAL_Delay(30);
       time += 30;
    }
-   */
 
-   int cnt = 0;
+   //FIXME rm
+   for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
+      led_SetChannel(i, COLOR_HSV_WHITE);
+   }
+
+   int cnt = 2;
    uint8_t b = 0;
    uint16_t rawFrame;
    RC5_Frame_TypeDef rcf;
@@ -109,17 +135,16 @@ int main(void)
       }
       b++;
       cnt++;
-   }
 
-   //TODO track a systime (from systick?)
-   // pump the animation frameworks
-   led_GiveTime(0);
+      //TODO track a systime (from systick?)
+      // pump the animation frameworks
+      led_GiveTime(cnt);
+   }
 }
 
 /*
  * Write this unit's SW version to the LEDs once.
  */
-//FIXME fix color logic stuff
 static void VersionToLEDs(void) {
    struct color_ColorHSV c = {.h = 0, .s = 255, .v = 0};
 
@@ -128,17 +153,19 @@ static void VersionToLEDs(void) {
    for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
       // set the channel to 100 counts if the bit is set, 0 otherwise
       c.h = (mask & FW_VERSION) ? HSV_COLOR_B : HSV_COLOR_G;
-      c.s = 254;
-      c.v = (mask & FW_VERSION) ? 100: 0;
+      c.s = 255;
+      c.v = 255;
 
       led_SetChannel(i, c);
 
       mask <<= 1;
    }
 
-   //FIXME rm
-   //yabi_giveTime(1);
-   led_GiveTime(1);
+   // Fade in over 1.5 seconds
+   for(int i = 0; i < 150; i++) {
+      led_GiveTime(i);
+      HAL_Delay(10);  //delay in MS
+   }
 }
 
 #ifdef USE_FULL_ASSERT

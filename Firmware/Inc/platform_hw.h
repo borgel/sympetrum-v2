@@ -18,16 +18,15 @@
 union platformHW_LEDRegister {
    uint8_t  raw[4];
    struct {
+      //3 bits always, 5 bits global brightness, 8B, 8G, 8R
+      //Glob = 0xE1 = min bright
+      uint8_t                 globalBrightness  :5;
+
       //header/global brightness is 0bAAABBBBB
       //A = 1
       //B = integer brightness divisor from 0x0 -> 0x1F
-
       uint8_t const                 header      :3;
 
-      //3 bits always, 5 bits global brightness, 8B, 8G, 8R
-      //Glob = 0xE1 = min bright
-      //uint8_t const           globalHeader      :8;
-      uint8_t                 globalBrightness  :5;
       struct color_ColorRGB   color;
    };
 };

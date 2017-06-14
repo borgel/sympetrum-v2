@@ -1,6 +1,6 @@
 [submodule "Firmware/submodules/baf"]
 	path = Firmware/submodules/baf
-	url = https://github.com/borgel/baf
+	url = git@github.com:borgel/baf.git
 [submodule "Firmware/submodules/yabi"]
 	path = Firmware/submodules/yabi
-	url = https://github.com/borgel/yabi
+	url = git@github.com:borgel/yabi.git

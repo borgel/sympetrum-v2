@@ -10,7 +10,7 @@ static uint8_t const LED_FRAME_START[4] = {0x00, 0x00, 0x00, 0x00};
 static uint8_t const LED_FRAME_STOP[4]  = {0xFF, 0xFF, 0xFF, 0xFF};
 
 #define LED_GLOB_BRIGHTNESS_MAX     0x1F
-#define LED_GLOB_BRIGHTNESS_MIN     0x01
+#define LED_GLOB_BRIGHTNESS_MIN     0x10
 #define LED_GLOB_BRIGHTNESS         (LED_GLOB_BRIGHTNESS_MIN)
 
 //pull in from outside
