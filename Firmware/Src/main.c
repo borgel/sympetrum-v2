@@ -10,19 +10,17 @@
 #include "board_id.h"
 #include "version.h"
 
-#include "ir_encode.h"
-#include "ir_decode.h"
+#include "beacons.h"
 
 #include <string.h>
 #include <stdlib.h>
 
-static void VersionToLEDs(void);
+#define        BEACON_INTERVAL_MS      ( 5000 )
 
+static void VersionToLEDs(void);
 
 int main(void)
 {
-   int i;
-
    // Reset of all peripherals, Initializes the Flash interface and the Systick
    HAL_Init();
 
@@ -62,10 +60,7 @@ int main(void)
    led_GiveTime(2000);
    */
 
-   iprintf("Setting up RC5 encode/decode...");
-   ir_InitEncode();
-   ir_InitDecode();
-   iprintf("ok\r\n");
+   beacon_Init(BEACON_INTERVAL_MS);
 
    led_StartAnimation();
 
@@ -79,25 +74,8 @@ int main(void)
    }
    */
 
-   int cnt = 2;
-   uint8_t b = 0;
-   uint16_t rawFrame;
-   RC5_Frame_TypeDef rcf;
    while (1)
    {
-      if(ir_GetDecoded(&rawFrame, &rcf)) {
-         iprintf("Raw  0x%x\r\n", rawFrame);
-         iprintf("Addr   %d\r\n", rcf.Address);
-         iprintf("Comd   %d\r\n", rcf.Command);
-         iprintf("Field  %d\r\n", rcf.FieldBit);
-         iprintf("Toggle %d\r\n", rcf.ToggleBit);
-         iprintf("\r\n");
-
-         led_SetChannel(0, COLOR_HSV_BLACK);
-
-         for (i = 0; i < 1000000; i++);
-      }
-
       if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)) {
          led_SetChannel(1, COLOR_HSV_WHITE);
       }
@@ -106,32 +84,7 @@ int main(void)
          led_SetChannel(1, COLOR_HSV_BLACK);
       }
 
-      // spend time
-      for (i = 0; i < 1000000; i++);
-
-      if(b > 5) {
-         if(cnt % 2) {
-            ir_DecodeDisable();
-         }
-
-         //ir_SendRC5(4, 23, RC5_Ctrl_Reset);
-         ir_SendRaw(0x0EEF);
-         b = 0;
-
-         if(cnt % 2) {
-            //spin until send is done, then enable RX again
-            while(ir_IsSending()) {}
-
-            ir_DecodeEnable();
-         }
-
-         led_SetChannel(0, COLOR_HSV_BLACK);
-      }
-      b++;
-      cnt++;
-
-      //TODO track a systime (from systick?)
-      // pump the animation frameworks
+      beacon_GiveTime(HAL_GetTick());
       led_GiveTime(HAL_GetTick());
    }
 }
