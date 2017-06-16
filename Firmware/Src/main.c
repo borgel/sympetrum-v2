@@ -13,12 +13,10 @@
 #include "baf/baf.h"
 #include "yabi/yabi.h"
 
-#include "beacons.h"
+#include "pattern.h"
 
 #include <string.h>
 #include <stdlib.h>
-
-#define        BEACON_INTERVAL_MS      ( 5000 )
 
 static void VersionToLEDs(void);
 
@@ -51,6 +49,8 @@ int main(void)
 
    //while(1) {}
 
+   pattern_Init();
+
    //FIXME enable
    //display the FW version
    VersionToLEDs();
@@ -62,8 +62,6 @@ int main(void)
    }
    led_GiveTime(2000);
    */
-
-   beacon_Init(BEACON_INTERVAL_MS);
 
    led_StartAnimation();
 
@@ -87,7 +85,7 @@ int main(void)
          led_SetChannel(1, COLOR_HSV_BLACK);
       }
 
-      beacon_GiveTime(HAL_GetTick());
+      pattern_GiveTime(HAL_GetTick());
       led_GiveTime(HAL_GetTick());
    }
 }
