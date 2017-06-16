@@ -10,6 +10,9 @@
 #include "board_id.h"
 #include "version.h"
 
+#include "baf/baf.h"
+#include "yabi/yabi.h"
+
 #include "beacons.h"
 
 #include <string.h>
@@ -110,7 +113,9 @@ static void VersionToLEDs(void) {
 
    // Fade in over 1.5 seconds
    for(int i = 0; i < 150; i++) {
-      led_GiveTime(i);
+      // This looks better without the LED module's clock division
+      baf_giveTime(i, NULL);
+      yabi_giveTime(i);
       HAL_Delay(10);  //delay in MS
    }
 }

@@ -17,6 +17,8 @@
 
 #define YABI_CHANNELS      (LED_CHAIN_LENGTH * 3)
 
+#define PUMP_INTERVAL_MS   ( 33 )
+
 static uint8_t const DefaultTransitionTimeMS = 100;
 struct led_State {
    SPI_HandleTypeDef             spi;
@@ -28,6 +30,9 @@ struct led_State {
    //goes like {H, S, V}{H, S, V}, etc. So for 10 LEDs we have 30 'channels'. Modulo
    //math is used to figure out which is which at channel-set time.
    struct yabi_ChannelRecord     yabiBacking[YABI_CHANNELS];
+
+   //the last time the animation stack was pumped
+   uint32_t                      lastPump;
 };
 static struct led_State state;
 
@@ -282,10 +287,13 @@ static void led_UpdateChannels(yabi_FrameID frame) {
 }
 
 void led_GiveTime(uint32_t systimeMS) {
-   //TODO animation from (fake, anim) clock. Set bias in animation
+   //FIXME need to slow down YABI so its forced 1 unit movement doesn't make things too fast
+   if(systimeMS - state.lastPump > PUMP_INTERVAL_MS) {
+      //FYI: the NULL is time until next call. Not useful without threads
+      baf_giveTime(systimeMS, NULL);
+      yabi_giveTime(systimeMS);
 
-   //FYI: the NULL is time until next call. Not useful without threads
-   baf_giveTime(systimeMS, NULL);
-   yabi_giveTime(systimeMS);
+      state.lastPump = systimeMS;
+   }
 }
 
