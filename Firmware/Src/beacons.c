@@ -41,18 +41,14 @@ void beacon_GiveTime(uint32_t systimeMS) {
 }
 
 void beacon_Send(void) {
-   //TODO spin until send done
-   //TODO disable rx
-   //send beacon (with what data?)
-   //TODO enable RX
-
-   while(ir_IsSending()) {}
-
    ir_DecodeDisable();
 
    //TODO what do we send?
    //ir_SendRC5(4, 23, RC5_Ctrl_Reset);
    ir_SendRaw(0x0EEF);
+
+   //FIXME remove to unblock?
+   while(ir_IsSending()) {}
 
    ir_DecodeEnable();
 }
