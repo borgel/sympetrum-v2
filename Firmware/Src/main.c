@@ -48,7 +48,7 @@ int main(void)
    led_Init(hspi1);
 
    //FIXME rm
-   struct color_ColorRGB c = {.r = 0, .g = 100, .b = 100};
+   struct color_ColorRGB c = {.r = 50, .g = 50, .b = 50};
    for(int i = 0; i < 10; i++) {
       led_SetChannel(i, c);
    }
