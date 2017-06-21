@@ -61,6 +61,7 @@ static uint32_t bafRNGCB(uint32_t range);
 static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num);
 static void bafAnimStartCB(struct baf_Animation const * anim);
 static void bafAnimStopCB(struct baf_Animation const * anim);
+static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction);
 
 /*
  * Wire up the animation framework. It's composed of two parts:
@@ -86,6 +87,7 @@ bool led_Init(void) {
       .frameEndCB             = led_UpdateChannels,
       .channelChangeCB        = led_YabiSetChannelCB,
       .channelChangeGroupCB   = NULL,        //TODO can we provide this?
+      .interpolator           = rolloverInterpolator,
       .hwConfig = {
          .setup               = led_HwInit,
          .teardown            = NULL,
@@ -141,6 +143,47 @@ bool led_Init(void) {
 bool led_StartAnimation(void) {
    //start the random animation
    return BAF_OK == baf_startAnimation(&AnimRGBFade, BAF_ASTART_IMMEDIATE);
+}
+
+static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction) {
+   bool increasing;
+   uint32_t change;
+   uint8_t mod = 0;
+
+   if(end > start)   // XXX increasing
+   {
+      increasing = true;
+
+      iprintf("inc (%d -> %d) ", start, end);
+      if( end - start > (start + 0xFF) - end) {
+         //iprintf(" ROLL TOP   \n");
+         mod = 0xFF;
+         increasing = false;
+      }
+   }
+   else     // XXX decreasing
+   {
+      increasing = false;
+
+      iprintf("dec (%d -> %d) ", start, end);
+      if( start - end > (end + 0xFF) - start) {
+         //iprintf(" ROLL BOTTOM   \n");
+         mod = 0xFF;
+         increasing = true;
+      }
+   }
+
+   if(increasing) {
+      change = fraction * (float)((float)(end + mod) - (float)start);
+      // make sure any change < 0 is rounded up (we only deal in integers)
+      change = (change == 0) ? 1 : change;
+      return (uint8_t)(current + change);
+   }
+   else {
+      change = fraction * (float)((float)(start + mod) - (float)end);
+      change = (change == 0) ? 1 : change;
+      return (uint8_t)(current - change);
+   }
 }
 
 /*

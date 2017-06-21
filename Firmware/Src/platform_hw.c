@@ -10,8 +10,8 @@ static uint8_t const LED_FRAME_START[4] = {0x00, 0x00, 0x00, 0x00};
 static uint8_t const LED_FRAME_STOP[4]  = {0xFF, 0xFF, 0xFF, 0xFF};
 
 #define LED_GLOB_BRIGHTNESS_MAX     0x1F
-#define LED_GLOB_BRIGHTNESS_MIN     0x10
-#define LED_GLOB_BRIGHTNESS         (LED_GLOB_BRIGHTNESS_MIN)
+#define LED_GLOB_BRIGHTNESS_MIN     0x01
+#define LED_GLOB_BRIGHTNESS         (0x3)
 
 //pull in from outside
 union platformHW_LEDRegister  LedRegisterStates[LED_CHAIN_LENGTH] = {
