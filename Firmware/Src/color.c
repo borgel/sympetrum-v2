@@ -11,10 +11,10 @@ void color_HSV2RGB(struct color_ColorHSV const *hsv, struct color_ColorRGB *rgb)
    float f,p,q,t;
    float h, s, v;
 
-   //expand the u8 hue in range 0->255 to 0->360
-   h = 360.0 * ((float)hsv->h / 255.0);
+   //expand the u8 hue in range 0->255 to 0->359* (there are problems at exactly 360)
+   h = 359.0 * ((float)hsv->h / 255.0);
 
-   h = MAX(0.0, MIN(360.0, hsv->h));
+   h = MAX(0.0, MIN(360.0, h));
    s = MAX(0.0, MIN(100.0, hsv->s));
    v = MAX(0.0, MIN(100.0, hsv->v));
 
