@@ -154,9 +154,7 @@ static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValu
    {
       increasing = true;
 
-      iprintf("inc (%d -> %d) ", start, end);
       if( end - start > (start + 0xFF) - end) {
-         //iprintf(" ROLL TOP   \n");
          mod = 0xFF;
          increasing = false;
       }
@@ -165,9 +163,7 @@ static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValu
    {
       increasing = false;
 
-      iprintf("dec (%d -> %d) ", start, end);
       if( start - end > (end + 0xFF) - start) {
-         //iprintf(" ROLL BOTTOM   \n");
          mod = 0xFF;
          increasing = true;
       }
