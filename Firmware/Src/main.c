@@ -35,25 +35,11 @@ int main(void)
    // setup the entire LED framework (w/ animation)
    led_Init();
 
-   /*
-   led_GiveTime(1000);
-
-   //FIXME rm
-   for(int i = 8; i < 1; i++) {
-      iprintf(">>Chan %d\n", i);
-      led_SetChannel(i, COLOR_HSV_BLACK);
-      //led_GiveTime(10);
-   }
-   led_GiveTime(2000);
-   */
-
-   //while(1) {}
-
-   pattern_Init();
-
    //FIXME enable
    //display the FW version
    VersionToLEDs();
+
+   pattern_Init();
 
    // FIXME rm?
    /*
@@ -63,7 +49,7 @@ int main(void)
    led_GiveTime(2000);
    */
 
-   led_StartAnimation();
+   //led_StartAnimation();
 
    /*
    //FIXME rm
@@ -77,6 +63,7 @@ int main(void)
 
    while (1)
    {
+      /*
       if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)) {
          led_SetChannel(1, COLOR_HSV_WHITE);
       }
@@ -84,7 +71,7 @@ int main(void)
          //we are setting a Hue
          led_SetChannel(1, COLOR_HSV_BLACK);
       }
-
+      */
       pattern_GiveTime(HAL_GetTick());
       led_GiveTime(HAL_GetTick());
    }
