@@ -21,8 +21,19 @@ The way real fireflies do it: ncase.me/fireflies/
 // Get the period of the hue clock for a given beacon interval
 #define HUE_PERIOD_MS_FOR_BEACON(x)       ((x) / 255)
 
+enum BeaconIntervalChoice {
+   BIC_Increase,
+   BIC_Decrease,
+};
+
 // Parallel arrays used to set clock intervals
-static const uint16_t BeaconIntervalRampMS[] = {5000, 2500, 1250, 625};
+#define BEACON_INTERVAL_RAMP_LEN          (6)
+static const uint16_t BeaconIntervalRampMS[BEACON_INTERVAL_RAMP_LEN] =
+   {15000, 10000, 5000, 2500, 1250, 625};
+
+// Amount to bump Beacon clock time when a beacon is seen
+// 10% of total value?
+#define GET_BEACON_BUMP(x)                ((x) / 10)
 
 // STATE STUFF
 // Fast hue clock. The period is = the time between ticks of the Beacon Clock.
@@ -37,6 +48,7 @@ static uint16_t BeaconClockInterval;
 static uint16_t BeaconClockRampPosition;
 static uint32_t LastBeaconClockTime;
 
+static void pattern_SetBeaconInterval(enum BeaconIntervalChoice c);
 static void pattern_Permute(void);
 
 void pattern_Init(void) {
@@ -68,11 +80,12 @@ void pattern_GiveTime(uint32_t const systimeMS) {
    // Adjust the pattern based on any beacons, etc
    pattern_Permute();
 
-   // XXX On Beacon tick (infrequent)
+   //  On Beacon tick (infrequent)
    if(systimeMS - LastBeaconClockTime > BeaconClockInterval) {
       LastBeaconClockTime = systimeMS;
 
-      //FIXME don't send hue, that doesn't matter
+      //FIXME don't send hue, that changes and doesn't matter
+      //CRC8 of ID?
       iprintf("Beaconing (Hue %d)\n", HueClock);
 
       beacon_Send(HueClock);
@@ -82,9 +95,10 @@ void pattern_GiveTime(uint32_t const systimeMS) {
       LastHueClockTime = systimeMS;
 
       // TODO regress beacon interval ramp to slow it down
+      pattern_SetBeaconInterval(BIC_Decrease);
    }
 
-   //XXX On Hue tick (frequent)
+   // On Hue tick (frequent)
    if(systimeMS - LastHueClockTime > HueClockPeriod) {
       LastHueClockTime = systimeMS;
 
@@ -109,13 +123,55 @@ void pattern_GiveTime(uint32_t const systimeMS) {
 
 static void pattern_Permute(void) {
    //TODO
+
+   //TODO set bias weight to match current beacon interval
 }
 
 void pattern_SawBeacon(uint16_t rawBeacon) {
-   //TODO react to incoming beacon in complex way
-   // FIXME how much should we jump the clock forward? X% of interval?
-   // Moving last time back is == moving next time sooner
-   LastHueClockTime -= 50;
+   uint16_t beaconBump;
 
    //TODO advance beacon interval ramp to speed it up?
+   pattern_SetBeaconInterval(BIC_Increase);
+
+   // Now that we have the new Beacon period, continue
+
+   // Jump the beacon clock 'forward' when a beacon comes in
+   // Moving last time back is == moving next time sooner
+   //FIXME rm
+   iprintf("LastClock %d --(", LastHueClockTime);
+   beaconBump = GET_BEACON_BUMP(BeaconClockInterval);
+   LastHueClockTime -= beaconBump;
+   iprintf("%d)--> %d\n", beaconBump, LastHueClockTime);
+
+   //FIXME do we want this? Causes a jump (but there would be one either way)
+   // Rescale the Hue clock too so we still get a full cycle, but faster
+   HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval - beaconBump);
 }
+
+static void pattern_SetBeaconInterval(enum BeaconIntervalChoice c) {
+   //FIXME rm
+   iprintf("BeaconRamp %d ->", BeaconClockRampPosition);
+
+   if(c == BIC_Increase) {
+      // Move UP interval ramp
+
+      BeaconClockRampPosition++;
+      if(BeaconClockRampPosition > BEACON_INTERVAL_RAMP_LEN) {
+         BeaconClockRampPosition = BEACON_INTERVAL_RAMP_LEN;
+      }
+   }
+   else if(c == BIC_Decrease) {
+      // Move DOWN interval ramp
+
+      if(BeaconClockRampPosition > 0) {
+         BeaconClockRampPosition--;
+      }
+   }
+
+   //FIXME rm
+   iprintf(" %d", BeaconClockRampPosition);
+
+   BeaconClockInterval = BeaconIntervalRampMS[BeaconClockRampPosition];
+   HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval);
+}
+
