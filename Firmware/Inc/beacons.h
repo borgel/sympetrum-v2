@@ -2,13 +2,13 @@
 #define BEACONS_H__
 
 #include <stdint.h>
+#include <stdbool.h>
 
 void beacon_Init(void);
-void beacon_GiveTime(uint32_t systimeMS);
 
 //TODO beacon API for rx beacon? to be called from IT?
-void beacon_Receive(void);
-void beacon_Send(void);
+bool beacon_Receive(uint16_t *rawBeacon);
+void beacon_Send(uint16_t rawData);
 
 uint32_t beacon_LastReceived(void);
 

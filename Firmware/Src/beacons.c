@@ -25,19 +25,13 @@ void beacon_Init(void) {
    iprintf("ok\r\n");
 }
 
-void beacon_GiveTime(uint32_t systimeMS) {
-   //TODO is there a better way to check or data?
-   beacon_Receive();
-
-   beacon_Send();
-}
-
-void beacon_Send(void) {
+// sends 14 bites of data
+void beacon_Send(uint16_t rawData) {
    ir_DecodeDisable();
 
    //TODO what do we send?
    //ir_SendRC5(4, 23, RC5_Ctrl_Reset);
-   ir_SendRaw(0x0EEF);
+   ir_SendRaw(rawData);
 
    //FIXME remove to unblock?
    while(ir_IsSending()) {}
@@ -46,12 +40,12 @@ void beacon_Send(void) {
 }
 
 //TODO what do we connect this to? IT?
-void beacon_Receive(void) {
-   uint16_t rawFrame;
+bool beacon_Receive(uint16_t *rawBeacon) {
    RC5_Frame_TypeDef rcf;
 
-   if(ir_GetDecoded(&rawFrame, &rcf)) {
-      iprintf("Raw  0x%x\r\n", rawFrame);
+   if(ir_GetDecoded(rawBeacon, &rcf)) {
+      //FIXME rm
+      iprintf("Raw  0x%x\r\n", *rawBeacon);
       iprintf("Addr   %d\r\n", rcf.Address);
       iprintf("Comd   %d\r\n", rcf.Command);
       iprintf("Field  %d\r\n", rcf.FieldBit);
@@ -59,7 +53,10 @@ void beacon_Receive(void) {
       iprintf("\r\n");
 
       state.lastReceived = HAL_GetTick();
+
+      return true;
    }
+   return false;
 }
 
 uint32_t beacon_LastReceived(void) {
