@@ -8,7 +8,6 @@
 #include <string.h>
 
 struct beacon_State {
-   uint32_t    beaconIntervalMS;
    uint32_t    lastSent;
 
    // systime timestamp from the last time we got a packet
@@ -17,10 +16,8 @@ struct beacon_State {
 
 static struct beacon_State state;
 
-void beacon_Init(uint32_t intervalMS) {
+void beacon_Init(void) {
    memset(&state, 0, sizeof(state));
-
-   state.beaconIntervalMS = intervalMS;
 
    iprintf("Setting up RC5 encode/decode...");
    ir_InitEncode();
@@ -32,12 +29,7 @@ void beacon_GiveTime(uint32_t systimeMS) {
    //TODO is there a better way to check or data?
    beacon_Receive();
 
-   //if interval has expired, beacon
-   if(systimeMS - state.lastSent > state.beaconIntervalMS) {
-      beacon_Send();
-
-      state.lastSent = systimeMS;
-   }
+   beacon_Send();
 }
 
 void beacon_Send(void) {

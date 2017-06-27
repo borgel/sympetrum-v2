@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-void beacon_Init(uint32_t intervalMS);
+void beacon_Init(void);
 void beacon_GiveTime(uint32_t systimeMS);
 
 //TODO beacon API for rx beacon? to be called from IT?
