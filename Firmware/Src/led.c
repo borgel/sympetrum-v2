@@ -236,11 +236,11 @@ static uint32_t bafRNGCB(uint32_t range) {
 static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num) {
    for(int i = 0; i < num; i++) {
       //FIXME rm
-      iprintf("\tSet Chan #%d to %d in %dms\n", channels[i].id, values[i], channels[i].transitionTimeMS);
+      //iprintf("\tSet Chan #%d to %d in %dms\n", channels[i].id, values[i], channels[i].transitionTimeMS);
 
       if(YABI_OK != yabi_setChannel(channels[i].id, values[i], channels[i].transitionTimeMS)) {
          //TODO handle?
-         iprintf("\tFAILED\r\n");
+         iprintf("Failed to set yabi channel value!\n");
       }
    }
 }
