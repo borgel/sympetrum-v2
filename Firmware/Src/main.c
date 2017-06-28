@@ -35,8 +35,7 @@ int main(void)
    // setup the entire LED framework (w/ animation)
    led_Init();
 
-   //FIXME enable
-   //display the FW version
+   // Display the FW version on the LEDs
    VersionToLEDs();
 
    pattern_Init();
@@ -49,15 +48,12 @@ int main(void)
    led_GiveTime(2000);
    */
 
-   //led_StartAnimation();
-
    /*
-   //FIXME rm
    while(1)
    {
       //iprintf("<<< Starting %dms >>>\r\n", time);
       led_GiveTime(HAL_GetTick());
-      HAL_Delay(30);
+      HAL_Delay(50);
    }
    */
 
