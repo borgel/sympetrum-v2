@@ -169,13 +169,15 @@ void ir_InitDecode(void)
  * Temporarily disable the RX pipeline (for when we are transmitting).
  */
 void ir_DecodeDisable(void) {
-   HAL_NVIC_DisableIRQ(TIM3_IRQn);
+   HAL_TIM_IC_Stop_IT(&htim3, TIM_CHANNEL_1);
    ir_ResetPacket();
 }
 
 void ir_DecodeEnable(void) {
    ir_ResetPacket();
-   HAL_NVIC_EnableIRQ(TIM3_IRQn);
+   __HAL_TIM_CLEAR_IT(&htim3, TIM_FLAG_UPDATE);
+   __HAL_TIM_CLEAR_FLAG(&htim3, TIM_FLAG_UPDATE);
+   HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
 }
 
 /**

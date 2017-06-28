@@ -8,8 +8,6 @@
 #include <string.h>
 
 struct beacon_State {
-   uint32_t    lastSent;
-
    // systime timestamp from the last time we got a packet
    uint32_t    lastReceived;
 };
@@ -35,6 +33,9 @@ void beacon_Send(uint16_t rawData) {
 
    //FIXME remove to unblock?
    while(ir_IsSending()) {}
+
+   // Crappy hack to wait for sending to complete
+   HAL_Delay(10);
 
    ir_DecodeEnable();
 }
