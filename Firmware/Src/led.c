@@ -150,6 +150,31 @@ bool led_StartAnimation(void) {
    return BAF_OK == baf_startAnimation(&AnimRGBFade, BAF_ASTART_IMMEDIATE);
 }
 
+void led_SetBiasWeight(uint8_t biasWeight) {
+   if(biasWeight > 100) {
+      iprintf("Nonsense bias weight %d is larger than 100\n", biasWeight);
+      return;
+   }
+
+   AnimRGBFade.aRandomSimpleLoop.params.biasWeight = biasWeight;
+}
+void led_SetBiasValue(uint8_t biasValue) {
+   AnimRGBFade.aRandomSimpleLoop.params.biasValue = biasValue;
+}
+
+/*
+ * Conditionally set the speed of either the per-channel progression and/or the overal
+ * animation 'frame' rate.
+ */
+void led_SetAnimationSpeeds(uint32_t frameTime, uint32_t transitionTime) {
+   if(frameTime) {
+      AnimRGBFade.timeStepMS = frameTime;
+   }
+   if(transitionTime) {
+      AnimRGBFade.aRandomSimpleLoop.transitionTimeMS = transitionTime;
+   }
+}
+
 static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction) {
    bool increasing;
    uint32_t change;
