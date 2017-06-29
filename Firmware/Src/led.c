@@ -17,6 +17,8 @@
 
 #define YABI_CHANNELS      (LED_CHAIN_LENGTH * 3)
 
+#define PUMP_INTERVAL_MS   ( 33 )
+
 static uint8_t const DefaultTransitionTimeMS = 100;
 struct led_State {
    SPI_HandleTypeDef             spi;
@@ -28,6 +30,9 @@ struct led_State {
    //goes like {H, S, V}{H, S, V}, etc. So for 10 LEDs we have 30 'channels'. Modulo
    //math is used to figure out which is which at channel-set time.
    struct yabi_ChannelRecord     yabiBacking[YABI_CHANNELS];
+
+   //the last time the animation stack was pumped
+   uint32_t                      lastPump;
 };
 static struct led_State state;
 
@@ -145,6 +150,31 @@ bool led_StartAnimation(void) {
    return BAF_OK == baf_startAnimation(&AnimRGBFade, BAF_ASTART_IMMEDIATE);
 }
 
+void led_SetBiasWeight(uint8_t biasWeight) {
+   if(biasWeight > 100) {
+      iprintf("Nonsense bias weight %d is larger than 100\n", biasWeight);
+      return;
+   }
+
+   AnimRGBFade.aRandomSimpleLoop.params.biasWeight = biasWeight;
+}
+void led_SetBiasValue(uint8_t biasValue) {
+   AnimRGBFade.aRandomSimpleLoop.params.biasValue = biasValue;
+}
+
+/*
+ * Conditionally set the speed of either the per-channel progression and/or the overal
+ * animation 'frame' rate.
+ */
+void led_SetAnimationSpeeds(uint32_t frameTime, uint32_t transitionTime) {
+   if(frameTime) {
+      AnimRGBFade.timeStepMS = frameTime;
+   }
+   if(transitionTime) {
+      AnimRGBFade.aRandomSimpleLoop.transitionTimeMS = transitionTime;
+   }
+}
+
 static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction) {
    bool increasing;
    uint32_t change;
@@ -206,11 +236,11 @@ static uint32_t bafRNGCB(uint32_t range) {
 static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num) {
    for(int i = 0; i < num; i++) {
       //FIXME rm
-      iprintf("\tSet Chan #%d to %d in %dms\n", channels[i].id, values[i], channels[i].transitionTimeMS);
+      //iprintf("\tSet Chan #%d to %d in %dms\n", channels[i].id, values[i], channels[i].transitionTimeMS);
 
       if(YABI_OK != yabi_setChannel(channels[i].id, values[i], channels[i].transitionTimeMS)) {
          //TODO handle?
-         iprintf("\tFAILED\r\n");
+         iprintf("Failed to set yabi channel value!\n");
       }
    }
 }
@@ -282,10 +312,13 @@ static void led_UpdateChannels(yabi_FrameID frame) {
 }
 
 void led_GiveTime(uint32_t systimeMS) {
-   //TODO animation from (fake, anim) clock. Set bias in animation
+   //FIXME need to slow down YABI so its forced 1 unit movement doesn't make things too fast
+   if(systimeMS - state.lastPump > PUMP_INTERVAL_MS) {
+      //FYI: the NULL is time until next call. Not useful without threads
+      baf_giveTime(systimeMS, NULL);
+      yabi_giveTime(systimeMS);
 
-   //FYI: the NULL is time until next call. Not useful without threads
-   baf_giveTime(systimeMS, NULL);
-   yabi_giveTime(systimeMS);
+      state.lastPump = systimeMS;
+   }
 }
 

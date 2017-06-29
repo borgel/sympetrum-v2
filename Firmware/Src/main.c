@@ -10,19 +10,18 @@
 #include "board_id.h"
 #include "version.h"
 
-#include "ir_encode.h"
-#include "ir_decode.h"
+#include "baf/baf.h"
+#include "yabi/yabi.h"
+
+#include "pattern.h"
 
 #include <string.h>
 #include <stdlib.h>
 
 static void VersionToLEDs(void);
 
-
 int main(void)
 {
-   int i;
-
    // Reset of all peripherals, Initializes the Flash interface and the Systick
    HAL_Init();
 
@@ -36,23 +35,10 @@ int main(void)
    // setup the entire LED framework (w/ animation)
    led_Init();
 
-   /*
-   led_GiveTime(1000);
-
-   //FIXME rm
-   for(int i = 8; i < 1; i++) {
-      iprintf(">>Chan %d\n", i);
-      led_SetChannel(i, COLOR_HSV_BLACK);
-      //led_GiveTime(10);
-   }
-   led_GiveTime(2000);
-   */
-
-   //while(1) {}
-
-   //FIXME enable
-   //display the FW version
+   // Display the FW version on the LEDs
    VersionToLEDs();
+
+   pattern_Init();
 
    // FIXME rm?
    /*
@@ -62,42 +48,18 @@ int main(void)
    led_GiveTime(2000);
    */
 
-   iprintf("Setting up RC5 encode/decode...");
-   ir_InitEncode();
-   ir_InitDecode();
-   iprintf("ok\r\n");
-
-   led_StartAnimation();
-
    /*
-   //FIXME rm
    while(1)
    {
       //iprintf("<<< Starting %dms >>>\r\n", time);
       led_GiveTime(HAL_GetTick());
-      HAL_Delay(30);
+      HAL_Delay(50);
    }
    */
 
-   int cnt = 2;
-   uint8_t b = 0;
-   uint16_t rawFrame;
-   RC5_Frame_TypeDef rcf;
    while (1)
    {
-      if(ir_GetDecoded(&rawFrame, &rcf)) {
-         iprintf("Raw  0x%x\r\n", rawFrame);
-         iprintf("Addr   %d\r\n", rcf.Address);
-         iprintf("Comd   %d\r\n", rcf.Command);
-         iprintf("Field  %d\r\n", rcf.FieldBit);
-         iprintf("Toggle %d\r\n", rcf.ToggleBit);
-         iprintf("\r\n");
-
-         led_SetChannel(0, COLOR_HSV_BLACK);
-
-         for (i = 0; i < 1000000; i++);
-      }
-
+      /*
       if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)) {
          led_SetChannel(1, COLOR_HSV_WHITE);
       }
@@ -105,33 +67,8 @@ int main(void)
          //we are setting a Hue
          led_SetChannel(1, COLOR_HSV_BLACK);
       }
-
-      // spend time
-      for (i = 0; i < 1000000; i++);
-
-      if(b > 5) {
-         if(cnt % 2) {
-            ir_DecodeDisable();
-         }
-
-         //ir_SendRC5(4, 23, RC5_Ctrl_Reset);
-         ir_SendRaw(0x0EEF);
-         b = 0;
-
-         if(cnt % 2) {
-            //spin until send is done, then enable RX again
-            while(ir_IsSending()) {}
-
-            ir_DecodeEnable();
-         }
-
-         led_SetChannel(0, COLOR_HSV_BLACK);
-      }
-      b++;
-      cnt++;
-
-      //TODO track a systime (from systick?)
-      // pump the animation frameworks
+      */
+      pattern_GiveTime(HAL_GetTick());
       led_GiveTime(HAL_GetTick());
    }
 }
@@ -157,7 +94,9 @@ static void VersionToLEDs(void) {
 
    // Fade in over 1.5 seconds
    for(int i = 0; i < 150; i++) {
-      led_GiveTime(i);
+      // This looks better without the LED module's clock division
+      baf_giveTime(i, NULL);
+      yabi_giveTime(i);
       HAL_Delay(10);  //delay in MS
    }
 }

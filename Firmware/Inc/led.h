@@ -18,7 +18,9 @@ bool led_StartAnimation(void);
 // YABI is used internally for all LED control
 bool led_SetChannel(uint32_t id, struct color_ColorHSV c);
 
-//TODO set clock fxn
+void led_SetBiasValue(uint8_t biasValue);
+void led_SetBiasWeight(uint8_t biasWeight);
+void led_SetAnimationSpeeds(uint32_t frameTime, uint32_t transitionTime);
 
 void led_GiveTime(uint32_t systimeMS);
 
