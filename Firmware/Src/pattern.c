@@ -32,7 +32,7 @@ static const uint16_t BeaconIntervalRampMS[BEACON_INTERVAL_RAMP_LEN] =
    {30000, 20000, 10000, 10000, 5000, 5000, 4000};
 //FIXME better way to calculate this automatically, or tune it
 static const uint16_t BiasWeightRamp[BEACON_INTERVAL_RAMP_LEN] =
-   {0    , 20   , 40,     40  , 60  , 80  , 90};
+   {0    , 40   , 60,     70  , 80  , 90  , 100};
 
 // Amount to bump Beacon clock time when a beacon is seen
 // 10% of total value?
@@ -82,14 +82,12 @@ void pattern_Init(void) {
 }
 
 void pattern_GiveTime(uint32_t const systimeMS) {
-   bool thisCycle = false;
    uint8_t trueHue;
    uint16_t lastBeacon;
 
    if(beacon_Receive(&lastBeacon)) {
       // If we saw a beacon, handle it
       pattern_SawBeacon(lastBeacon);
-      thisCycle = true;
    }
 
    // On Hue tick (frequent)
@@ -125,10 +123,7 @@ void pattern_GiveTime(uint32_t const systimeMS) {
       HueClock = 0;
       LastHueClockTime = systimeMS;
 
-      // TODO regress beacon interval ramp to slow it down
-      if(!thisCycle) {
-         pattern_SetBeaconInterval(BIC_Decrease);
-      }
+      pattern_SetBeaconInterval(BIC_Decrease);
    }
 }
 
