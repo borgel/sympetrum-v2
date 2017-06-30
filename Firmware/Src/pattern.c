@@ -51,10 +51,6 @@ static uint16_t BeaconClockInterval;
 static uint16_t BeaconClockRampPosition;
 static uint32_t LastBeaconClockTime;
 
-// Time it takes to ramp down intensity after seeing a beacon
-static uint16_t BeaconCooldown;
-static uint32_t LastBeaconCooldown;
-
 static void pattern_SetBeaconInterval(enum BeaconIntervalChoice c);
 static void pattern_UpdateAnimation(uint8_t hue);
 static void pattern_UpdateSimpleHue(uint8_t hue);
@@ -69,9 +65,6 @@ void pattern_Init(void) {
    HueClock = 0;
    HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval);
    LastHueClockTime = HueClockPeriod;
-
-   BeaconCooldown = BeaconIntervalRampMS[0];
-   LastBeaconCooldown = 0;
 
    //TODO pass in a CB for each RX'd beacon?
    beacon_Init();
@@ -95,17 +88,6 @@ void pattern_GiveTime(uint32_t const systimeMS) {
    if(beacon_Receive(&lastBeacon)) {
       // If we saw a beacon, handle it
       pattern_SawBeacon(lastBeacon);
-
-      LastBeaconCooldown = systimeMS;
-   }
-
-   if(systimeMS - LastBeaconCooldown > BeaconCooldown) {
-      pattern_SetBeaconInterval(BIC_Decrease);
-
-      //FIXME rm
-      iprintf("beacon cooldown");
-
-      LastBeaconCooldown = systimeMS;
    }
 
    // On Hue tick (frequent)
@@ -140,6 +122,8 @@ void pattern_GiveTime(uint32_t const systimeMS) {
       // Reset Hue clock too
       HueClock = 0;
       LastHueClockTime = systimeMS;
+
+      pattern_SetBeaconInterval(BIC_Decrease);
    }
 }
 
