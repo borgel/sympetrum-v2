@@ -35,7 +35,8 @@ void beacon_Send(uint16_t rawData) {
    while(ir_IsSending()) {}
 
    // Crappy hack to wait for sending to complete
-   HAL_Delay(10);
+   //FIXME en
+   //HAL_Delay(10);
 
    ir_DecodeEnable();
 }

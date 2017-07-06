@@ -59,7 +59,7 @@ static void pattern_UpdateSimpleHue(uint8_t hue);
 void pattern_Init(void) {
    BeaconClockRampPosition = 0;
    BeaconClock = 0;
-   BeaconClockInterval = BeaconIntervalRampMS[BeaconClockRampPosition];
+   BeaconClockInterval = BeaconIntervalRampMS[0];
    // Start one tick in to allow for time manipulation
    LastBeaconClockTime = BeaconClockInterval;
 
@@ -162,6 +162,7 @@ void pattern_SawBeacon(uint16_t rawBeacon) {
 
    // Jump the beacon clock 'forward' when a beacon comes in
    // Moving last time back is == moving next time sooner
+   //TODO add jitter to the BeaconClockInterval to avoid a perfect sync
    //FIXME rm
    iprintf("LastClock %d --(", LastHueClockTime);
    beaconBump = GET_BEACON_BUMP(BeaconClockInterval);
@@ -200,9 +201,6 @@ static void pattern_SetBeaconInterval(enum BeaconIntervalChoice c) {
 
    //FIXME rm
    iprintf(" %d", BeaconClockRampPosition);
-
-   //TODO add jitter to the BeaconClockInterval to avoid a perfect sync
-   BeaconClockInterval = BeaconIntervalRampMS[BeaconClockRampPosition];
    HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval);
 
    newBias = BiasWeightRamp[BeaconClockRampPosition];
