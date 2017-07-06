@@ -27,12 +27,13 @@ enum BeaconIntervalChoice {
 };
 
 // Parallel arrays used to set clock intervals
-#define BEACON_INTERVAL_RAMP_LEN          (7)
-static const uint16_t BeaconIntervalRampMS[BEACON_INTERVAL_RAMP_LEN] =
-   {30000, 20000, 10000, 10000, 5000, 5000, 4000};
+#define BEACON_INTERVAL_RAMP_LEN          (3)
+//TODO make this a 2d array for symmetry
+static uint16_t const BeaconIntervalRampMS[BEACON_INTERVAL_RAMP_LEN] =
+   {30000, 20000, 10000};
 //FIXME better way to calculate this automatically, or tune it
-static const uint16_t BiasWeightRamp[BEACON_INTERVAL_RAMP_LEN] =
-   {0    , 40   , 60,     70  , 80  , 90  , 100};
+static uint16_t const BiasWeightRamp[BEACON_INTERVAL_RAMP_LEN] =
+   {0    , 50   , 90};
 
 // Amount to bump Beacon clock time when a beacon is seen
 // 10% of total value?
