@@ -120,11 +120,10 @@ void pattern_GiveTime(uint32_t const systimeMS) {
 
       iprintf("Beacon Clock Tick!\n");
 
-      //FIXME don't send hue, that changes and doesn't matter
-      //CRC8 of ID?
+      //FIXME rm
       iprintf("(Hue %d) ", HueClock);
 
-      beacon_Send(HueClock);
+      beacon_SendId();
 
       // Reset Hue clock too
       HueClock = 0;
