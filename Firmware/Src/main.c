@@ -27,7 +27,7 @@ int main(void)
 
    platformHW_Init();
 
-   iprintf("\r\nStarting... (v%d | #0x%x | Built "__DATE__":"__TIME__")\r\n", FW_VERSION, bid_GetID());
+   iprintf("\r\nStarting... (v%d | #0x%x / 0x%x | Built "__DATE__":"__TIME__")\r\n", FW_VERSION, bid_GetID(), bid_GetIDCrc());
 
    // seed the PRNG from the kinda unique board ID
    srand(bid_GetID());
