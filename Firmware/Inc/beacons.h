@@ -9,6 +9,7 @@ void beacon_Init(void);
 //TODO beacon API for rx beacon? to be called from IT?
 bool beacon_Receive(uint16_t *rawBeacon);
 void beacon_Send(uint16_t rawData);
+void beacon_SendId(void);
 
 uint32_t beacon_LastReceived(void);
 

@@ -1,5 +1,6 @@
 #include "beacons.h"
 #include "iprintf.h"
+#include "board_id.h"
 
 #include "ir_encode.h"
 #include "ir_decode.h"
@@ -39,6 +40,10 @@ void beacon_Send(uint16_t rawData) {
    //HAL_Delay(10);
 
    ir_DecodeEnable();
+}
+
+void beacon_SendId(void) {
+   beacon_Send(bid_GetIDCrc());
 }
 
 //TODO what do we connect this to? IT?
