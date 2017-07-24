@@ -206,7 +206,7 @@ static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValu
       // what's the absolute value we should be at now?
       error = start + (uint32_t)(absoluteFraction * (float)((float)(end + mod) - (float)start));
       iprintf("   u      abs target (%d perc) now: %d   ", (int)(100.0 * absoluteFraction), error);
-      return error;
+      return (uint8_t)error;
 
       // what's the difference between that and the current value?
       //error = error - current;
@@ -214,6 +214,8 @@ static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValu
       //return (uint8_t)(current + error);
    }
    else {
+      //FIXME somewhere in here there is a bug in rollover math that I think causes
+      //the value to go negative as it rolls over past 0.
       //FIXME rm
       float frac = absoluteFraction;
       //error = (uint32_t)((1.0 - absoluteFraction) * (float)((float)(start + mod) - (float)end));
@@ -222,7 +224,7 @@ static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValu
       //error = current - error;
       //FIXME rm
       iprintf("   d      abs frac %dperc, abs target now: %d   ", (int)(100.0 * frac), absTarget);
-      return absTarget;
+      return (uint8_t)absTarget;
 
       uint8_t finalError = (uint8_t)(current - absTarget);
 
