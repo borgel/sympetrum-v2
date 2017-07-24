@@ -25,7 +25,7 @@ The way real fireflies do it: ncase.me/fireflies/
 // Get the period of the hue clock for a given beacon interval
 // The 2nd param (revs) is the number of full color-wheel cycles the hue clock
 // should do in a single beacon clock
-#define HUE_PERIOD_MS_FOR_BEACON(x, revs)       (((x) / HUE_CLOCK_INTERMEDIATE_SECTIONS) / (revs))
+#define HUE_PERIOD_MS_FOR_BEACON(x, revs)       ((((x) / HUE_CLOCK_INTERMEDIATE_SECTIONS)) / ((revs) + 1))
 
 enum BeaconIntervalChoice {
    BIC_Increase,
