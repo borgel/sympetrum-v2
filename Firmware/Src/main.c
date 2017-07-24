@@ -18,6 +18,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+static const int VersionFadeSpeedMS = 3000;
+
 static void VersionToLEDs(void);
 
 int main(void)
@@ -87,17 +89,16 @@ static void VersionToLEDs(void) {
       c.s = 255;
       c.v = 255;
 
-      led_SetChannel(i, c);
+      led_SetChannelTimed(i, c, VersionFadeSpeedMS);
 
       mask <<= 1;
    }
 
    // Fade in over 1.5 seconds
-   for(int i = 0; i < 150; i++) {
-      // This looks better without the LED module's clock division
-      baf_giveTime(i, NULL);
-      yabi_giveTime(i);
-      HAL_Delay(10);  //delay in MS
+   uint32_t startTime = HAL_GetTick();
+   //for(int i = 0; i < 150; i++) {
+   while(HAL_GetTick() - startTime < VersionFadeSpeedMS) {
+      yabi_giveTime(HAL_GetTick());
    }
 }
 
