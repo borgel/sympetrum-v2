@@ -113,7 +113,7 @@ void pattern_GiveTime(uint32_t const systimeMS) {
 
       // Figure out how many sections to break the 255 position color wheel,
       // into, then convert the current clock to that
-      trueHue = (HueClock % HUE_CLOCK_INTERMEDIATE_SECTIONS)* (255 / HUE_CLOCK_INTERMEDIATE_SECTIONS);
+      trueHue = (HueClock % HUE_CLOCK_INTERMEDIATE_SECTIONS) * (255 / HUE_CLOCK_INTERMEDIATE_SECTIONS);
 
       iprintf("H(%d) ", HueClock);
 
