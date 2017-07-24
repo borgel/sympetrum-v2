@@ -66,7 +66,7 @@ static uint32_t bafRNGCB(uint32_t range);
 static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num);
 static void bafAnimStartCB(struct baf_Animation const * anim);
 static void bafAnimStopCB(struct baf_Animation const * anim);
-static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction);
+static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction, float absoluteFraction);
 
 /*
  * Wire up the animation framework. It's composed of two parts:
@@ -175,9 +175,9 @@ void led_SetAnimationSpeeds(uint32_t frameTime, uint32_t transitionTime) {
    }
 }
 
-static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction) {
+static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction, float absoluteFraction) {
    bool increasing;
-   uint32_t change;
+   uint32_t error = 0;
    uint8_t mod = 0;
 
    if(end > start)   // XXX increasing
@@ -200,17 +200,19 @@ static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValu
    }
 
    if(increasing) {
-      change = fraction * (float)((float)(end + mod) - (float)start);
-      // make sure any change < 0 is rounded up (we only deal in integers)
-      change = (change == 0) ? 1 : change;
-      return (uint8_t)(current + change);
+      // what's the absolute value we should be at now?
+      error = (uint32_t)(absoluteFraction * (float)((float)(end + mod) - (float)start));
+      // what's the difference between that and the current value?
+      error = error - current;
+
+      return (uint8_t)(current + error);
    }
    else {
-      change = fraction * (float)((float)(start + mod) - (float)end);
-      change = (change == 0) ? 1 : change;
-      return (uint8_t)(current - change);
+      error = (uint32_t)((1.0 - absoluteFraction) * (float)((float)(start + mod) - (float)end));
+      error = current - error;
+
+      return (uint8_t)(current - error);
    }
-   */
 }
 
 bool led_SetChannelTimed(uint32_t id, struct color_ColorHSV c, uint32_t timeMS) {
