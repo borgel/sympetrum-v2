@@ -128,7 +128,7 @@ bool led_Init(void) {
 
          //FIXME rm?
          //set everyone's saturation to 100 and brightness to 10%
-         led_SetChannel(i/3, c);
+         led_SetChannelTimed(i/3, c, 10);
       }
    }
 
@@ -210,22 +210,29 @@ static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValu
       change = (change == 0) ? 1 : change;
       return (uint8_t)(current - change);
    }
+   */
+}
+
+bool led_SetChannelTimed(uint32_t id, struct color_ColorHSV c, uint32_t timeMS) {
+   yabi_Error res;
+
+   iprintf("transition time %dms\n", timeMS);
+
+   //we need to explode this HSV object into the three components YABI needs
+   res  = yabi_setChannel((id * 3) + 0, c.h, timeMS);
+   res |= yabi_setChannel((id * 3) + 1, c.s, timeMS);
+   res |= yabi_setChannel((id * 3) + 2, c.v, timeMS);
+   if(res != YABI_OK) {
+      return false;
+   }
+   return true;
 }
 
 /*
  * Externally available hook to set color stuff.
  */
 bool led_SetChannel(uint32_t id, struct color_ColorHSV c) {
-   yabi_Error res;
-
-   //we need to explode this HSV object into the three components YABI needs
-   res  = yabi_setChannel((id * 3) + 0, c.h, DefaultTransitionTimeMS);
-   res |= yabi_setChannel((id * 3) + 1, c.s, DefaultTransitionTimeMS);
-   res |= yabi_setChannel((id * 3) + 2, c.v, DefaultTransitionTimeMS);
-   if(res != YABI_OK) {
-      return false;
-   }
-   return true;
+   return led_SetChannelTimed(id, c, DefaultTransitionTimeMS);
 }
 
 static uint32_t bafRNGCB(uint32_t range) {
