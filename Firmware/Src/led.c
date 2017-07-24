@@ -43,8 +43,10 @@ static struct baf_Animation AnimRGBFade = {
 
    .aRandomSimpleLoop      = {
       .id                  = animationChannelIDs,
-      .idLen               = LED_CHAIN_LENGTH,
-      .transitionTimeMS     = 5000,    //how quickly to move towards the target color
+      //FIXME en
+      //.idLen               = LED_CHAIN_LENGTH,
+      .idLen               = 1,
+      .transitionTimeMS    = 5000,    //how quickly to move towards the target color
       .params              = {
          .maxValue         = 255,      //255 is the max hue
          .minValue         = 0,
@@ -325,6 +327,13 @@ static void led_YabiSetChannelCB(yabi_ChanID chan, yabi_ChanValue value) {
 
    //now apply the HSV array directly to the RGB array (in platform_hw)
    color_HSV2RGB(hsv, &LedRegisterStates[realChan].color);
+
+   //FIXME rm
+   if(chan % 3== 0)
+   {
+      struct color_ColorRGB *c = &LedRegisterStates[realChan].color;
+      iprintf("%d: h = %d -> r,g,b %d,%d,%d\n", realChan, hsv->h, c->r, c->g, c->b);
+   }
 }
 
 /*

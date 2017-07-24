@@ -66,12 +66,22 @@ void pattern_Init(void) {
    BeaconClockRampPosition = 0;
    BeaconClock = 0;
    BeaconClockInterval = BeaconIntervalRampMS[0];
+   //BeaconClockInterval = BeaconIntervalRampMS[0];
    // Start one tick in to allow for time manipulation
    LastBeaconClockTime = BeaconClockInterval;
 
    HueClock = 0;
    HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval, BeaconClockRampPosition);
    LastHueClockTime = HueClockPeriod;
+
+   //FIXME rm
+   iprintf("\n\nhue period = %dms\n\n\n", HueClockPeriod);
+
+   //FIXME rm
+   //while(1) {}
+
+   //TODO do this instead?
+   //pattern_SetBeaconInterval(BIC_Decrease);
 
    //TODO pass in a CB for each RX'd beacon?
    beacon_Init();
@@ -120,9 +130,6 @@ void pattern_GiveTime(uint32_t const systimeMS) {
 
       iprintf("Beacon Clock Tick!\n");
 
-      //FIXME rm
-      iprintf("(Hue %d) ", HueClock);
-
       beacon_SendId();
 
       // Reset Hue clock too
@@ -141,7 +148,7 @@ static void pattern_UpdateAnimation(uint8_t hue) {
    led_SetBiasValue(hue);
 
    //FIXME rm
-   iprintf("Bias value to %d\n", hue);
+   //iprintf("Bias value to %d\n", hue);
 }
 
 /*
@@ -177,6 +184,9 @@ void pattern_SawBeacon(uint16_t rawBeacon) {
    //FIXME do we want this? Causes a jump (but there would be one either way)
    // Rescale the Hue clock too so we still get a full cycle, but faster
    HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval - beaconBump, BeaconClockRampPosition);
+
+   //FIXME rm
+   iprintf("\n\nnew hue period = %dms\n\n\n", HueClockPeriod);
 }
 
 /*
