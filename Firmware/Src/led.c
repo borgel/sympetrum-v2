@@ -191,22 +191,42 @@ static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValu
       if( start - end > (end + 0xFF) - start) {
          mod = 0xFF;
          increasing = true;
+
+         //FIXME rm
+         iprintf("ROLL UP\n");
       }
    }
 
+   //FIXME rm
+   iprintf("          old, cur, target %d, %d, %d\n", start, current, end);
+
    if(increasing) {
       // what's the absolute value we should be at now?
-      error = (uint32_t)(absoluteFraction * (float)((float)(end + mod) - (float)start));
-      // what's the difference between that and the current value?
-      error = error - current;
+      error = start + (uint32_t)(absoluteFraction * (float)((float)(end + mod) - (float)start));
+      iprintf("   u      abs target (%d perc) now: %d   ", (int)(100.0 * absoluteFraction), error);
+      return error;
 
-      return (uint8_t)(current + error);
+      // what's the difference between that and the current value?
+      //error = error - current;
+      //iprintf("error now: %d\n", error);
+      //return (uint8_t)(current + error);
    }
    else {
-      error = (uint32_t)((1.0 - absoluteFraction) * (float)((float)(start + mod) - (float)end));
-      error = current - error;
+      //FIXME rm
+      float frac = absoluteFraction;
+      //error = (uint32_t)((1.0 - absoluteFraction) * (float)((float)(start + mod) - (float)end));
+      uint32_t absTarget = start - (uint32_t)(frac * (float)((float)((float)start + (float)mod) - (float)end));
+      //FIXME or start at end (1.0-abs) and do end+?
+      //error = current - error;
+      //FIXME rm
+      iprintf("   d      abs frac %dperc, abs target now: %d   ", (int)(100.0 * frac), absTarget);
+      return absTarget;
 
-      return (uint8_t)(current - error);
+      uint8_t finalError = (uint8_t)(current - absTarget);
+
+      iprintf("error now: %d\n", finalError);
+
+      return finalError;
    }
 }
 
