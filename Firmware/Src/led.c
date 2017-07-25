@@ -110,7 +110,6 @@ bool led_Init(void) {
    // start the interpolator (we'll leave it running forever). This triggers an init of the LED HW
    yabi_setStarted(true);
 
-   //FIXME rm
    struct color_ColorHSV c = {.h = 0, .s = 254, .v = 10};
 
    // prepare to start BAF later
@@ -121,8 +120,6 @@ bool led_Init(void) {
 
          animationChannelIDs[i/3] = i;
 
-         //FIXME rm?
-         //set everyone's saturation to 100 and brightness to 10%
          led_SetChannelTimed(i/3, c, 10);
       }
    }
@@ -216,8 +213,6 @@ static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValu
 bool led_SetChannelTimed(uint32_t id, struct color_ColorHSV c, uint32_t timeMS) {
    yabi_Error res;
 
-   iprintf("transition time %dms\n", timeMS);
-
    //we need to explode this HSV object into the three components YABI needs
    res  = yabi_setChannel((id * 3) + 0, c.h, timeMS);
    res |= yabi_setChannel((id * 3) + 1, c.s, timeMS);
@@ -287,7 +282,7 @@ static void* const led_HwInit(void) {
  * 28/3 = 9 (9th LED)
  * 28%3 = 1 (S conponent)
  */
-//FIXME rename
+//TODO rename
 static void led_YabiSetChannelCB(yabi_ChanID chan, yabi_ChanValue value) {
    uint8_t const realChan = (chan / 3);
    struct color_ColorHSV * const hsv = &state.ledsHSV[realChan];
@@ -308,13 +303,6 @@ static void led_YabiSetChannelCB(yabi_ChanID chan, yabi_ChanValue value) {
 
    //now apply the HSV array directly to the RGB array (in platform_hw)
    color_HSV2RGB(hsv, &LedRegisterStates[realChan].color);
-
-   //FIXME rm
-   if(chan % 3== 0)
-   {
-      struct color_ColorRGB *c = &LedRegisterStates[realChan].color;
-      iprintf("%d: h = %d -> r,g,b %d,%d,%d\n", realChan, hsv->h, c->r, c->g, c->b);
-   }
 }
 
 /*
