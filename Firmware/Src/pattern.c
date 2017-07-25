@@ -100,8 +100,6 @@ void pattern_Init(void) {
    //the LED has made it, it will snap to the correct value (which is visible and
    //ugly). So Taking longer to transition is better than shorter.
    //FIXME which to use?
-   //TODO maybe try HueClockPeriod * 2 for 2nd param?
-   //led_SetAnimationSpeeds(HueClockPeriod, BeaconClockInterval);
    led_SetAnimationSpeeds(HueClockPeriod, HueClockPeriod);
 }
 
@@ -147,7 +145,7 @@ void pattern_GiveTime(uint32_t const systimeMS) {
       pattern_UpdateAnimation(trueHue);
 
       // this is the 'actual' tick
-      HueClock++;
+      HueClock += 255 / HUE_CLOCK_INTERMEDIATE_SECTIONS;
    }
 
    //  On Beacon tick (infrequent)
