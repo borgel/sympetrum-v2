@@ -14,6 +14,7 @@ The way real fireflies do it: ncase.me/fireflies/
 #include "beacons.h"
 #include "color.h"
 #include "led.h"
+#include "board_id.h"
 
 #include "iprintf.h"
 #include <stdint.h>
@@ -126,9 +127,12 @@ void pattern_GiveTime(uint32_t const systimeMS) {
    uint16_t lastBeacon;
 
    if(beacon_Receive(&lastBeacon)) {
-      // If we saw a beacon, handle it
-      pattern_SawBeacon(lastBeacon);
-      pattern_FlashRandomColor(FS_Wings);
+      // If the beacon was our ID, ignore it
+      if(lastBeacon != bid_GetIDCrc()) {
+         // If we saw a beacon, handle it
+         pattern_SawBeacon(lastBeacon);
+         pattern_FlashRandomColor(FS_Wings);
+      }
    }
 
    // On Hue tick (frequent)
