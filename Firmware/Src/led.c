@@ -43,9 +43,7 @@ static struct baf_Animation AnimRGBFade = {
 
    .aRandomSimpleLoop      = {
       .id                  = animationChannelIDs,
-      //FIXME en
-      //.idLen               = LED_CHAIN_LENGTH,
-      .idLen               = 1,
+      .idLen               = LED_CHAIN_LENGTH,
       .transitionTimeMS    = 5000,    //how quickly to move towards the target color
       .params              = {
          .maxValue         = 255,      //255 is the max hue
@@ -174,7 +172,7 @@ void led_SetAnimationSpeeds(uint32_t frameTime, uint32_t transitionTime) {
 
 static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction, float absoluteFraction) {
    bool increasing;
-   uint32_t error = 0;
+   uint32_t absoluteTarget = 0;
    uint8_t mod = 0;
 
    if(end > start)   // XXX increasing
@@ -195,42 +193,23 @@ static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValu
          increasing = true;
 
          //FIXME rm
-         iprintf("ROLL UP\n");
+         //iprintf("ROLL UP\n");
       }
    }
 
    //FIXME rm
-   iprintf("          old, cur, target %d, %d, %d\n", start, current, end);
+   //iprintf("          old, cur, target %d, %d, %d\n", start, current, end);
 
    if(increasing) {
       // what's the absolute value we should be at now?
-      error = start + (uint32_t)(absoluteFraction * (float)((float)(end + mod) - (float)start));
-      iprintf("   u      abs target (%d perc) now: %d   ", (int)(100.0 * absoluteFraction), error);
-      return (uint8_t)error;
-
-      // what's the difference between that and the current value?
-      //error = error - current;
-      //iprintf("error now: %d\n", error);
-      //return (uint8_t)(current + error);
+      absoluteTarget = start + (uint32_t)(absoluteFraction * (float)((float)(end + mod) - (float)start));
+      return (uint8_t)absoluteTarget;
    }
    else {
       //FIXME somewhere in here there is a bug in rollover math that I think causes
       //the value to go negative as it rolls over past 0.
-      //FIXME rm
-      float frac = absoluteFraction;
-      //error = (uint32_t)((1.0 - absoluteFraction) * (float)((float)(start + mod) - (float)end));
-      uint32_t absTarget = start - (uint32_t)(frac * (float)((float)((float)start + (float)mod) - (float)end));
-      //FIXME or start at end (1.0-abs) and do end+?
-      //error = current - error;
-      //FIXME rm
-      iprintf("   d      abs frac %dperc, abs target now: %d   ", (int)(100.0 * frac), absTarget);
-      return (uint8_t)absTarget;
-
-      uint8_t finalError = (uint8_t)(current - absTarget);
-
-      iprintf("error now: %d\n", finalError);
-
-      return finalError;
+      absoluteTarget = start - (uint32_t)(absoluteFraction * (float)((float)((float)start + (float)mod) - (float)end));
+      return (uint8_t)absoluteTarget;
    }
 }
 
