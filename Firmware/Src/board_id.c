@@ -1,4 +1,5 @@
 #include "board_id.h"
+#include "crc.h"
 
 //FIXME rm
 #include "iprintf.h"
@@ -28,5 +29,10 @@ uint32_t bid_GetID(void) {
             UNIQUE_ID_REG_GET8(1) << 8 |
             UNIQUE_ID_REG_GET8(2) << 16|
             UNIQUE_ID_REG_GET8(3) << 24;
+}
+
+uint8_t bid_GetIDCrc(void) {
+   uint8_t const * const reg = (uint8_t*)UNIQUE_ID_REG_ADDR;
+   return crc_CRC8(reg, 12);
 }
 

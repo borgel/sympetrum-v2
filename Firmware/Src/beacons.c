@@ -1,5 +1,6 @@
 #include "beacons.h"
 #include "iprintf.h"
+#include "board_id.h"
 
 #include "ir_encode.h"
 #include "ir_decode.h"
@@ -25,19 +26,14 @@ void beacon_Init(void) {
 
 // sends 14 bites of data
 void beacon_Send(uint16_t rawData) {
-   ir_DecodeDisable();
-
-   //TODO what do we send?
-   //ir_SendRC5(4, 23, RC5_Ctrl_Reset);
    ir_SendRaw(rawData);
 
-   //FIXME remove to unblock?
-   while(ir_IsSending()) {}
+   // We actually WANT to see our own beacon. If we turn off
+   // RX, we don't get the incoming ones!
+}
 
-   // Crappy hack to wait for sending to complete
-   HAL_Delay(10);
-
-   ir_DecodeEnable();
+void beacon_SendId(void) {
+   beacon_Send(bid_GetIDCrc());
 }
 
 //TODO what do we connect this to? IT?

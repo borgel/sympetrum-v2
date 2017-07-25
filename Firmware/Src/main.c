@@ -18,6 +18,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+static const int VersionFadeSpeedMS = 3000;
+
 static void VersionToLEDs(void);
 
 int main(void)
@@ -27,7 +29,7 @@ int main(void)
 
    platformHW_Init();
 
-   iprintf("\r\nStarting... (v%d | #0x%x | Built "__DATE__":"__TIME__")\r\n", FW_VERSION, bid_GetID());
+   iprintf("\r\nStarting... (v%d | #0x%x / 0x%x | Built "__DATE__":"__TIME__")\r\n", FW_VERSION, bid_GetID(), bid_GetIDCrc());
 
    // seed the PRNG from the kinda unique board ID
    srand(bid_GetID());
@@ -40,6 +42,9 @@ int main(void)
 
    pattern_Init();
 
+   //FIXME rm
+   //while(1) {}
+
    // FIXME rm?
    /*
    for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
@@ -51,11 +56,11 @@ int main(void)
    /*
    while(1)
    {
-      //iprintf("<<< Starting %dms >>>\r\n", time);
+      iprintf("<<< Starting %dms >>>\r\n", HAL_GetTick());
       led_GiveTime(HAL_GetTick());
       HAL_Delay(50);
    }
-   */
+    */
 
    while (1)
    {
@@ -77,28 +82,32 @@ int main(void)
  * Write this unit's SW version to the LEDs once.
  */
 static void VersionToLEDs(void) {
-   struct color_ColorHSV c = {.h = 0, .s = 255, .v = 0};
+   struct color_ColorHSV c;
 
    //unpack each bit, and set the Blue LED channel to it
    uint16_t mask = 0x01;
    for(int i = 0; i < LED_CHAIN_LENGTH; i++) {
       // set the channel to 100 counts if the bit is set, 0 otherwise
       c.h = (mask & FW_VERSION) ? HSV_COLOR_B : HSV_COLOR_G;
-      c.s = 255;
-      c.v = 255;
+      c.s = 100;
+      c.v = 100;
 
-      led_SetChannel(i, c);
+      led_SetChannelTimed(i, c, VersionFadeSpeedMS);
 
       mask <<= 1;
    }
 
+   //FIXME rm
+   iprintf("Start turn on fade...\n");
+
    // Fade in over 1.5 seconds
-   for(int i = 0; i < 150; i++) {
-      // This looks better without the LED module's clock division
-      baf_giveTime(i, NULL);
-      yabi_giveTime(i);
-      HAL_Delay(10);  //delay in MS
+   uint32_t startTime = HAL_GetTick();
+   //for(int i = 0; i < 150; i++) {
+   while(HAL_GetTick() - startTime < VersionFadeSpeedMS) {
+      yabi_giveTime(HAL_GetTick());
    }
+
+   iprintf("DONE\n");
 }
 
 #ifdef USE_FULL_ASSERT

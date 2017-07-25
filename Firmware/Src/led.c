@@ -17,8 +17,6 @@
 
 #define YABI_CHANNELS      (LED_CHAIN_LENGTH * 3)
 
-#define PUMP_INTERVAL_MS   ( 33 )
-
 static uint8_t const DefaultTransitionTimeMS = 100;
 struct led_State {
    SPI_HandleTypeDef             spi;
@@ -30,9 +28,6 @@ struct led_State {
    //goes like {H, S, V}{H, S, V}, etc. So for 10 LEDs we have 30 'channels'. Modulo
    //math is used to figure out which is which at channel-set time.
    struct yabi_ChannelRecord     yabiBacking[YABI_CHANNELS];
-
-   //the last time the animation stack was pumped
-   uint32_t                      lastPump;
 };
 static struct led_State state;
 
@@ -49,7 +44,7 @@ static struct baf_Animation AnimRGBFade = {
    .aRandomSimpleLoop      = {
       .id                  = animationChannelIDs,
       .idLen               = LED_CHAIN_LENGTH,
-      .transitionTimeMS     = 5000,    //how quickly to move towards the target color
+      .transitionTimeMS    = 5000,    //how quickly to move towards the target color
       .params              = {
          .maxValue         = 255,      //255 is the max hue
          .minValue         = 0,
@@ -66,7 +61,7 @@ static uint32_t bafRNGCB(uint32_t range);
 static void bafChanGroupSetCB(struct baf_ChannelSetting const * const channels, baf_ChannelValue* const values, uint32_t num);
 static void bafAnimStartCB(struct baf_Animation const * anim);
 static void bafAnimStopCB(struct baf_Animation const * anim);
-static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction);
+static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction, float absoluteFraction);
 
 /*
  * Wire up the animation framework. It's composed of two parts:
@@ -115,7 +110,6 @@ bool led_Init(void) {
    // start the interpolator (we'll leave it running forever). This triggers an init of the LED HW
    yabi_setStarted(true);
 
-   //FIXME rm
    struct color_ColorHSV c = {.h = 0, .s = 254, .v = 10};
 
    // prepare to start BAF later
@@ -126,9 +120,7 @@ bool led_Init(void) {
 
          animationChannelIDs[i/3] = i;
 
-         //FIXME rm?
-         //set everyone's saturation to 100 and brightness to 10%
-         led_SetChannel(i/3, c);
+         led_SetChannelTimed(i/3, c, 10);
       }
    }
 
@@ -175,9 +167,9 @@ void led_SetAnimationSpeeds(uint32_t frameTime, uint32_t transitionTime) {
    }
 }
 
-static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction) {
+static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValue start, yabi_ChanValue end, float fraction, float absoluteFraction) {
    bool increasing;
-   uint32_t change;
+   uint32_t absoluteTarget = 0;
    uint8_t mod = 0;
 
    if(end > start)   // XXX increasing
@@ -196,36 +188,46 @@ static yabi_ChanValue rolloverInterpolator(yabi_ChanValue current, yabi_ChanValu
       if( start - end > (end + 0xFF) - start) {
          mod = 0xFF;
          increasing = true;
+
+         //FIXME rm
+         //iprintf("ROLL UP\n");
       }
    }
 
+   //FIXME rm
+   //iprintf("          old, cur, target %d, %d, %d\n", start, current, end);
+
    if(increasing) {
-      change = fraction * (float)((float)(end + mod) - (float)start);
-      // make sure any change < 0 is rounded up (we only deal in integers)
-      change = (change == 0) ? 1 : change;
-      return (uint8_t)(current + change);
+      // what's the absolute value we should be at now?
+      absoluteTarget = start + (uint32_t)(absoluteFraction * (float)((float)(end + mod) - (float)start));
+      return (uint8_t)absoluteTarget;
    }
    else {
-      change = fraction * (float)((float)(start + mod) - (float)end);
-      change = (change == 0) ? 1 : change;
-      return (uint8_t)(current - change);
+      //FIXME somewhere in here there is a bug in rollover math that I think causes
+      //the value to go negative as it rolls over past 0.
+      absoluteTarget = start - (uint32_t)(absoluteFraction * (float)((float)((float)start + (float)mod) - (float)end));
+      return (uint8_t)absoluteTarget;
    }
+}
+
+bool led_SetChannelTimed(uint32_t id, struct color_ColorHSV c, uint32_t timeMS) {
+   yabi_Error res;
+
+   //we need to explode this HSV object into the three components YABI needs
+   res  = yabi_setChannel((id * 3) + 0, c.h, timeMS);
+   res |= yabi_setChannel((id * 3) + 1, c.s, timeMS);
+   res |= yabi_setChannel((id * 3) + 2, c.v, timeMS);
+   if(res != YABI_OK) {
+      return false;
+   }
+   return true;
 }
 
 /*
  * Externally available hook to set color stuff.
  */
 bool led_SetChannel(uint32_t id, struct color_ColorHSV c) {
-   yabi_Error res;
-
-   //we need to explode this HSV object into the three components YABI needs
-   res  = yabi_setChannel((id * 3) + 0, c.h, DefaultTransitionTimeMS);
-   res |= yabi_setChannel((id * 3) + 1, c.s, DefaultTransitionTimeMS);
-   res |= yabi_setChannel((id * 3) + 2, c.v, DefaultTransitionTimeMS);
-   if(res != YABI_OK) {
-      return false;
-   }
-   return true;
+   return led_SetChannelTimed(id, c, DefaultTransitionTimeMS);
 }
 
 static uint32_t bafRNGCB(uint32_t range) {
@@ -280,7 +282,7 @@ static void* const led_HwInit(void) {
  * 28/3 = 9 (9th LED)
  * 28%3 = 1 (S conponent)
  */
-//FIXME rename
+//TODO rename
 static void led_YabiSetChannelCB(yabi_ChanID chan, yabi_ChanValue value) {
    uint8_t const realChan = (chan / 3);
    struct color_ColorHSV * const hsv = &state.ledsHSV[realChan];
@@ -312,13 +314,8 @@ static void led_UpdateChannels(yabi_FrameID frame) {
 }
 
 void led_GiveTime(uint32_t systimeMS) {
-   //FIXME need to slow down YABI so its forced 1 unit movement doesn't make things too fast
-   if(systimeMS - state.lastPump > PUMP_INTERVAL_MS) {
-      //FYI: the NULL is time until next call. Not useful without threads
-      baf_giveTime(systimeMS, NULL);
-      yabi_giveTime(systimeMS);
-
-      state.lastPump = systimeMS;
-   }
+   //FYI: the NULL is time until next call. Not useful without threads
+   baf_giveTime(systimeMS, NULL);
+   yabi_giveTime(systimeMS);
 }
 

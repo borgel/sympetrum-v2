@@ -17,26 +17,40 @@ The way real fireflies do it: ncase.me/fireflies/
 
 #include "iprintf.h"
 #include <stdint.h>
+#include <stdlib.h>  //rand()
 
+// The number of sub-sections a full 360* sweep of the color-wheel should be
+// divided into. Remember these are interpolated between! They just lear the
+// interpolator along.
+#define HUE_CLOCK_INTERMEDIATE_SECTIONS    5
 // Get the period of the hue clock for a given beacon interval
-#define HUE_PERIOD_MS_FOR_BEACON(x)       ((x) / 5)
+// The 2nd param (revs) is the number of full color-wheel cycles the hue clock
+// should do in a single beacon clock
+#define HUE_PERIOD_MS_FOR_BEACON(x, revs)       ((((x) / HUE_CLOCK_INTERMEDIATE_SECTIONS)) / ((revs) + 1))
 
 enum BeaconIntervalChoice {
    BIC_Increase,
    BIC_Decrease,
 };
 
+enum FlashSelection {
+   FS_Wings,
+   FS_Vertical
+};
+
 // Parallel arrays used to set clock intervals
-#define BEACON_INTERVAL_RAMP_LEN          (7)
-static const uint16_t BeaconIntervalRampMS[BEACON_INTERVAL_RAMP_LEN] =
-   {30000, 20000, 10000, 10000, 5000, 5000, 4000};
-//FIXME better way to calculate this automatically, or tune it
-static const uint16_t BiasWeightRamp[BEACON_INTERVAL_RAMP_LEN] =
-   {0    , 40   , 60,     70  , 80  , 90  , 100};
+#define BEACON_INTERVAL_RAMP_LEN          (4)
+//TODO make this a 2d array for symmetry
+static uint16_t const BeaconIntervalRampMS[] =
+   {30000, 30000, 20000, 10000, 10000};
+// two dummy levels so when it sees itself it doesn't try to sync
+static uint16_t const BiasWeightRamp[] =
+   //{0    ,     0, 90   , 90, 90};
+   {0    ,     0, 50   , 90, 90};
 
 // Amount to bump Beacon clock time when a beacon is seen
-// 10% of total value?
-#define GET_BEACON_BUMP(x)                ((x) / 10)
+// 33% of total value?
+#define GET_BEACON_BUMP(x)                ((x) / 3)
 
 // STATE STUFF
 // Fast hue clock. The period is = the time between ticks of the Beacon Clock.
@@ -58,13 +72,22 @@ static void pattern_UpdateSimpleHue(uint8_t hue);
 void pattern_Init(void) {
    BeaconClockRampPosition = 0;
    BeaconClock = 0;
-   BeaconClockInterval = BeaconIntervalRampMS[BeaconClockRampPosition];
+   BeaconClockInterval = BeaconIntervalRampMS[0];
    // Start one tick in to allow for time manipulation
    LastBeaconClockTime = BeaconClockInterval;
 
    HueClock = 0;
-   HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval);
+   HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval, BeaconClockRampPosition);
    LastHueClockTime = HueClockPeriod;
+
+   //FIXME rm
+   iprintf("\n\nhue period = %dms\n\n\n", HueClockPeriod);
+
+   //FIXME rm
+   //while(1) {}
+
+   //TODO do this instead?
+   //pattern_SetBeaconInterval(BIC_Decrease);
 
    //TODO pass in a CB for each RX'd beacon?
    beacon_Init();
@@ -76,9 +99,26 @@ void pattern_Init(void) {
    //of the fast animation framerate. Also, if the transition time ends before
    //the LED has made it, it will snap to the correct value (which is visible and
    //ugly). So Taking longer to transition is better than shorter.
-   //TODO maybe try HueClockPeriod * 2 for 2nd param?
-   led_SetAnimationSpeeds(HueClockPeriod, BeaconClockInterval);
-   //led_SetAnimationSpeeds(HueClockPeriod, HueClockPeriod);
+   //FIXME which to use?
+   led_SetAnimationSpeeds(HueClockPeriod, HueClockPeriod);
+}
+
+// Flash all LEDs to a random hue
+static void pattern_FlashRandomColor(enum FlashSelection sel) {
+   struct color_ColorHSV c = {.h = (rand() % 255), .s = 255, .v = 255};
+
+   if(sel == FS_Vertical) {
+      // Eyes and lower body
+      led_SetChannelTimed(2, c, 1000);
+      led_SetChannelTimed(3, c, 1000);
+      led_SetChannelTimed(8, c, 1000);
+      led_SetChannelTimed(9, c, 1000);
+   }
+   else if(sel == FS_Wings) {
+      // Lower wing tips
+      led_SetChannelTimed(6, c, 1000);
+      led_SetChannelTimed(7, c, 1000);
+   }
 }
 
 void pattern_GiveTime(uint32_t const systimeMS) {
@@ -88,15 +128,16 @@ void pattern_GiveTime(uint32_t const systimeMS) {
    if(beacon_Receive(&lastBeacon)) {
       // If we saw a beacon, handle it
       pattern_SawBeacon(lastBeacon);
+      pattern_FlashRandomColor(FS_Wings);
    }
 
    // On Hue tick (frequent)
    if(systimeMS - LastHueClockTime >= HueClockPeriod) {
       LastHueClockTime = systimeMS;
 
-      // Re-use the period calculation to figure out how many sections to break
-      // the 255 position color wheel into
-      trueHue = HueClock * HUE_PERIOD_MS_FOR_BEACON(255);
+      // Figure out how many sections to break the 255 position color wheel,
+      // into, then convert the current clock to that
+      trueHue = (HueClock % HUE_CLOCK_INTERMEDIATE_SECTIONS) * (255 / HUE_CLOCK_INTERMEDIATE_SECTIONS);
 
       iprintf("H(%d) ", HueClock);
 
@@ -104,7 +145,7 @@ void pattern_GiveTime(uint32_t const systimeMS) {
       pattern_UpdateAnimation(trueHue);
 
       // this is the 'actual' tick
-      HueClock++;
+      HueClock += 255 / HUE_CLOCK_INTERMEDIATE_SECTIONS;
    }
 
    //  On Beacon tick (infrequent)
@@ -113,11 +154,10 @@ void pattern_GiveTime(uint32_t const systimeMS) {
 
       iprintf("Beacon Clock Tick!\n");
 
-      //FIXME don't send hue, that changes and doesn't matter
-      //CRC8 of ID?
-      iprintf("(Hue %d) ", HueClock);
+      //TODO flash LEDs to show we are beaconing
+      pattern_FlashRandomColor(FS_Vertical);
 
-      beacon_Send(HueClock);
+      beacon_SendId();
 
       // Reset Hue clock too
       HueClock = 0;
@@ -135,7 +175,7 @@ static void pattern_UpdateAnimation(uint8_t hue) {
    led_SetBiasValue(hue);
 
    //FIXME rm
-   iprintf("Bias value to %d\n", hue);
+   //iprintf("Bias value to %d\n", hue);
 }
 
 /*
@@ -161,15 +201,16 @@ void pattern_SawBeacon(uint16_t rawBeacon) {
 
    // Jump the beacon clock 'forward' when a beacon comes in
    // Moving last time back is == moving next time sooner
-   //FIXME rm
-   iprintf("LastClock %d --(", LastHueClockTime);
+   iprintf("LastClock %d --(", LastBeaconClockTime);
    beaconBump = GET_BEACON_BUMP(BeaconClockInterval);
-   LastHueClockTime -= beaconBump;
-   iprintf("%d)--> %d\n", beaconBump, LastHueClockTime);
+   LastBeaconClockTime = LastBeaconClockTime - beaconBump;
+   iprintf("%d)--> %d\n", beaconBump, LastBeaconClockTime);
 
-   //FIXME do we want this? Causes a jump (but there would be one either way)
    // Rescale the Hue clock too so we still get a full cycle, but faster
-   HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval - beaconBump);
+   HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval - beaconBump, BeaconClockRampPosition);
+
+   //FIXME rm
+   iprintf("\n\nnew hue period = %dms\n\n\n", HueClockPeriod);
 }
 
 /*
@@ -200,15 +241,14 @@ static void pattern_SetBeaconInterval(enum BeaconIntervalChoice c) {
    //FIXME rm
    iprintf(" %d", BeaconClockRampPosition);
 
-   //TODO add jitter to the BeaconClockInterval to avoid a perfect sync
-   BeaconClockInterval = BeaconIntervalRampMS[BeaconClockRampPosition];
-   HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval);
+   HueClockPeriod = HUE_PERIOD_MS_FOR_BEACON(BeaconClockInterval, BeaconClockRampPosition);
 
    newBias = BiasWeightRamp[BeaconClockRampPosition];
    led_SetBiasWeight(newBias);
    //FIXME rm
    iprintf(" Bias weight to %d perc\n", newBias);
 
-   led_SetAnimationSpeeds(HueClockPeriod, BeaconClockInterval);
+   //led_SetAnimationSpeeds(HueClockPeriod, BeaconClockInterval);
+   led_SetAnimationSpeeds(HueClockPeriod, HueClockPeriod);
 }
 
