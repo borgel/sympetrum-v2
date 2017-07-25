@@ -17,6 +17,7 @@ The way real fireflies do it: ncase.me/fireflies/
 
 #include "iprintf.h"
 #include <stdint.h>
+#include <stdlib.h>  //rand()
 
 // The number of sub-sections a full 360* sweep of the color-wheel should be
 // divided into. Remember these are interpolated between! They just lear the
@@ -30,6 +31,11 @@ The way real fireflies do it: ncase.me/fireflies/
 enum BeaconIntervalChoice {
    BIC_Increase,
    BIC_Decrease,
+};
+
+enum FlashSelection {
+   FS_Wings,
+   FS_Vertical
 };
 
 // Parallel arrays used to set clock intervals
@@ -96,6 +102,23 @@ void pattern_Init(void) {
    //TODO maybe try HueClockPeriod * 2 for 2nd param?
    led_SetAnimationSpeeds(HueClockPeriod, BeaconClockInterval);
    //led_SetAnimationSpeeds(HueClockPeriod, HueClockPeriod);
+
+// Flash all LEDs to a random hue
+static void pattern_FlashRandomColor(enum FlashSelection sel) {
+   struct color_ColorHSV c = {.h = (rand() % 255), .s = 255, .v = 255};
+
+   if(sel == FS_Vertical) {
+      // Eyes and lower body
+      led_SetChannelTimed(2, c, 1000);
+      led_SetChannelTimed(3, c, 1000);
+      led_SetChannelTimed(8, c, 1000);
+      led_SetChannelTimed(9, c, 1000);
+   }
+   else if(sel == FS_Wings) {
+      // Lower wing tips
+      led_SetChannelTimed(6, c, 1000);
+      led_SetChannelTimed(7, c, 1000);
+   }
 }
 
 void pattern_GiveTime(uint32_t const systimeMS) {
@@ -105,6 +128,7 @@ void pattern_GiveTime(uint32_t const systimeMS) {
    if(beacon_Receive(&lastBeacon)) {
       // If we saw a beacon, handle it
       pattern_SawBeacon(lastBeacon);
+      pattern_FlashRandomColor(FS_Wings);
    }
 
    // On Hue tick (frequent)
@@ -129,6 +153,9 @@ void pattern_GiveTime(uint32_t const systimeMS) {
       LastBeaconClockTime = systimeMS;
 
       iprintf("Beacon Clock Tick!\n");
+
+      //TODO flash LEDs to show we are beaconing
+      pattern_FlashRandomColor(FS_Vertical);
 
       beacon_SendId();
 
