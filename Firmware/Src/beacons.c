@@ -26,20 +26,10 @@ void beacon_Init(void) {
 
 // sends 14 bites of data
 void beacon_Send(uint16_t rawData) {
-   ir_DecodeDisable();
-
-   //TODO what do we send?
-   //ir_SendRC5(4, 23, RC5_Ctrl_Reset);
    ir_SendRaw(rawData);
 
-   //FIXME remove to unblock?
-   while(ir_IsSending()) {}
-
-   // Crappy hack to wait for sending to complete
-   //FIXME en
-   HAL_Delay(10);
-
-   ir_DecodeEnable();
+   // We actually WANT to see our own beacon. If we turn off
+   // RX, we don't get the incoming ones!
 }
 
 void beacon_SendId(void) {
