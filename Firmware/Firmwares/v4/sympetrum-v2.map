@@ -1,0 +1,1872 @@
+Archive member included to satisfy reference by file (symbol)
+
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o (exit)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o) (_global_impure_ptr)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o (__libc_init_array)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memset.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o (memset)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+                              build/main.o (symbol from plugin) (srand)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o) (malloc)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o) (_free_r)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o) (_malloc_r)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o) (_sbrk_r)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-mlock.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o) (__malloc_lock)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o) (errno)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(sbrk.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o) (_sbrk)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(_exit.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o) (_exit)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_muldi3.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o) (__aeabi_lmul)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memcpy-stub.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o (memcpy)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_floor.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (floor)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_round.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (round)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uqi.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__gnu_thumb1_case_uqi)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_shi.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o (__gnu_thumb1_case_shi)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o (__gnu_thumb1_case_uhi)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_udivsi3.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o (__aeabi_uidiv)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_divsi3.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o (__aeabi_idiv)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_udivsi3.o) (__aeabi_idiv0)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_dcmplt)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_fcmpeq)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_f2uiz)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunsdfsi.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_d2uiz)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(addsf3.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_fadd)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divsf3.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_fdiv)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqsf2.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o) (__eqsf2)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gesf2.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o) (__gesf2)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(lesf2.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o) (__lesf2)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(mulsf3.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_fmul)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subsf3.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_fsub)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixsfsi.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o) (__aeabi_f2iz)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsisf.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_i2f)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatunsisf.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_ui2f)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(adddf3.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o (__aeabi_dadd)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divdf3.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_ddiv)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqdf2.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o) (__eqdf2)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gedf2.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o) (__gedf2)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(ledf2.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o) (__ledf2)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(muldf3.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_dmul)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subdf3.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o (__aeabi_dsub)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixdfsi.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_d2iz)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsidf.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_i2d)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(extendsfdf2.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_f2d)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(truncdfsf2.o)
+                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o (__aeabi_d2f)
+/usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_clzsi2.o)
+                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(addsf3.o) (__clzsi2)
+
+Allocating common symbols
+Common symbol       size              file
+
+errno               0x4               /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+pFlash              0x20              build/stm32f0xx_hal_flash.o (symbol from plugin)
+RC5_FRAME           0x4               build/ir_decode.o (symbol from plugin)
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crti.o
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crti.o
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crti.o
+ .data          0x0000000000000000        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+ .text          0x0000000000000000       0x78 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+ .ARM.extab     0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+ .ARM.exidx     0x0000000000000000        0x8 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+ .ARM.attributes
+                0x0000000000000000       0x1b /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+ .text          0x0000000000000000        0x0 build/beacons.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+ .data          0x0000000000000000        0x0 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+ .bss           0x0000000000000000        0x0 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+ .text          0x0000000000000000        0x0 build/board_id.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/color.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/crc.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/iprintf.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/ir_decode.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/ir_encode.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/led.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/main.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/pattern.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/platform_hw.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_msp.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_it.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/system_stm32f0xx.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/version.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_cortex.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_dma.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_flash.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_flash_ex.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_gpio.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_i2c.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_i2c_ex.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_pwr.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_pwr_ex.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_rcc.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_rcc_ex.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_spi.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_spi_ex.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_tim.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_uart.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/stm32f0xx_hal_uart_ex.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/baf.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 build/yabi.o (symbol from plugin)
+ .text          0x0000000000000000       0x14 build/startup_stm32f030x6.o
+ .data          0x0000000000000000        0x0 build/startup_stm32f030x6.o
+ .bss           0x0000000000000000        0x0 build/startup_stm32f030x6.o
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o)
+ .text.exit     0x0000000000000000       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o)
+ .debug_frame   0x0000000000000000       0x28 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o)
+ .ARM.attributes
+                0x0000000000000000       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+ .rodata._global_impure_ptr
+                0x0000000000000000        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memset.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memset.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memset.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+ .text.free     0x0000000000000000       0x14 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o)
+ .text._free_r  0x0000000000000000       0x94 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x0000000000000000       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o)
+ .ARM.attributes
+                0x0000000000000000       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-mlock.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-mlock.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-mlock.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+ .text.cleanup_glue
+                0x0000000000000000       0x1a /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+ .text._reclaim_reent
+                0x0000000000000000       0xcc /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(sbrk.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(sbrk.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(sbrk.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(_exit.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(_exit.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(_exit.o)
+ .text._exit    0x0000000000000000        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(_exit.o)
+ .debug_frame   0x0000000000000000       0x20 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(_exit.o)
+ .ARM.attributes
+                0x0000000000000000       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(_exit.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_muldi3.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_muldi3.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtend.o
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtend.o
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtend.o
+ .eh_frame      0x0000000000000000        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtend.o
+ .jcr           0x0000000000000000        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtend.o
+ .ARM.attributes
+                0x0000000000000000       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtend.o
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtn.o
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtn.o
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtn.o
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memcpy-stub.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memcpy-stub.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memcpy-stub.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_floor.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_floor.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_floor.o)
+ .text          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_round.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_round.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_round.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uqi.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uqi.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_shi.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_shi.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_udivsi3.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_udivsi3.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_divsi3.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_divsi3.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunsdfsi.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunsdfsi.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(addsf3.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(addsf3.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divsf3.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divsf3.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqsf2.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqsf2.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gesf2.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gesf2.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(lesf2.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(lesf2.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(mulsf3.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(mulsf3.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subsf3.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subsf3.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixsfsi.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixsfsi.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsisf.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsisf.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatunsisf.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatunsisf.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(adddf3.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(adddf3.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divdf3.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divdf3.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqdf2.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqdf2.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gedf2.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gedf2.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(ledf2.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(ledf2.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(muldf3.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(muldf3.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subdf3.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subdf3.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixdfsi.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixdfsi.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsidf.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsidf.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(extendsfdf2.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(extendsfdf2.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(truncdfsf2.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(truncdfsf2.o)
+ .data          0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_clzsi2.o)
+ .bss           0x0000000000000000        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_clzsi2.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x0000000020000000 0x0000000000001000 xrw
+FLASH            0x0000000008000000 0x0000000000008000 xr
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crti.o
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+LOAD build/beacons.o
+LOAD /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+LOAD /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+LOAD /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+LOAD /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+LOAD build/board_id.o
+LOAD build/color.o
+LOAD build/crc.o
+LOAD build/iprintf.o
+LOAD build/ir_decode.o
+LOAD build/ir_encode.o
+LOAD build/led.o
+LOAD build/main.o
+LOAD build/pattern.o
+LOAD build/platform_hw.o
+LOAD build/stm32f0xx_hal_msp.o
+LOAD build/stm32f0xx_it.o
+LOAD build/system_stm32f0xx.o
+LOAD build/version.o
+LOAD build/stm32f0xx_hal.o
+LOAD build/stm32f0xx_hal_cortex.o
+LOAD build/stm32f0xx_hal_dma.o
+LOAD build/stm32f0xx_hal_flash.o
+LOAD build/stm32f0xx_hal_flash_ex.o
+LOAD build/stm32f0xx_hal_gpio.o
+LOAD build/stm32f0xx_hal_i2c.o
+LOAD build/stm32f0xx_hal_i2c_ex.o
+LOAD build/stm32f0xx_hal_pwr.o
+LOAD build/stm32f0xx_hal_pwr_ex.o
+LOAD build/stm32f0xx_hal_rcc.o
+LOAD build/stm32f0xx_hal_rcc_ex.o
+LOAD build/stm32f0xx_hal_spi.o
+LOAD build/stm32f0xx_hal_spi_ex.o
+LOAD build/stm32f0xx_hal_tim.o
+LOAD build/stm32f0xx_hal_tim_ex.o
+LOAD build/stm32f0xx_hal_uart.o
+LOAD build/stm32f0xx_hal_uart_ex.o
+LOAD build/baf.o
+LOAD build/yabi.o
+LOAD build/startup_stm32f030x6.o
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a
+START GROUP
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a
+END GROUP
+START GROUP
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a
+END GROUP
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtend.o
+LOAD /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtn.o
+                0x0000000020001000                _estack = 0x20001000
+                0x0000000000000200                _Min_Heap_Size = 0x200
+                0x0000000000000400                _Min_Stack_Size = 0x400
+
+.isr_vector     0x0000000008000000       0xc0
+                0x0000000008000000                . = ALIGN (0x4)
+ *(.isr_vector)
+ .isr_vector    0x0000000008000000       0xc0 build/startup_stm32f030x6.o
+                0x0000000008000000                g_pfnVectors
+                0x00000000080000c0                . = ALIGN (0x4)
+
+.text           0x00000000080000c0     0x56fc
+                0x00000000080000c0                . = ALIGN (0x4)
+ *(.text)
+ .text          0x00000000080000c0       0x60 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+ .text          0x0000000008000120      0x908 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                0x0000000008000120                rolloverInterpolator.lto_priv.86
+                0x00000000080002c0                led_UpdateChannels.lto_priv.84
+                0x0000000008000310                led_YabiSetChannelCB.lto_priv.85
+                0x0000000008000640                led_HwInit.lto_priv.87
+                0x0000000008000774                bafRNGCB.lto_priv.80
+                0x0000000008000786                led_SetChannelTimed
+                0x00000000080007c0                ir_ResetPacket
+                0x00000000080007d8                RC5_modifyLastBit.lto_priv.65
+                0x0000000008000828                iprintf
+                0x0000000008000938                bafAnimStopCB.lto_priv.82
+                0x0000000008000948                bafAnimStartCB.lto_priv.81
+                0x0000000008000958                bafChanGroupSetCB.lto_priv.83
+                0x0000000008000988                ir_SendRaw
+                0x00000000080009dc                bid_GetID
+ .text          0x0000000008000a28      0x5d0 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                0x0000000008000a8c                yabi_DefaultInterpolator.lto_priv.79
+                0x0000000008000adc                HAL_TIM_Base_Init.constprop.43
+                0x0000000008000c10                HAL_TIM_PWM_ConfigChannel.constprop.39
+                0x0000000008000cc0                crc_CRC8.constprop.37
+                0x0000000008000cf4                HAL_SPI_Transmit.part.4.constprop.25
+                0x0000000008000ea0                baf_giveTime.constprop.18
+                0x0000000008000fa0                HAL_InitTick.constprop.6
+                0x0000000008000fc8                yabi_setChannel
+ .text          0x0000000008000ff8      0x67c /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                0x0000000008000ff8                yabi_giveTime
+                0x00000000080010b8                TIM_Base_SetConfig
+                0x0000000008001138                HAL_RCC_GetPCLK1Freq
+                0x0000000008001158                HAL_RCC_GetSysClockFreq
+                0x00000000080011bc                HAL_GPIO_Init
+                0x000000000800131c                HAL_SYSTICK_Config
+                0x0000000008001350                SystemInit
+                0x00000000080013b0                TIM3_IRQHandler
+                0x0000000008001464                TIM16_IRQHandler
+                0x0000000008001590                EXTI0_1_IRQHandler
+                0x00000000080015b4                SysTick_Handler
+                0x00000000080015c4                pattern_SetBeaconInterval.lto_priv.88
+ .text          0x0000000008001674       0x54 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_muldi3.o)
+                0x0000000008001674                __aeabi_lmul
+                0x0000000008001674                __muldi3
+ .text          0x00000000080016c8       0x14 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uqi.o)
+                0x00000000080016c8                __gnu_thumb1_case_uqi
+ .text          0x00000000080016dc       0x14 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_shi.o)
+                0x00000000080016dc                __gnu_thumb1_case_shi
+ .text          0x00000000080016f0       0x14 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+                0x00000000080016f0                __gnu_thumb1_case_uhi
+ .text          0x0000000008001704      0x114 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_udivsi3.o)
+                0x0000000008001704                __udivsi3
+                0x0000000008001704                __aeabi_uidiv
+                0x0000000008001810                __aeabi_uidivmod
+ .text          0x0000000008001818      0x1d4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_divsi3.o)
+                0x0000000008001818                __aeabi_idiv
+                0x0000000008001818                __divsi3
+                0x00000000080019e4                __aeabi_idivmod
+ .text          0x00000000080019ec        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+                0x00000000080019ec                __aeabi_ldiv0
+                0x00000000080019ec                __aeabi_idiv0
+ .text          0x00000000080019f0       0x7c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+                0x00000000080019f0                __aeabi_cdrcmple
+                0x0000000008001a00                __aeabi_cdcmple
+                0x0000000008001a00                __aeabi_cdcmpeq
+                0x0000000008001a10                __aeabi_dcmpeq
+                0x0000000008001a1c                __aeabi_dcmplt
+                0x0000000008001a30                __aeabi_dcmple
+                0x0000000008001a44                __aeabi_dcmpgt
+                0x0000000008001a58                __aeabi_dcmpge
+ .text          0x0000000008001a6c       0x74 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+                0x0000000008001a6c                __aeabi_cfrcmple
+                0x0000000008001a74                __aeabi_cfcmple
+                0x0000000008001a74                __aeabi_cfcmpeq
+                0x0000000008001a84                __aeabi_fcmpeq
+                0x0000000008001a90                __aeabi_fcmplt
+                0x0000000008001aa4                __aeabi_fcmple
+                0x0000000008001ab8                __aeabi_fcmpgt
+                0x0000000008001acc                __aeabi_fcmpge
+ .text          0x0000000008001ae0       0x30 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o)
+                0x0000000008001ae0                __aeabi_f2uiz
+                0x0000000008001ae0                __fixunssfsi
+ .text          0x0000000008001b10       0x3c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunsdfsi.o)
+                0x0000000008001b10                __fixunsdfsi
+                0x0000000008001b10                __aeabi_d2uiz
+ .text          0x0000000008001b4c      0x324 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(addsf3.o)
+                0x0000000008001b4c                __aeabi_fadd
+ .text          0x0000000008001e70      0x290 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divsf3.o)
+                0x0000000008001e70                __aeabi_fdiv
+ .text          0x0000000008002100       0x4c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqsf2.o)
+                0x0000000008002100                __nesf2
+                0x0000000008002100                __eqsf2
+ .text          0x000000000800214c       0x80 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gesf2.o)
+                0x000000000800214c                __gtsf2
+                0x000000000800214c                __gesf2
+ .text          0x00000000080021cc       0x84 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(lesf2.o)
+                0x00000000080021cc                __lesf2
+                0x00000000080021cc                __ltsf2
+ .text          0x0000000008002250      0x240 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(mulsf3.o)
+                0x0000000008002250                __aeabi_fmul
+ .text          0x0000000008002490      0x338 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subsf3.o)
+                0x0000000008002490                __aeabi_fsub
+ .text          0x00000000080027c8       0x40 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixsfsi.o)
+                0x00000000080027c8                __aeabi_f2iz
+ .text          0x0000000008002808       0xa0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsisf.o)
+                0x0000000008002808                __aeabi_i2f
+ .text          0x00000000080028a8       0x8c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatunsisf.o)
+                0x00000000080028a8                __aeabi_ui2f
+ .text          0x0000000008002934      0x620 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(adddf3.o)
+                0x0000000008002934                __aeabi_dadd
+ .text          0x0000000008002f54      0x668 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divdf3.o)
+                0x0000000008002f54                __aeabi_ddiv
+ .text          0x00000000080035bc       0x74 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqdf2.o)
+                0x00000000080035bc                __eqdf2
+                0x00000000080035bc                __nedf2
+ .text          0x0000000008003630       0xc8 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gedf2.o)
+                0x0000000008003630                __gtdf2
+                0x0000000008003630                __gedf2
+ .text          0x00000000080036f8       0xc4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(ledf2.o)
+                0x00000000080036f8                __ltdf2
+                0x00000000080036f8                __ledf2
+ .text          0x00000000080037bc      0x500 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(muldf3.o)
+                0x00000000080037bc                __aeabi_dmul
+ .text          0x0000000008003cbc      0x62c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subdf3.o)
+                0x0000000008003cbc                __aeabi_dsub
+ .text          0x00000000080042e8       0x68 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixdfsi.o)
+                0x00000000080042e8                __aeabi_d2iz
+ .text          0x0000000008004350       0x84 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsidf.o)
+                0x0000000008004350                __aeabi_i2d
+ .text          0x00000000080043d4       0xa4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(extendsfdf2.o)
+                0x00000000080043d4                __aeabi_f2d
+ .text          0x0000000008004478      0x114 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(truncdfsf2.o)
+                0x0000000008004478                __aeabi_d2f
+ .text          0x000000000800458c       0x3c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_clzsi2.o)
+                0x000000000800458c                __clzsi2
+ *(.text*)
+ .text.startup  0x00000000080045c8      0xd38 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                0x00000000080045c8                main
+ .text.unlikely
+                0x0000000008005300       0x20 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                0x0000000008005300                Error_Handler.lto_priv.89
+ .text.Reset_Handler
+                0x0000000008005320       0x50 build/startup_stm32f030x6.o
+                0x0000000008005320                Reset_Handler
+ .text.Default_Handler
+                0x0000000008005370        0x2 build/startup_stm32f030x6.o
+                0x0000000008005370                TIM1_BRK_UP_TRG_COM_IRQHandler
+                0x0000000008005370                HardFault_Handler
+                0x0000000008005370                PendSV_Handler
+                0x0000000008005370                NMI_Handler
+                0x0000000008005370                I2C1_IRQHandler
+                0x0000000008005370                SPI1_IRQHandler
+                0x0000000008005370                EXTI2_3_IRQHandler
+                0x0000000008005370                ADC1_IRQHandler
+                0x0000000008005370                TIM17_IRQHandler
+                0x0000000008005370                RTC_IRQHandler
+                0x0000000008005370                EXTI4_15_IRQHandler
+                0x0000000008005370                RCC_IRQHandler
+                0x0000000008005370                DMA1_Channel1_IRQHandler
+                0x0000000008005370                Default_Handler
+                0x0000000008005370                TIM14_IRQHandler
+                0x0000000008005370                DMA1_Channel4_5_IRQHandler
+                0x0000000008005370                SVC_Handler
+                0x0000000008005370                WWDG_IRQHandler
+                0x0000000008005370                DMA1_Channel2_3_IRQHandler
+                0x0000000008005370                FLASH_IRQHandler
+                0x0000000008005370                USART1_IRQHandler
+                0x0000000008005370                TIM1_CC_IRQHandler
+ *fill*         0x0000000008005372        0x2 
+ .text.__libc_init_array
+                0x0000000008005374       0x48 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+                0x0000000008005374                __libc_init_array
+ .text.memset   0x00000000080053bc       0x10 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memset.o)
+                0x00000000080053bc                memset
+ .text.srand    0x00000000080053cc       0x5c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+                0x00000000080053cc                srand
+ .text.rand     0x0000000008005428       0x78 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+                0x0000000008005428                rand
+ .text.malloc   0x00000000080054a0       0x14 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+                0x00000000080054a0                malloc
+ .text._malloc_r
+                0x00000000080054b4       0xbc /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000080054b4                _malloc_r
+ .text._sbrk_r  0x0000000008005570       0x24 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o)
+                0x0000000008005570                _sbrk_r
+ .text.__malloc_lock
+                0x0000000008005594        0x2 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-mlock.o)
+                0x0000000008005594                __malloc_lock
+ .text.__malloc_unlock
+                0x0000000008005596        0x2 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-mlock.o)
+                0x0000000008005596                __malloc_unlock
+ .text._sbrk    0x0000000008005598       0x1c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(sbrk.o)
+                0x0000000008005598                _sbrk
+ .text.memcpy   0x00000000080055b4       0x12 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memcpy-stub.o)
+                0x00000000080055b4                memcpy
+ *fill*         0x00000000080055c6        0x2 
+ .text.floor    0x00000000080055c8      0x130 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_floor.o)
+                0x00000000080055c8                floor
+ .text.round    0x00000000080056f8       0xac /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_round.o)
+                0x00000000080056f8                round
+ *(.glue_7)
+ .glue_7        0x00000000080057a4        0x0 linker stubs
+ *(.glue_7t)
+ .glue_7t       0x00000000080057a4        0x0 linker stubs
+ *(.eh_frame)
+ .eh_frame      0x00000000080057a4        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+ *(.init)
+ .init          0x00000000080057a4        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crti.o
+                0x00000000080057a4                _init
+ .init          0x00000000080057a8        0x8 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtn.o
+ *(.fini)
+ .fini          0x00000000080057b0        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crti.o
+                0x00000000080057b0                _fini
+ .fini          0x00000000080057b4        0x8 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtn.o
+                0x00000000080057bc                . = ALIGN (0x4)
+                0x00000000080057bc                _etext = .
+
+.vfp11_veneer   0x00000000080057bc        0x0
+ .vfp11_veneer  0x00000000080057bc        0x0 linker stubs
+
+.v4_bx          0x00000000080057bc        0x0
+ .v4_bx         0x00000000080057bc        0x0 linker stubs
+
+.iplt           0x00000000080057bc        0x0
+ .iplt          0x00000000080057bc        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+
+.rodata         0x00000000080057bc      0x478
+                0x00000000080057bc                . = ALIGN (0x4)
+ *(.rodata)
+ .rodata        0x00000000080057bc       0x44 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+ .rodata        0x0000000008005800        0x8 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+ .rodata        0x0000000008005808       0x38 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+ .rodata        0x0000000008005840       0x80 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divsf3.o)
+ .rodata        0x00000000080058c0       0x40 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(mulsf3.o)
+ .rodata        0x0000000008005900       0x40 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divdf3.o)
+ .rodata        0x0000000008005940       0x40 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(muldf3.o)
+ *(.rodata*)
+ .rodata.str1.1
+                0x0000000008005980      0x1dc /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                        0x1df (size before relaxing)
+ .rodata.str1.1
+                0x0000000008005b5c       0x71 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+ .rodata.str1.1
+                0x0000000008005bcd       0x66 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                0x0000000008005c34                . = ALIGN (0x4)
+ *fill*         0x0000000008005c33        0x1 
+
+.rel.dyn        0x0000000008005c34        0x0
+ .rel.iplt      0x0000000008005c34        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+
+.ARM            0x0000000008005c34        0x0
+                0x0000000008005c34                __exidx_start = .
+ *(.ARM.exidx*)
+                0x0000000008005c34                __exidx_end = .
+
+.preinit_array  0x0000000008005c34        0x0
+                0x0000000008005c34                PROVIDE (__preinit_array_start, .)
+ *(.preinit_array*)
+                0x0000000008005c34                PROVIDE (__preinit_array_end, .)
+
+.init_array     0x0000000008005c34        0x4
+                0x0000000008005c34                PROVIDE (__init_array_start, .)
+ *(SORT(.init_array.*))
+ *(.init_array*)
+ .init_array    0x0000000008005c34        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+                0x0000000008005c38                PROVIDE (__init_array_end, .)
+
+.fini_array     0x0000000008005c38        0x4
+                [!provide]                        PROVIDE (__fini_array_start, .)
+ *(SORT(.fini_array.*))
+ *(.fini_array*)
+ .fini_array    0x0000000008005c38        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+                [!provide]                        PROVIDE (__fini_array_end, .)
+                0x0000000008005c3c                _sidata = LOADADDR (.data)
+
+.data           0x0000000020000000       0xc4 load address 0x0000000008005c3c
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                _sdata = .
+ *(.data)
+ .data          0x0000000020000000       0x28 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+ .data          0x0000000020000028        0x4 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                0x0000000020000028                SystemCoreClock
+ .data          0x000000002000002c       0x34 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                0x000000002000002c                Send_Operation_Completed
+                0x0000000020000030                AnimRGBFade.lto_priv.69
+ *(.data*)
+ .data._impure_ptr
+                0x0000000020000060        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+                0x0000000020000060                _impure_ptr
+ .data.impure_data
+                0x0000000020000064       0x60 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+                0x00000000200000c4                . = ALIGN (0x4)
+                0x00000000200000c4                _edata = .
+
+.jcr            0x00000000200000c4        0x0 load address 0x0000000008005d00
+ .jcr           0x00000000200000c4        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+
+.igot.plt       0x00000000200000c4        0x0 load address 0x0000000008005d00
+ .igot.plt      0x00000000200000c4        0x0 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+                0x00000000200000c4                . = ALIGN (0x4)
+
+.bss            0x00000000200000c4      0x574 load address 0x0000000008005d00
+                0x00000000200000c4                _sbss = .
+                0x00000000200000c4                __bss_start__ = _sbss
+ *(.bss)
+ .bss           0x00000000200000c4       0x1c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+ .bss           0x00000000200000e0       0x87 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                0x00000000200000e0                huart1
+                0x0000000020000166                RC5FrameReceived
+ *fill*         0x0000000020000167        0x1 
+ .bss           0x0000000020000168       0x60 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                0x0000000020000168                uwTick
+                0x000000002000016c                state.lto_priv.63
+                0x0000000020000190                state.lto_priv.64
+ .bss           0x00000000200001c8      0x10c /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                0x00000000200001c8                htim3
+                0x000000002000020c                RC5MinT.lto_priv.73
+                0x000000002000020e                RC5MaxT.lto_priv.74
+                0x0000000020000210                RC5Min2T.lto_priv.75
+                0x0000000020000212                RC5Max2T.lto_priv.76
+                0x0000000020000214                RC5TmpPacket
+                0x000000002000021a                Send_Operation_Ready.lto_priv.71
+                0x000000002000021c                RC5_FrameManchestarFormat.lto_priv.72
+                0x0000000020000220                htim17.lto_priv.77
+                0x0000000020000260                htim16
+                0x00000000200002a0                buttonPressTimestamp.lto_priv.66
+                0x00000000200002a4                BeaconClockRampPosition.lto_priv.70
+                0x00000000200002a6                HueClockPeriod.lto_priv.67
+                0x00000000200002a8                BeaconClockInterval.lto_priv.68
+                0x00000000200002ac                animationChannelIDs.lto_priv.78
+ *(.bss*)
+ .bss.state     0x00000000200002d4      0x354 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                0x00000000200002d4                state.lto_priv.62
+ .bss.__malloc_free_list
+                0x0000000020000628        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+                0x0000000020000628                __malloc_free_list
+ .bss.__malloc_sbrk_start
+                0x000000002000062c        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+                0x000000002000062c                __malloc_sbrk_start
+ .bss.heap_end.4116
+                0x0000000020000630        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(sbrk.o)
+ *(COMMON)
+ COMMON         0x0000000020000634        0x4 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+                0x0000000020000634                errno
+                0x0000000020000638                . = ALIGN (0x4)
+                0x0000000020000638                _ebss = .
+                0x0000000020000638                __bss_end__ = _ebss
+
+._user_heap_stack
+                0x0000000020000638      0x600 load address 0x0000000008005d00
+                0x0000000020000638                . = ALIGN (0x8)
+                0x0000000020000638                PROVIDE (end, .)
+                [!provide]                        PROVIDE (_end, .)
+                0x0000000020000838                . = (. + _Min_Heap_Size)
+ *fill*         0x0000000020000638      0x200 
+                0x0000000020000c38                . = (. + _Min_Stack_Size)
+ *fill*         0x0000000020000838      0x400 
+                0x0000000020000c38                . = ALIGN (0x8)
+
+/DISCARD/
+ libc.a(*)
+ libm.a(*)
+ libgcc.a(*)
+
+.ARM.attributes
+                0x0000000000000000       0x28
+ *(.ARM.attributes)
+ .ARM.attributes
+                0x0000000000000000       0x1e /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crti.o
+ .ARM.attributes
+                0x000000000000001e       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+ .ARM.attributes
+                0x000000000000004a       0x2f /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+ .ARM.attributes
+                0x0000000000000079       0x2f /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+ .ARM.attributes
+                0x00000000000000a8       0x2f /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+ .ARM.attributes
+                0x00000000000000d7       0x2f /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+ .ARM.attributes
+                0x0000000000000106       0x21 build/startup_stm32f030x6.o
+ .ARM.attributes
+                0x0000000000000127       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+ .ARM.attributes
+                0x0000000000000153       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+ .ARM.attributes
+                0x000000000000017f       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memset.o)
+ .ARM.attributes
+                0x00000000000001ab       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+ .ARM.attributes
+                0x00000000000001d7       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+ .ARM.attributes
+                0x0000000000000203       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+ .ARM.attributes
+                0x000000000000022f       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o)
+ .ARM.attributes
+                0x000000000000025b       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-mlock.o)
+ .ARM.attributes
+                0x0000000000000287       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+ .ARM.attributes
+                0x00000000000002b3       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(sbrk.o)
+ .ARM.attributes
+                0x00000000000002df       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_muldi3.o)
+ .ARM.attributes
+                0x000000000000030b       0x1e /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtn.o
+ .ARM.attributes
+                0x0000000000000329       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memcpy-stub.o)
+ .ARM.attributes
+                0x0000000000000355       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_floor.o)
+ .ARM.attributes
+                0x0000000000000381       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_round.o)
+ .ARM.attributes
+                0x00000000000003ad       0x1e /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uqi.o)
+ .ARM.attributes
+                0x00000000000003cb       0x1e /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_shi.o)
+ .ARM.attributes
+                0x00000000000003e9       0x1e /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+ .ARM.attributes
+                0x0000000000000407       0x1e /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_udivsi3.o)
+ .ARM.attributes
+                0x0000000000000425       0x1e /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_divsi3.o)
+ .ARM.attributes
+                0x0000000000000443       0x1e /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x0000000000000461       0x1e /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+ .ARM.attributes
+                0x000000000000047f       0x1e /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+ .ARM.attributes
+                0x000000000000049d       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o)
+ .ARM.attributes
+                0x00000000000004c9       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunsdfsi.o)
+ .ARM.attributes
+                0x00000000000004f5       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(addsf3.o)
+ .ARM.attributes
+                0x0000000000000521       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divsf3.o)
+ .ARM.attributes
+                0x000000000000054d       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqsf2.o)
+ .ARM.attributes
+                0x0000000000000579       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gesf2.o)
+ .ARM.attributes
+                0x00000000000005a5       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(lesf2.o)
+ .ARM.attributes
+                0x00000000000005d1       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(mulsf3.o)
+ .ARM.attributes
+                0x00000000000005fd       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subsf3.o)
+ .ARM.attributes
+                0x0000000000000629       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixsfsi.o)
+ .ARM.attributes
+                0x0000000000000655       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsisf.o)
+ .ARM.attributes
+                0x0000000000000681       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatunsisf.o)
+ .ARM.attributes
+                0x00000000000006ad       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(adddf3.o)
+ .ARM.attributes
+                0x00000000000006d9       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divdf3.o)
+ .ARM.attributes
+                0x0000000000000705       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqdf2.o)
+ .ARM.attributes
+                0x0000000000000731       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gedf2.o)
+ .ARM.attributes
+                0x000000000000075d       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(ledf2.o)
+ .ARM.attributes
+                0x0000000000000789       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(muldf3.o)
+ .ARM.attributes
+                0x00000000000007b5       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subdf3.o)
+ .ARM.attributes
+                0x00000000000007e1       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixdfsi.o)
+ .ARM.attributes
+                0x000000000000080d       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsidf.o)
+ .ARM.attributes
+                0x0000000000000839       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(extendsfdf2.o)
+ .ARM.attributes
+                0x0000000000000865       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(truncdfsf2.o)
+ .ARM.attributes
+                0x0000000000000891       0x1e /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_clzsi2.o)
+OUTPUT(build/sympetrum-v2.elf elf32-littlearm)
+
+.comment        0x0000000000000000       0x6e
+ .comment       0x0000000000000000       0x6e /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                         0x6f (size before relaxing)
+ .comment       0x000000000000006e       0x6f /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+ .comment       0x000000000000006e       0x6f /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+ .comment       0x000000000000006e       0x6f /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+
+.debug_line     0x0000000000000000       0xaf
+ .debug_line    0x0000000000000000       0xaf build/startup_stm32f030x6.o
+
+.debug_info     0x0000000000000000       0x9e
+ .debug_info    0x0000000000000000       0x9e build/startup_stm32f030x6.o
+
+.debug_abbrev   0x0000000000000000       0x12
+ .debug_abbrev  0x0000000000000000       0x12 build/startup_stm32f030x6.o
+
+.debug_aranges  0x0000000000000000       0x28
+ .debug_aranges
+                0x0000000000000000       0x28 build/startup_stm32f030x6.o
+
+.debug_ranges   0x0000000000000000       0x20
+ .debug_ranges  0x0000000000000000       0x20 build/startup_stm32f030x6.o
+
+.debug_frame    0x0000000000000000      0x748
+ .debug_frame   0x0000000000000000       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+ .debug_frame   0x000000000000002c       0x20 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memset.o)
+ .debug_frame   0x000000000000004c       0x44 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+ .debug_frame   0x0000000000000090       0x40 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+ .debug_frame   0x00000000000000d0       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x00000000000000fc       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x0000000000000128       0x30 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-mlock.o)
+ .debug_frame   0x0000000000000158       0x48 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+ .debug_frame   0x00000000000001a0       0x20 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(sbrk.o)
+ .debug_frame   0x00000000000001c0       0x34 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_muldi3.o)
+ .debug_frame   0x00000000000001f4       0x28 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x000000000000021c       0x3c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_floor.o)
+ .debug_frame   0x0000000000000258       0x30 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_round.o)
+ .debug_frame   0x0000000000000288       0x20 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_udivsi3.o)
+ .debug_frame   0x00000000000002a8       0x20 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_divsi3.o)
+ .debug_frame   0x00000000000002c8       0x28 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o)
+ .debug_frame   0x00000000000002f0       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunsdfsi.o)
+ .debug_frame   0x000000000000031c       0x34 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(addsf3.o)
+ .debug_frame   0x0000000000000350       0x3c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divsf3.o)
+ .debug_frame   0x000000000000038c       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqsf2.o)
+ .debug_frame   0x00000000000003b8       0x30 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gesf2.o)
+ .debug_frame   0x00000000000003e8       0x30 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(lesf2.o)
+ .debug_frame   0x0000000000000418       0x3c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(mulsf3.o)
+ .debug_frame   0x0000000000000454       0x38 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subsf3.o)
+ .debug_frame   0x000000000000048c       0x20 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixsfsi.o)
+ .debug_frame   0x00000000000004ac       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsisf.o)
+ .debug_frame   0x00000000000004d8       0x28 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatunsisf.o)
+ .debug_frame   0x0000000000000500       0x3c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(adddf3.o)
+ .debug_frame   0x000000000000053c       0x3c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divdf3.o)
+ .debug_frame   0x0000000000000578       0x38 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqdf2.o)
+ .debug_frame   0x00000000000005b0       0x38 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gedf2.o)
+ .debug_frame   0x00000000000005e8       0x38 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(ledf2.o)
+ .debug_frame   0x0000000000000620       0x3c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(muldf3.o)
+ .debug_frame   0x000000000000065c       0x38 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subdf3.o)
+ .debug_frame   0x0000000000000694       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixdfsi.o)
+ .debug_frame   0x00000000000006c0       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsidf.o)
+ .debug_frame   0x00000000000006ec       0x2c /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(extendsfdf2.o)
+ .debug_frame   0x0000000000000718       0x30 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(truncdfsf2.o)
+
+Cross Reference Table
+
+Symbol                                            File
+ADC1_IRQHandler                                   build/startup_stm32f030x6.o
+AHBPrescTable                                     build/system_stm32f0xx.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_rcc.o (symbol from plugin)
+APBPrescTable                                     build/system_stm32f0xx.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_rcc.o (symbol from plugin)
+AnimRGBFade.lto_priv.69                           /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+BeaconClockInterval.lto_priv.68                   /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+BeaconClockRampPosition.lto_priv.70               /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+DMA1_Channel1_IRQHandler                          build/startup_stm32f030x6.o
+DMA1_Channel2_3_IRQHandler                        build/startup_stm32f030x6.o
+DMA1_Channel4_5_IRQHandler                        build/startup_stm32f030x6.o
+Default_Handler                                   build/startup_stm32f030x6.o
+EXTI0_1_IRQHandler                                /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/startup_stm32f030x6.o
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+EXTI2_3_IRQHandler                                build/startup_stm32f030x6.o
+EXTI4_15_IRQHandler                               build/startup_stm32f030x6.o
+Error_Handler.lto_priv.89                         /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+FLASH_IRQHandler                                  build/startup_stm32f030x6.o
+FLASH_PageErase                                   build/stm32f0xx_hal_flash_ex.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_flash.o (symbol from plugin)
+FLASH_WaitForLastOperation                        build/stm32f0xx_hal_flash.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_flash_ex.o (symbol from plugin)
+FW_VERSION                                        build/version.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+HAL_DBGMCU_DisableDBGStandbyMode                  build/stm32f0xx_hal.o (symbol from plugin)
+HAL_DBGMCU_DisableDBGStopMode                     build/stm32f0xx_hal.o (symbol from plugin)
+HAL_DBGMCU_EnableDBGStandbyMode                   build/stm32f0xx_hal.o (symbol from plugin)
+HAL_DBGMCU_EnableDBGStopMode                      build/stm32f0xx_hal.o (symbol from plugin)
+HAL_DMA_Abort                                     build/stm32f0xx_hal_dma.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_uart.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_DMA_Abort_IT                                  build/stm32f0xx_hal_dma.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_uart.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_spi.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_DMA_DeInit                                    build/stm32f0xx_hal_dma.o (symbol from plugin)
+HAL_DMA_GetError                                  build/stm32f0xx_hal_dma.o (symbol from plugin)
+HAL_DMA_GetState                                  build/stm32f0xx_hal_dma.o (symbol from plugin)
+HAL_DMA_IRQHandler                                build/stm32f0xx_hal_dma.o (symbol from plugin)
+HAL_DMA_Init                                      build/stm32f0xx_hal_dma.o (symbol from plugin)
+HAL_DMA_PollForTransfer                           build/stm32f0xx_hal_dma.o (symbol from plugin)
+HAL_DMA_RegisterCallback                          build/stm32f0xx_hal_dma.o (symbol from plugin)
+HAL_DMA_Start                                     build/stm32f0xx_hal_dma.o (symbol from plugin)
+HAL_DMA_Start_IT                                  build/stm32f0xx_hal_dma.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_uart.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_spi.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_DMA_UnRegisterCallback                        build/stm32f0xx_hal_dma.o (symbol from plugin)
+HAL_DeInit                                        build/stm32f0xx_hal.o (symbol from plugin)
+HAL_Delay                                         build/stm32f0xx_hal.o (symbol from plugin)
+HAL_FLASHEx_Erase                                 build/stm32f0xx_hal_flash_ex.o (symbol from plugin)
+HAL_FLASHEx_Erase_IT                              build/stm32f0xx_hal_flash_ex.o (symbol from plugin)
+HAL_FLASHEx_OBErase                               build/stm32f0xx_hal_flash_ex.o (symbol from plugin)
+HAL_FLASHEx_OBGetConfig                           build/stm32f0xx_hal_flash_ex.o (symbol from plugin)
+HAL_FLASHEx_OBGetUserData                         build/stm32f0xx_hal_flash_ex.o (symbol from plugin)
+HAL_FLASHEx_OBProgram                             build/stm32f0xx_hal_flash_ex.o (symbol from plugin)
+HAL_FLASH_EndOfOperationCallback                  build/stm32f0xx_hal_flash.o (symbol from plugin)
+HAL_FLASH_GetError                                build/stm32f0xx_hal_flash.o (symbol from plugin)
+HAL_FLASH_IRQHandler                              build/stm32f0xx_hal_flash.o (symbol from plugin)
+HAL_FLASH_Lock                                    build/stm32f0xx_hal_flash.o (symbol from plugin)
+HAL_FLASH_OB_Launch                               build/stm32f0xx_hal_flash.o (symbol from plugin)
+HAL_FLASH_OB_Lock                                 build/stm32f0xx_hal_flash.o (symbol from plugin)
+HAL_FLASH_OB_Unlock                               build/stm32f0xx_hal_flash.o (symbol from plugin)
+HAL_FLASH_OperationErrorCallback                  build/stm32f0xx_hal_flash.o (symbol from plugin)
+HAL_FLASH_Program                                 build/stm32f0xx_hal_flash.o (symbol from plugin)
+HAL_FLASH_Program_IT                              build/stm32f0xx_hal_flash.o (symbol from plugin)
+HAL_FLASH_Unlock                                  build/stm32f0xx_hal_flash.o (symbol from plugin)
+HAL_GPIO_DeInit                                   build/stm32f0xx_hal_gpio.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_msp.o (symbol from plugin)
+HAL_GPIO_EXTI_Callback                            build/stm32f0xx_hal_gpio.o (symbol from plugin)
+HAL_GPIO_EXTI_IRQHandler                          build/stm32f0xx_hal_gpio.o (symbol from plugin)
+HAL_GPIO_Init                                     /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/stm32f0xx_hal_gpio.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/stm32f0xx_hal_rcc.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_msp.o (symbol from plugin)
+                                                  build/platform_hw.o (symbol from plugin)
+HAL_GPIO_LockPin                                  build/stm32f0xx_hal_gpio.o (symbol from plugin)
+HAL_GPIO_ReadPin                                  build/stm32f0xx_hal_gpio.o (symbol from plugin)
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+HAL_GPIO_TogglePin                                build/stm32f0xx_hal_gpio.o (symbol from plugin)
+HAL_GPIO_WritePin                                 build/stm32f0xx_hal_gpio.o (symbol from plugin)
+                                                  build/ir_encode.o (symbol from plugin)
+HAL_GetDEVID                                      build/stm32f0xx_hal.o (symbol from plugin)
+HAL_GetHalVersion                                 build/stm32f0xx_hal.o (symbol from plugin)
+HAL_GetREVID                                      build/stm32f0xx_hal.o (symbol from plugin)
+HAL_GetTick                                       build/stm32f0xx_hal.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_uart.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_spi.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_rcc_ex.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_rcc.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_i2c.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_flash.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_dma.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+                                                  build/beacons.o (symbol from plugin)
+HAL_HalfDuplex_EnableReceiver                     build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_HalfDuplex_EnableTransmitter                  build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_HalfDuplex_Init                               build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_I2CEx_ConfigAnalogFilter                      build/stm32f0xx_hal_i2c_ex.o (symbol from plugin)
+HAL_I2CEx_ConfigDigitalFilter                     build/stm32f0xx_hal_i2c_ex.o (symbol from plugin)
+HAL_I2CEx_DisableFastModePlus                     build/stm32f0xx_hal_i2c_ex.o (symbol from plugin)
+HAL_I2CEx_EnableFastModePlus                      build/stm32f0xx_hal_i2c_ex.o (symbol from plugin)
+HAL_I2C_AbortCpltCallback                         build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_AddrCallback                              build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_DeInit                                    build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_DisableListen_IT                          build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_ER_IRQHandler                             build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_EV_IRQHandler                             build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_EnableListen_IT                           build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_ErrorCallback                             build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_GetError                                  build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_GetMode                                   build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_GetState                                  build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Init                                      build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_IsDeviceReady                             build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_ListenCpltCallback                        build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_MasterRxCpltCallback                      build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_MasterTxCpltCallback                      build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Master_Abort_IT                           build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Master_Receive                            build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Master_Receive_DMA                        build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Master_Receive_IT                         build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Master_Sequential_Receive_IT              build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Master_Sequential_Transmit_IT             build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Master_Transmit                           build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Master_Transmit_DMA                       build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Master_Transmit_IT                        build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_MemRxCpltCallback                         build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_MemTxCpltCallback                         build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Mem_Read                                  build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Mem_Read_DMA                              build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Mem_Read_IT                               build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Mem_Write                                 build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Mem_Write_DMA                             build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Mem_Write_IT                              build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_MspDeInit                                 build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_MspInit                                   build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_SlaveRxCpltCallback                       build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_SlaveTxCpltCallback                       build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Slave_Receive                             build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Slave_Receive_DMA                         build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Slave_Receive_IT                          build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Slave_Sequential_Receive_IT               build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Slave_Sequential_Transmit_IT              build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Slave_Transmit                            build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Slave_Transmit_DMA                        build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_I2C_Slave_Transmit_IT                         build/stm32f0xx_hal_i2c.o (symbol from plugin)
+HAL_IncTick                                       build/stm32f0xx_hal.o (symbol from plugin)
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+HAL_Init                                          build/stm32f0xx_hal.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+HAL_InitTick                                      build/stm32f0xx_hal.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_rcc.o (symbol from plugin)
+HAL_InitTick.constprop.6                          /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+HAL_MspDeInit                                     build/stm32f0xx_hal.o (symbol from plugin)
+HAL_MspInit                                       build/stm32f0xx_hal_msp.o (symbol from plugin)
+HAL_MultiProcessorEx_AddressLength_Set            build/stm32f0xx_hal_uart_ex.o (symbol from plugin)
+HAL_MultiProcessor_DisableMuteMode                build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_MultiProcessor_EnableMuteMode                 build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_MultiProcessor_EnterMuteMode                  build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_MultiProcessor_Init                           build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_NVIC_ClearPendingIRQ                          build/stm32f0xx_hal_cortex.o (symbol from plugin)
+HAL_NVIC_DisableIRQ                               build/stm32f0xx_hal_cortex.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_msp.o (symbol from plugin)
+HAL_NVIC_EnableIRQ                                build/stm32f0xx_hal_cortex.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_msp.o (symbol from plugin)
+                                                  build/platform_hw.o (symbol from plugin)
+HAL_NVIC_GetPendingIRQ                            build/stm32f0xx_hal_cortex.o (symbol from plugin)
+HAL_NVIC_GetPriority                              build/stm32f0xx_hal_cortex.o (symbol from plugin)
+HAL_NVIC_SetPendingIRQ                            build/stm32f0xx_hal_cortex.o (symbol from plugin)
+HAL_NVIC_SetPriority                              build/stm32f0xx_hal_cortex.o (symbol from plugin)
+                                                  build/stm32f0xx_hal.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_msp.o (symbol from plugin)
+                                                  build/platform_hw.o (symbol from plugin)
+HAL_NVIC_SystemReset                              build/stm32f0xx_hal_cortex.o (symbol from plugin)
+HAL_PWR_DeInit                                    build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_PWR_DisableBkUpAccess                         build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_PWR_DisableSEVOnPend                          build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_PWR_DisableSleepOnExit                        build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_PWR_DisableWakeUpPin                          build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_PWR_EnableBkUpAccess                          build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_PWR_EnableSEVOnPend                           build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_PWR_EnableSleepOnExit                         build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_PWR_EnableWakeUpPin                           build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_PWR_EnterSLEEPMode                            build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_PWR_EnterSTANDBYMode                          build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_PWR_EnterSTOPMode                             build/stm32f0xx_hal_pwr.o (symbol from plugin)
+HAL_RCCEx_GetPeriphCLKConfig                      build/stm32f0xx_hal_rcc_ex.o (symbol from plugin)
+HAL_RCCEx_GetPeriphCLKFreq                        build/stm32f0xx_hal_rcc_ex.o (symbol from plugin)
+HAL_RCCEx_PeriphCLKConfig                         build/stm32f0xx_hal_rcc_ex.o (symbol from plugin)
+HAL_RCC_CSSCallback                               build/stm32f0xx_hal_rcc.o (symbol from plugin)
+HAL_RCC_ClockConfig                               build/stm32f0xx_hal_rcc.o (symbol from plugin)
+                                                  build/platform_hw.o (symbol from plugin)
+HAL_RCC_DeInit                                    build/stm32f0xx_hal_rcc.o (symbol from plugin)
+HAL_RCC_DisableCSS                                build/stm32f0xx_hal_rcc.o (symbol from plugin)
+HAL_RCC_EnableCSS                                 build/stm32f0xx_hal_rcc.o (symbol from plugin)
+HAL_RCC_GetClockConfig                            build/stm32f0xx_hal_rcc.o (symbol from plugin)
+                                                  build/ir_decode.o (symbol from plugin)
+HAL_RCC_GetHCLKFreq                               build/stm32f0xx_hal_rcc.o (symbol from plugin)
+                                                  build/stm32f0xx_hal.o (symbol from plugin)
+                                                  build/platform_hw.o (symbol from plugin)
+HAL_RCC_GetOscConfig                              build/stm32f0xx_hal_rcc.o (symbol from plugin)
+HAL_RCC_GetPCLK1Freq                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/stm32f0xx_hal_rcc.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/stm32f0xx_hal_uart.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_rcc_ex.o (symbol from plugin)
+                                                  build/ir_decode.o (symbol from plugin)
+HAL_RCC_GetSysClockFreq                           /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/stm32f0xx_hal_rcc.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/stm32f0xx_hal_uart.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_rcc_ex.o (symbol from plugin)
+HAL_RCC_MCOConfig                                 build/stm32f0xx_hal_rcc.o (symbol from plugin)
+HAL_RCC_NMI_IRQHandler                            build/stm32f0xx_hal_rcc.o (symbol from plugin)
+HAL_RCC_OscConfig                                 build/stm32f0xx_hal_rcc.o (symbol from plugin)
+                                                  build/platform_hw.o (symbol from plugin)
+HAL_RS485Ex_Init                                  build/stm32f0xx_hal_uart_ex.o (symbol from plugin)
+HAL_ResumeTick                                    build/stm32f0xx_hal.o (symbol from plugin)
+HAL_SPIEx_FlushRxFifo                             build/stm32f0xx_hal_spi_ex.o (symbol from plugin)
+HAL_SPI_Abort                                     build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_AbortCpltCallback                         build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_Abort_IT                                  build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_DMAPause                                  build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_DMAResume                                 build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_DMAStop                                   build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_DeInit                                    build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_ErrorCallback                             build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_GetError                                  build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_GetState                                  build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_IRQHandler                                build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_Init                                      build/stm32f0xx_hal_spi.o (symbol from plugin)
+                                                  build/platform_hw.o (symbol from plugin)
+HAL_SPI_MspDeInit                                 build/stm32f0xx_hal_msp.o (symbol from plugin)
+HAL_SPI_MspInit                                   build/stm32f0xx_hal_msp.o (symbol from plugin)
+HAL_SPI_Receive                                   build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_Receive_DMA                               build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_Receive_IT                                build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_RxCpltCallback                            build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_RxHalfCpltCallback                        build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_Transmit                                  build/stm32f0xx_hal_spi.o (symbol from plugin)
+                                                  build/platform_hw.o (symbol from plugin)
+HAL_SPI_Transmit.part.4.constprop.25              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+HAL_SPI_TransmitReceive                           build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_TransmitReceive_DMA                       build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_TransmitReceive_IT                        build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_Transmit_DMA                              build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_Transmit_IT                               build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_TxCpltCallback                            build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_TxHalfCpltCallback                        build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_TxRxCpltCallback                          build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SPI_TxRxHalfCpltCallback                      build/stm32f0xx_hal_spi.o (symbol from plugin)
+HAL_SYSTICK_CLKSourceConfig                       build/stm32f0xx_hal_cortex.o (symbol from plugin)
+                                                  build/platform_hw.o (symbol from plugin)
+HAL_SYSTICK_Callback                              build/stm32f0xx_hal_cortex.o (symbol from plugin)
+HAL_SYSTICK_Config                                /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/stm32f0xx_hal_cortex.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/stm32f0xx_hal.o (symbol from plugin)
+                                                  build/platform_hw.o (symbol from plugin)
+HAL_SYSTICK_IRQHandler                            build/stm32f0xx_hal_cortex.o (symbol from plugin)
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+HAL_SuspendTick                                   build/stm32f0xx_hal.o (symbol from plugin)
+HAL_TIMEx_BreakCallback                           build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIMEx_CommutationCallback                     build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIMEx_ConfigBreakDeadTime                     build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+                                                  build/ir_encode.o (symbol from plugin)
+HAL_TIMEx_ConfigCommutationEvent                  build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_ConfigCommutationEvent_DMA              build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_ConfigCommutationEvent_IT               build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_HallSensor_DeInit                       build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_HallSensor_GetState                     build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_HallSensor_Init                         build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_HallSensor_MspDeInit                    build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_HallSensor_MspInit                      build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_HallSensor_Start                        build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_HallSensor_Start_DMA                    build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_HallSensor_Start_IT                     build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_HallSensor_Stop                         build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_HallSensor_Stop_DMA                     build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_HallSensor_Stop_IT                      build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_MasterConfigSynchronization             build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+                                                  build/ir_decode.o (symbol from plugin)
+HAL_TIMEx_OCN_Start                               build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_OCN_Start_DMA                           build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_OCN_Start_IT                            build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_OCN_Stop                                build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_OCN_Stop_DMA                            build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_OCN_Stop_IT                             build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_OnePulseN_Start                         build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_OnePulseN_Start_IT                      build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_OnePulseN_Stop                          build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_OnePulseN_Stop_IT                       build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_PWMN_Start                              build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_PWMN_Start_DMA                          build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_PWMN_Start_IT                           build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_PWMN_Stop                               build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_PWMN_Stop_DMA                           build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_PWMN_Stop_IT                            build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIMEx_RemapConfig                             build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+HAL_TIM_Base_DeInit                               build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Base_GetState                             build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Base_Init                                 build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_encode.o (symbol from plugin)
+                                                  build/ir_decode.o (symbol from plugin)
+HAL_TIM_Base_Init.constprop.43                    /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+HAL_TIM_Base_MspDeInit                            build/stm32f0xx_hal_msp.o (symbol from plugin)
+HAL_TIM_Base_MspInit                              build/stm32f0xx_hal_msp.o (symbol from plugin)
+HAL_TIM_Base_Start                                build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Base_Start_DMA                            build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Base_Start_IT                             build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_encode.o (symbol from plugin)
+HAL_TIM_Base_Stop                                 build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Base_Stop_DMA                             build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Base_Stop_IT                              build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_encode.o (symbol from plugin)
+HAL_TIM_ConfigClockSource                         build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_decode.o (symbol from plugin)
+HAL_TIM_ConfigOCrefClear                          build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_ConfigTI1Input                            build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_DMABurst_ReadStart                        build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_DMABurst_ReadStop                         build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_DMABurst_WriteStart                       build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_DMABurst_WriteStop                        build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Encoder_DeInit                            build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Encoder_GetState                          build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Encoder_Init                              build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Encoder_MspDeInit                         build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Encoder_MspInit                           build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Encoder_Start                             build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Encoder_Start_DMA                         build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Encoder_Start_IT                          build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Encoder_Stop                              build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Encoder_Stop_DMA                          build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_Encoder_Stop_IT                           build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_ErrorCallback                             build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_GenerateEvent                             build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_IC_CaptureCallback                        build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_IC_ConfigChannel                          build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_decode.o (symbol from plugin)
+HAL_TIM_IC_DeInit                                 build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_IC_GetState                               build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_IC_Init                                   build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_decode.o (symbol from plugin)
+HAL_TIM_IC_MspDeInit                              build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_IC_MspInit                                build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_IC_Start                                  build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_IC_Start_DMA                              build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_IC_Start_IT                               build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_decode.o (symbol from plugin)
+HAL_TIM_IC_Stop                                   build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_IC_Stop_DMA                               build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_IC_Stop_IT                                build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_decode.o (symbol from plugin)
+HAL_TIM_IRQHandler                                build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_ConfigChannel                          build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_DeInit                                 build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_DelayElapsedCallback                   build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_GetState                               build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_Init                                   build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_MspDeInit                              build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_MspInit                                build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_Start                                  build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_Start_DMA                              build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_Start_IT                               build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_Stop                                   build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_Stop_DMA                               build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OC_Stop_IT                                build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OnePulse_ConfigChannel                    build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OnePulse_DeInit                           build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OnePulse_GetState                         build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OnePulse_Init                             build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OnePulse_MspDeInit                        build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OnePulse_MspInit                          build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OnePulse_Start                            build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OnePulse_Start_IT                         build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OnePulse_Stop                             build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_OnePulse_Stop_IT                          build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_PWM_ConfigChannel                         build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_encode.o (symbol from plugin)
+HAL_TIM_PWM_ConfigChannel.constprop.39            /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+HAL_TIM_PWM_DeInit                                build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_PWM_GetState                              build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_PWM_Init                                  build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_encode.o (symbol from plugin)
+HAL_TIM_PWM_MspDeInit                             build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_PWM_MspInit                               build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_PWM_PulseFinishedCallback                 build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_PWM_Start                                 build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_encode.o (symbol from plugin)
+HAL_TIM_PWM_Start_DMA                             build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_PWM_Start_IT                              build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_PWM_Stop                                  build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_encode.o (symbol from plugin)
+HAL_TIM_PWM_Stop_DMA                              build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_PWM_Stop_IT                               build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_PeriodElapsedCallback                     build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_ReadCapturedValue                         build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+HAL_TIM_SlaveConfigSynchronization                build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/ir_decode.o (symbol from plugin)
+HAL_TIM_SlaveConfigSynchronization_IT             build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_TIM_TriggerCallback                           build/stm32f0xx_hal_tim.o (symbol from plugin)
+HAL_UART_Abort                                    build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_AbortCpltCallback                        build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_AbortReceive                             build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_AbortReceiveCpltCallback                 build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_AbortReceive_IT                          build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_AbortTransmit                            build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_AbortTransmitCpltCallback                build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_AbortTransmit_IT                         build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_Abort_IT                                 build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_DMAPause                                 build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_DMAResume                                build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_DMAStop                                  build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_DeInit                                   build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_ErrorCallback                            build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_GetError                                 build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_GetState                                 build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_IRQHandler                               build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_Init                                     build/stm32f0xx_hal_uart.o (symbol from plugin)
+                                                  build/platform_hw.o (symbol from plugin)
+HAL_UART_MspDeInit                                build/stm32f0xx_hal_msp.o (symbol from plugin)
+HAL_UART_MspInit                                  build/stm32f0xx_hal_msp.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_uart_ex.o (symbol from plugin)
+HAL_UART_Receive                                  build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_Receive_DMA                              build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_Receive_IT                               build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_RxCpltCallback                           build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_RxHalfCpltCallback                       build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_Transmit                                 build/stm32f0xx_hal_uart.o (symbol from plugin)
+                                                  build/iprintf.o (symbol from plugin)
+HAL_UART_Transmit_DMA                             build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_Transmit_IT                              build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_TxCpltCallback                           build/stm32f0xx_hal_uart.o (symbol from plugin)
+HAL_UART_TxHalfCpltCallback                       build/stm32f0xx_hal_uart.o (symbol from plugin)
+HardFault_Handler                                 build/startup_stm32f030x6.o
+HueClockPeriod.lto_priv.67                        /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+I2C1_IRQHandler                                   build/startup_stm32f030x6.o
+LedRegisterStates                                 build/platform_hw.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
+NMI_Handler                                       build/startup_stm32f030x6.o
+PendSV_Handler                                    build/startup_stm32f030x6.o
+RC5FrameReceived                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/ir_decode.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+RC5Max2T.lto_priv.76                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+RC5MaxT.lto_priv.74                               /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+RC5Min2T.lto_priv.75                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+RC5MinT.lto_priv.73                               /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+RC5TmpPacket                                      /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/ir_decode.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+RC5_FRAME                                         build/ir_decode.o (symbol from plugin)
+RC5_FrameManchestarFormat.lto_priv.72             /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+RC5_logicTableFallingEdge                         build/ir_decode.o (symbol from plugin)
+RC5_logicTableRisingEdge                          build/ir_decode.o (symbol from plugin)
+RC5_modifyLastBit.lto_priv.65                     /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+RCC_IRQHandler                                    build/startup_stm32f030x6.o
+RTC_IRQHandler                                    build/startup_stm32f030x6.o
+Reset_Handler                                     build/startup_stm32f030x6.o
+SPI1_IRQHandler                                   build/startup_stm32f030x6.o
+SVC_Handler                                       build/startup_stm32f030x6.o
+Send_Operation_Completed                          /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/ir_encode.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+Send_Operation_Ready.lto_priv.71                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+SysTick_Handler                                   /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/startup_stm32f030x6.o
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+SystemCoreClock                                   /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  build/system_stm32f0xx.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/stm32f0xx_hal_rcc.o (symbol from plugin)
+SystemCoreClockUpdate                             build/system_stm32f0xx.o (symbol from plugin)
+SystemInit                                        /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/system_stm32f0xx.o (symbol from plugin)
+                                                  build/startup_stm32f030x6.o
+TIM14_IRQHandler                                  build/startup_stm32f030x6.o
+TIM16_IRQHandler                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/startup_stm32f030x6.o
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+TIM17_IRQHandler                                  build/startup_stm32f030x6.o
+TIM1_BRK_UP_TRG_COM_IRQHandler                    build/startup_stm32f030x6.o
+TIM1_CC_IRQHandler                                build/startup_stm32f030x6.o
+TIM3_IRQHandler                                   /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/startup_stm32f030x6.o
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+TIMEx_DMACommutationCplt                          build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim.o (symbol from plugin)
+TIM_Base_SetConfig                                /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+TIM_CCxChannelCmd                                 build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+TIM_DMACaptureCplt                                build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+TIM_DMADelayPulseCplt                             build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+TIM_DMAError                                      build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+TIM_ETR_SetConfig                                 build/stm32f0xx_hal_tim.o (symbol from plugin)
+TIM_OC2_SetConfig                                 build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+TIM_TI1_SetConfig                                 build/stm32f0xx_hal_tim.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_tim_ex.o (symbol from plugin)
+UART_AdvFeatureConfig                             build/stm32f0xx_hal_uart.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_uart_ex.o (symbol from plugin)
+UART_CheckIdleState                               build/stm32f0xx_hal_uart.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_uart_ex.o (symbol from plugin)
+UART_EndTransmit_IT                               build/stm32f0xx_hal_uart.o (symbol from plugin)
+UART_Receive_IT                                   build/stm32f0xx_hal_uart.o (symbol from plugin)
+UART_SetConfig                                    build/stm32f0xx_hal_uart.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_uart_ex.o (symbol from plugin)
+UART_Transmit_IT                                  build/stm32f0xx_hal_uart.o (symbol from plugin)
+UART_WaitOnFlagUntilTimeout                       build/stm32f0xx_hal_uart.o (symbol from plugin)
+USART1_IRQHandler                                 build/startup_stm32f030x6.o
+WWDG_IRQHandler                                   build/startup_stm32f030x6.o
+_Jv_RegisterClasses                               /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+__aeabi_cdcmpeq                                   /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+__aeabi_cdcmple                                   /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+__aeabi_cdrcmple                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+__aeabi_cfcmpeq                                   /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+__aeabi_cfcmple                                   /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+__aeabi_cfrcmple                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+__aeabi_d2f                                       /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(truncdfsf2.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_d2iz                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixdfsi.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunsdfsi.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_d2uiz                                     /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunsdfsi.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_dadd                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(adddf3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_round.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_floor.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+__aeabi_dcmpeq                                    /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+__aeabi_dcmpge                                    /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunsdfsi.o)
+__aeabi_dcmpgt                                    /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_floor.o)
+__aeabi_dcmple                                    /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+__aeabi_dcmplt                                    /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_ddiv                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divdf3.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_dmul                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(muldf3.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_dsub                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subdf3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunsdfsi.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+__aeabi_f2d                                       /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(extendsfdf2.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_f2iz                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(fixsfsi.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o)
+__aeabi_f2uiz                                     /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_fadd                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(addsf3.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_fcmpeq                                    /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_fcmpge                                    /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o)
+__aeabi_fcmpgt                                    /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+__aeabi_fcmple                                    /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+__aeabi_fcmplt                                    /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_fdiv                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divsf3.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_fmul                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(mulsf3.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_fsub                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subsf3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_i2d                                       /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsidf.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_i2f                                       /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsisf.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_idiv                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_divsi3.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+__aeabi_idiv0                                     /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_divsi3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_udivsi3.o)
+__aeabi_idivmod                                   /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_divsi3.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+__aeabi_ldiv0                                     /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+__aeabi_lmul                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_muldi3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+__aeabi_ui2f                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatunsisf.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__aeabi_uidiv                                     /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_udivsi3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divdf3.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+__aeabi_uidivmod                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_udivsi3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divdf3.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+__bss_end__                                       /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+__bss_start__                                     /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+__call_exitprocs                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o)
+__clzsi2                                          /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_clzsi2.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(extendsfdf2.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsidf.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subdf3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(muldf3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divdf3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(adddf3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatunsisf.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(floatsisf.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(subsf3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(mulsf3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(divsf3.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(addsf3.o)
+__deregister_frame_info                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+__divsi3                                          /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_divsi3.o)
+__dso_handle                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+__eqdf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqdf2.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+__eqsf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqsf2.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+__fixunsdfsi                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunsdfsi.o)
+__fixunssfsi                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_fixunssfsi.o)
+__gedf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gedf2.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+__gesf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gesf2.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+__gnu_thumb1_case_shi                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_shi.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+__gnu_thumb1_case_uhi                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+__gnu_thumb1_case_uqi                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_thumb1_case_uqi.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+__gtdf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gedf2.o)
+__gtsf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(gesf2.o)
+__init_array_end                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+__init_array_start                                /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+__ledf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(ledf2.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpdf2.o)
+__lesf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(lesf2.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_arm_cmpsf2.o)
+__libc_fini_array                                 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+__libc_init_array                                 /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+                                                  build/startup_stm32f030x6.o
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+__ltdf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(ledf2.o)
+__ltsf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(lesf2.o)
+__malloc_free_list                                /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o)
+__malloc_lock                                     /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-mlock.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o)
+__malloc_sbrk_start                               /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+__malloc_unlock                                   /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-mlock.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o)
+__muldi3                                          /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_muldi3.o)
+__nedf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqdf2.o)
+__nesf2                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(eqsf2.o)
+__preinit_array_end                               /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+__preinit_array_start                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+__register_frame_info                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crtbegin.o
+__sf_fake_stderr                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+__sf_fake_stdin                                   /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+__sf_fake_stdout                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+__stack                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+__udivsi3                                         /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/libgcc.a(_udivsi3.o)
+_ebss                                             build/startup_stm32f030x6.o
+_edata                                            build/startup_stm32f030x6.o
+_estack                                           build/startup_stm32f030x6.o
+_exit                                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(_exit.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o)
+_fini                                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crti.o
+_free_r                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-freer.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+_global_impure_ptr                                /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o)
+_impure_ptr                                       /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-impure.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+_init                                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m/crti.o
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-init.o)
+_mainCRTStartup                                   /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+_malloc_r                                         /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+_reclaim_reent                                    /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+_sbrk                                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(sbrk.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o)
+_sbrk_r                                           /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-nano-mallocr.o)
+_sbss                                             build/startup_stm32f030x6.o
+_sdata                                            build/startup_stm32f030x6.o
+_sidata                                           build/startup_stm32f030x6.o
+_start                                            /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+animationChannelIDs.lto_priv.78                   /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+atexit                                            /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+bafAnimStartCB.lto_priv.81                        /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+bafAnimStopCB.lto_priv.82                         /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+bafChanGroupSetCB.lto_priv.83                     /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+bafRNGCB.lto_priv.80                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+baf_giveTime                                      build/baf.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
+baf_giveTime.constprop.18                         /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+baf_init                                          build/baf.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
+baf_isInProgress                                  build/baf.o (symbol from plugin)
+baf_startAnimation                                build/baf.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
+baf_stopAllAnimations                             build/baf.o (symbol from plugin)
+baf_stopAnimation                                 build/baf.o (symbol from plugin)
+beacon_Init                                       build/beacons.o (symbol from plugin)
+                                                  build/pattern.o (symbol from plugin)
+beacon_LastReceived                               build/beacons.o (symbol from plugin)
+beacon_Receive                                    build/beacons.o (symbol from plugin)
+                                                  build/pattern.o (symbol from plugin)
+beacon_Send                                       build/beacons.o (symbol from plugin)
+beacon_SendId                                     build/beacons.o (symbol from plugin)
+                                                  build/pattern.o (symbol from plugin)
+bid_GetID                                         /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  build/board_id.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/main.o (symbol from plugin)
+bid_GetIDCrc                                      build/board_id.o (symbol from plugin)
+                                                  build/pattern.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+                                                  build/beacons.o (symbol from plugin)
+buttonPressTimestamp.lto_priv.66                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+cleanup_glue                                      /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+color_HSV2RGB                                     build/color.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
+crc_CRC8                                          build/crc.o (symbol from plugin)
+                                                  build/board_id.o (symbol from plugin)
+crc_CRC8.constprop.37                             /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+end                                               /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libnosys.a(sbrk.o)
+errno                                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-reent.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-sbrkr.o)
+exit                                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-exit.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+floor                                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_floor.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+free                                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+g_pfnVectors                                      build/startup_stm32f030x6.o
+hardware_init_hook                                /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+htim16                                            /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/ir_encode.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+htim17.lto_priv.77                                /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+htim3                                             /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/ir_decode.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+huart1                                            /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/platform_hw.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  build/iprintf.o (symbol from plugin)
+iprintf                                           /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  build/iprintf.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/platform_hw.o (symbol from plugin)
+                                                  build/pattern.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
+                                                  build/ir_encode.o (symbol from plugin)
+                                                  build/ir_decode.o (symbol from plugin)
+                                                  build/board_id.o (symbol from plugin)
+                                                  build/beacons.o (symbol from plugin)
+ir_DataSampling                                   build/ir_decode.o (symbol from plugin)
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+ir_DecodeDisable                                  build/ir_decode.o (symbol from plugin)
+ir_DecodeEnable                                   build/ir_decode.o (symbol from plugin)
+ir_GetDecoded                                     build/ir_decode.o (symbol from plugin)
+                                                  build/beacons.o (symbol from plugin)
+ir_InitDecode                                     build/ir_decode.o (symbol from plugin)
+                                                  build/beacons.o (symbol from plugin)
+ir_InitEncode                                     build/ir_encode.o (symbol from plugin)
+                                                  build/beacons.o (symbol from plugin)
+ir_IsSending                                      build/ir_encode.o (symbol from plugin)
+ir_ResetPacket                                    /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  build/ir_decode.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+ir_SendRC5                                        build/ir_encode.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+ir_SendRaw                                        /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  build/ir_encode.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/beacons.o (symbol from plugin)
+ir_SignalGenerate                                 build/ir_encode.o (symbol from plugin)
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+led_GiveTime                                      build/led.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+led_HwInit.lto_priv.87                            /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+led_Init                                          build/led.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+led_SetAnimationSpeeds                            build/led.o (symbol from plugin)
+                                                  build/pattern.o (symbol from plugin)
+led_SetBiasValue                                  build/led.o (symbol from plugin)
+                                                  build/pattern.o (symbol from plugin)
+led_SetBiasWeight                                 build/led.o (symbol from plugin)
+                                                  build/pattern.o (symbol from plugin)
+led_SetChannel                                    build/led.o (symbol from plugin)
+led_SetChannelTimed                               /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  build/led.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/pattern.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+led_StartAnimation                                build/led.o (symbol from plugin)
+                                                  build/pattern.o (symbol from plugin)
+led_UpdateChannels.lto_priv.84                    /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+led_YabiSetChannelCB.lto_priv.85                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+main                                              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/main.o (symbol from plugin)
+                                                  build/startup_stm32f030x6.o
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+main_ButtonCB                                     build/main.o (symbol from plugin)
+                                                  build/stm32f0xx_it.o (symbol from plugin)
+malloc                                            /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-malloc.o)
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+memcpy                                            /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memcpy-stub.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+memset                                            /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-memset.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+pFlash                                            build/stm32f0xx_hal_flash.o (symbol from plugin)
+                                                  build/stm32f0xx_hal_flash_ex.o (symbol from plugin)
+pattern_GiveTime                                  build/pattern.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+pattern_Init                                      build/pattern.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+pattern_SawBeacon                                 build/pattern.o (symbol from plugin)
+pattern_SetBeaconInterval.lto_priv.88             /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+platformHW_Init                                   build/platform_hw.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+platformHW_SpiInit                                build/platform_hw.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
+platformHW_UpdateLEDs                             build/platform_hw.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
+rand                                              /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/pattern.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
+rolloverInterpolator.lto_priv.86                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+round                                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libm.a(lib_a-s_round.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+software_init_hook                                /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
+srand                                             /usr/local/gcc-arm-none-eabi-6_2-2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc_nano.a(lib_a-rand.o)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/main.o (symbol from plugin)
+state.lto_priv.62                                 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+state.lto_priv.63                                 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+state.lto_priv.64                                 /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+uwTick                                            /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  build/stm32f0xx_hal.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+yabi_DefaultInterpolator.lto_priv.79              /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+yabi_giveTime                                     /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans3.ltrans.o
+                                                  build/yabi.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/main.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
+yabi_init                                         build/yabi.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
+yabi_setChannel                                   /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans2.ltrans.o
+                                                  build/yabi.o (symbol from plugin)
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans1.ltrans.o
+                                                  /var/folders/40/3zrx_47s1b1ftkx4vzc9q9_00000gn/T//ccEvcVWK.ltrans0.ltrans.o
+                                                  build/led.o (symbol from plugin)
+yabi_setChannelGroup                              build/yabi.o (symbol from plugin)
+yabi_setStarted                                   build/yabi.o (symbol from plugin)
+                                                  build/led.o (symbol from plugin)
