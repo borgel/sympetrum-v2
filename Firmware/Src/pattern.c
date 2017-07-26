@@ -43,11 +43,10 @@ enum FlashSelection {
 #define BEACON_INTERVAL_RAMP_LEN          (4)
 //TODO make this a 2d array for symmetry
 static uint16_t const BeaconIntervalRampMS[] =
-   {30000, 30000, 20000, 10000, 10000};
+   {30000, 20000, 10000, 10000};
 // two dummy levels so when it sees itself it doesn't try to sync
 static uint16_t const BiasWeightRamp[] =
-   //{0    ,     0, 90   , 90, 90};
-   {0    ,     0, 50   , 90, 90};
+   {0    , 50   , 90,    90};
 
 // Amount to bump Beacon clock time when a beacon is seen
 // 33% of total value?
