@@ -37,7 +37,6 @@ void SysTick_Handler(void)
 void EXTI0_1_IRQHandler(void) {
    if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_0)) {
       __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_0);
-      iprintf("EXTI on pin 0 (button is %d)", HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0));
 
       main_ButtonCB();
    }

@@ -69,14 +69,12 @@ int main(void)
    while (1)
    {
       // If the button was pressed (with debounce), beacon IR off
-      if(buttonPressTimestamp && 
-            (HAL_GetTick() - buttonPressTimestamp) > ButtonDebounceMS) {
-         iprintf("BUTTON WITH DEB\n");
+      if(buttonPressTimestamp && (HAL_GetTick() - buttonPressTimestamp) > ButtonDebounceMS) {
+         iprintf("Button Press!\n");
          buttonPressTimestamp = 0;
 
          // Try to turn TV mute on/off
          ir_SendRC5(0, 13, RC5_Ctrl_Set);
-
       }
 
       pattern_GiveTime(HAL_GetTick());

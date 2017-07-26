@@ -133,6 +133,9 @@ void pattern_GiveTime(uint32_t const systimeMS) {
          pattern_SawBeacon(lastBeacon);
          pattern_FlashRandomColor(FS_Wings);
       }
+      else {
+         iprintf("Ignoring our own beacon\n");
+      }
    }
 
    // On Hue tick (frequent)
