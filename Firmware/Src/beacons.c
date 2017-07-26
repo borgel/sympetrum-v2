@@ -36,7 +36,6 @@ void beacon_SendId(void) {
    beacon_Send(bid_GetIDCrc());
 }
 
-//TODO what do we connect this to? IT?
 bool beacon_Receive(uint16_t *rawBeacon) {
    RC5_Frame_TypeDef rcf;
 

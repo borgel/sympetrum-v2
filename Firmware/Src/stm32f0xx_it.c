@@ -7,6 +7,7 @@
 #include "stm32f0xx_hal_tim.h"
 #include "stm32f0xx_hal_tim_ex.h"
 
+#include "main.h"
 #include "ir_encode.h"
 #include "ir_decode.h"
 
@@ -36,9 +37,8 @@ void SysTick_Handler(void)
 void EXTI0_1_IRQHandler(void) {
    if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_0)) {
       __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_0);
-      iprintf("EXTI on pin 0 (button is %d)", HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0));
 
-      //TODO forward this event somewhere
+      main_ButtonCB();
    }
 }
 

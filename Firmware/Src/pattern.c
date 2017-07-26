@@ -14,6 +14,7 @@ The way real fireflies do it: ncase.me/fireflies/
 #include "beacons.h"
 #include "color.h"
 #include "led.h"
+#include "board_id.h"
 
 #include "iprintf.h"
 #include <stdint.h>
@@ -42,11 +43,10 @@ enum FlashSelection {
 #define BEACON_INTERVAL_RAMP_LEN          (4)
 //TODO make this a 2d array for symmetry
 static uint16_t const BeaconIntervalRampMS[] =
-   {30000, 30000, 20000, 10000, 10000};
+   {30000, 20000, 10000, 10000};
 // two dummy levels so when it sees itself it doesn't try to sync
 static uint16_t const BiasWeightRamp[] =
-   //{0    ,     0, 90   , 90, 90};
-   {0    ,     0, 50   , 90, 90};
+   {0    , 50   , 90,    90};
 
 // Amount to bump Beacon clock time when a beacon is seen
 // 33% of total value?
@@ -126,9 +126,15 @@ void pattern_GiveTime(uint32_t const systimeMS) {
    uint16_t lastBeacon;
 
    if(beacon_Receive(&lastBeacon)) {
-      // If we saw a beacon, handle it
-      pattern_SawBeacon(lastBeacon);
-      pattern_FlashRandomColor(FS_Wings);
+      // If the beacon was our ID, ignore it
+      if(lastBeacon != bid_GetIDCrc()) {
+         // If we saw a beacon, handle it
+         pattern_SawBeacon(lastBeacon);
+         pattern_FlashRandomColor(FS_Wings);
+      }
+      else {
+         iprintf("Ignoring our own beacon\n");
+      }
    }
 
    // On Hue tick (frequent)

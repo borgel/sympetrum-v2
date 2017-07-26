@@ -9,6 +9,7 @@
 #include "led.h"
 #include "board_id.h"
 #include "version.h"
+#include "ir_encode.h"
 
 #include "baf/baf.h"
 #include "yabi/yabi.h"
@@ -19,6 +20,9 @@
 #include <stdlib.h>
 
 static const int VersionFadeSpeedMS = 3000;
+
+static uint32_t buttonPressTimestamp = 0;;
+static const int ButtonDebounceMS= 50;
 
 static void VersionToLEDs(void);
 
@@ -64,15 +68,15 @@ int main(void)
 
    while (1)
    {
-      /*
-      if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)) {
-         led_SetChannel(1, COLOR_HSV_WHITE);
+      // If the button was pressed (with debounce), beacon IR off
+      if(buttonPressTimestamp && (HAL_GetTick() - buttonPressTimestamp) > ButtonDebounceMS) {
+         iprintf("Button Press!\n");
+         buttonPressTimestamp = 0;
+
+         // Try to turn TV mute on/off
+         ir_SendRC5(0, 13, RC5_Ctrl_Set);
       }
-      else {
-         //we are setting a Hue
-         led_SetChannel(1, COLOR_HSV_BLACK);
-      }
-      */
+
       pattern_GiveTime(HAL_GetTick());
       led_GiveTime(HAL_GetTick());
    }
@@ -108,6 +112,10 @@ static void VersionToLEDs(void) {
    }
 
    iprintf("DONE\n");
+}
+
+void main_ButtonCB(void) {
+   buttonPressTimestamp = HAL_GetTick();
 }
 
 #ifdef USE_FULL_ASSERT
