@@ -1,6 +1,8 @@
 # What?
 An electronic conference badge, of course! (That makes this a wearable right?).
 
+If you're interested in keeping up to date with new versions, add your email here: https://docs.google.com/forms/d/e/1FAIpQLSfi4PA6UNeILMCECjqM97Cd1tH6X2Ml2tzJlvIlYt14cOBuXQ/viewform
+
 ## Yes, but what does it do?
 By default the device does pleasant RGB fades across its 10 LEDs based on an internal clock. It also beacons that clock (and some other metadata) in infrared. They use any beacons they notice to synchronize their clocks, which also synchronizes the RGB patterns. The effect is that if one is alone, it plays random colors. If a group of them are together, they tend towards traversing the colorspace together.
 
