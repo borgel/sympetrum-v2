@@ -4,7 +4,7 @@ Qty/Board,Line Item,Ref Des,Description,Manufacturer,MPN,DigiKey SKU,Distributor
 10,APA102C,,RGB LEDs,,APA102C 5050,1528-1436-ND,,,Bulk,
 1,AA Holders,,AA Battery holder,,BCAAPC,BCAAPC-ND,,0.88,Bulk,https://www.digikey.com/products/en?keywords=BCAAPC-ND%20
 2,CL21A106KQCLRNC,C104;C105,100nF,Samsung,CL21A106KQCLRNC,1276-2405-1-ND,Digi-Key,0.0286,Cut Tape,https://octopart.com/click/track?c=1&country=US&ak=68b25f31&sig=000f52a&sid=459&ppid=24958117&vpid=72525768&ct=offers
-1,08055C104KAT2A,C101,0.1uF,AVX,08055C104KAT2A,478-1395-1-ND,Digi-Key,0.0145,Cut Tape,https://octopart.com/click/track?url=http%3A%2F%2Fwww.digikey.com%2Fproduct-detail%2Fen%2F08055C104KAT2A%2F478-1395-1-ND%2F564427&country=US&ak=68b25f31&sig=015bc21&sid=459&ppid=55386349&ct=offers
+1,CL21A106KQCLRNC,C101,0.1uF,Samsung,CL21A106KQCLRNC,1276-2405-1-ND,Digi-Key,0.0286,Cut Tape,https://octopart.com/click/track?c=1&country=US&ak=68b25f31&sig=000f52a&sid=459&ppid=24958117&vpid=72525768&ct=offers
 1,CC0805KRX7R9BB103,C102,10nF,Yageo,CC0805KRX7R9BB103,311-1136-1-ND,Digi-Key,0.0145,Cut Tape,https://octopart.com/click/track?url=http%3A%2F%2Fwww.digikey.com%2Fproduct-detail%2Fen%2FCC0805KRX7R9BB103%2F311-1136-1-ND%2F303046&country=US&ak=68b25f31&sig=04411b9&sid=459&ppid=192989&ct=offers
 1,CC0805KKX7R7BB105,C103,1uF,Yageo,CC0805KKX7R7BB105,311-1365-1-ND,Digi-Key,0.0325,Cut Tape,https://octopart.com/click/track?url=http%3A%2F%2Fwww.digikey.com%2Fproduct-detail%2Fen%2FCC0805KKX7R7BB105%2F311-1365-1-ND%2F2103149&country=US&ak=68b25f31&sig=0ad85ca&sid=459&ppid=8376555&ct=offers
 3,CL21F105ZOFNNNE,C202;C203;C201,22uF,Samsung,CL21F105ZOFNNNE,1276-3011-1-ND,Digi-Key,0.01544,Cut Tape,https://octopart.com/click/track?country=US&ak=68b25f31&sig=0f80500&sid=459&ppid=19832730&vpid=72527560&ct=offers
