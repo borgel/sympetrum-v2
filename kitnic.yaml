@@ -1,0 +1,5 @@
+summary: A communicative electronic conference badge in the shape of a dragonfly
+bom: Hardware/FF1.1/BOM/ff1.1-bom.tsv
+site: https://github.com/borgel/sympetrum-v2/
+gerbers: Hardware/FF1.1/gerbers
+color: white
